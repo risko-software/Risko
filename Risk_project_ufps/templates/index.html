@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <title>RISKO</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+
+ 
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="{% static 'risk_project/rapid/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="{% static 'risk_project/rapid/lib/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'risk_project/rapid/lib/animate/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'risk_project/rapid/lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'risk_project/rapid/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'risk_project/rapid/lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="{% static 'risk_project/rapid/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+    Theme Name: Rapid
+    Theme URL: https://bootstrapmade.com/rapid-multipurpose-bootstrap-business-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header">
+
+    <div id="topbar">
+      <div class="container">
+        <div class="social-links">
+          <a href="https://github.com/CamiloGalvis/risk_ufps_front" class="github"><i class="fa fa-github "></i></a>         
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="logo float-left">
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <h1 class="text-light"><a href="#intro" class="scrollto"><span>RISKO</span></a></h1>      
+        
+      </div>
+
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="#intro">Inicio</a></li>          
+          <li><a href="#services">¿qué hacemos?</a></li>
+          <li><a href="#why-us">¿por qué escogernos?</a></li> 
+          <li><a href="#portfolio">Conocenos</a></li>          
+          <li><a href="#about">Acerca de</a></li>   
+          
+          <li><a href="/accounts/login/">Iniciar sesión</a></li>
+        </ul>
+      </nav><!-- .main-nav -->
+      
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro" class="clearfix">
+    <div class="container d-flex h-100">
+      <div class="row justify-content-center align-self-center">
+        <div class="col-md-6 intro-info order-md-first order-last">
+          <h2>Gestión de riesgos<br>para sus <span>Proyectos!</span></h2>
+          <div>
+            <a href="/registrargerente/" class="btn-get-started scrollto">Registrarse</a>
+          </div>
+        </div>
+  
+        <div class="col-md-6 intro-img order-md-last order-first">
+          <img src="{% static 'risk_project/rapid/img/web1.jpg' %}" alt="" class="img-fluid">
+        </div>
+      </div>
+
+    </div>
+  </section><!-- #intro -->
+
+  <main id="main">
+    <!--==========================
+      Services Section
+    ============================-->
+    <section id="services" class="section-bg">
+      <div class="container">
+
+        <header class="section-header">
+          <h3>¿Qué hacemos?</h3>
+          <p>Implementamos las mejores practicas de la gestión de riesgos establecidas por los estándares internacionales de gestión de proyectos.</p>
+        </header>
+
+        <div class="row">
+
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+
+              <div class="icon" style="background: #fceef3;"><i class="ion-document-text" style="color: #ff689b;"></i></div>
+              <h4 class="title"><a>Planificar Riesgos</a></h4>
+              <p class="description" style="text-align: justify;">Gestiona la estructura de desglose de riesgos (<b>EDR</b>), equipo de trabajo, valores de impacto, probabilidad y evaluación de riesgo.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #fff0da;"><i class="ion-ios-download" style="color: #e98e06;"></i></div>
+              <h4 class="title"><a>Identificar Riesgos</a></h4>
+              <p class="description" style="text-align: justify;">Asocia riesgos nuevos o sugeridos a tu proyecto y administrar su información completa.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #e6fdfc;"><i class="ion-ios-compose-outline" style="color: #3fcdc7;"></i></div>
+              <h4 class="title"><a>Evaluar Riesgos</a></h4>
+              <p class="description" style="text-align: justify;">Asigna una evaluación cualitativa de los riesgos utilizando los valores de probabilidad e impacto.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #eafde7;"><i class="ion-calendar" style="color:#41cf2e;"></i></div>
+              <h4 class="title"><a>Planificar Respuestas</a></h4>
+              <p class="description" style="text-align: justify;">Crea planes de respuesta para dar tratamiento a los riesgos.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #e1eeff;"><i class="ion-eye" style="color: #2282ff;"></i></div>
+              <h4 class="title"><a>Controlar Riesgos</a></h4>
+              <p class="description" style="text-align: justify;">Monitorea el cronograma de gestión de riesgos y registrar su ejecución.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #ecebff;"><i class="ion-chatbubbles" style="color: #8660fe;"></i></div>
+              <h4 class="title"><a>Comunicar Riesgos</a></h4>
+              <p class="description" style="text-align: justify;">Generar informes por cada fase de la gestión de riesgos.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- #services -->
+
+    <!--==========================
+      Why Us Section
+    ============================-->
+    <section id="why-us" class="wow fadeIn">
+      <div class="container-fluid">
+        
+        <header class="section-header">
+          <h3>¿Por qué escogernos?</h3>          
+        </header>
+          <br/>
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="why-us-img">
+              <img src="{% static 'risk_project/rapid/img/why-us.jpg' %}" alt="" class="img-fluid">
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="why-us-content">
+              <div class="features wow bounceInUp clearfix">
+                <i class="fa fa-book" style="color: #589af1;"></i>
+                <h4>Estándares de gestión de proyectos</h4>
+                <p style="text-align: justify;">Basado en los mejores estándares para la dirección de proyectos: PMBOK®, ISO21500®, ICB®, APMBOK® y PRINCE2®.</p>
+              </div>
+
+              <div class="features wow bounceInUp clearfix">
+                <i class="fa fa-laptop" style="color: #589af1;"></i>
+                <h4>Herramientas de software</h4>
+                <p style="text-align: justify;">Toma las buenas practicas de los principales herramientas para gestion de riesgos: @Risk®, FullMonte®, PertMaster®, RiskyProject®, Planisware®, OnepointProjects® </p>
+              </div>
+              
+              <div class="features wow bounceInUp clearfix">
+                <i class="fa fa-users" style="color: #589af1;"></i>
+                <h4>Gerentes de proyectos</h4>
+                <p style="text-align: justify;">Basado en la experiencia profesional de directores de proyectos.</p>
+              </div>
+              
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="container">
+        <div class="row counters ">
+
+          <div class="col-lg-4 col-6 text-center">
+            <span data-toggle="counter-up">{{ nro_visitas }}</span>
+            <p>No. de Visitas</p>
+          </div>
+
+          <div class="col-lg-4 col-6 text-center">
+            <span data-toggle="counter-up">{{ nro_proyectos }}</span>
+            <p>No. de Proyectos Gestionados</p>
+          </div>
+
+          <div class="col-lg-4 col-6 text-center">
+            <span data-toggle="counter-up">{{ nro_usuarios }}</span>
+            <p>No. de Usuarios</p>
+          </div>
+
+         
+  
+        </div>
+
+      </div>
+    </section>
+  
+
+    <!--==========================
+      Portfolio Section
+    ============================-->
+    <section id="portfolio" class="section-bg">
+      <div class="container">
+
+        <header class="section-header">
+          <h3 class="section-title">Conocenos</h3>
+        </header>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <ul id="portfolio-flters">
+              <li data-filter=".filter-planificar">Planificar</li>
+              <li data-filter=".filter-identificar">Identificar</li>
+              <li data-filter=".filter-evaluar">Evaluar</li>
+              <li data-filter=".filter-respuestas">Planificar Respuestas</li>
+              <li data-filter=".filter-controlar">Controlar</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-planificar">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/planificar/planificar3.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >EDR Proyecto</a></h4>                
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/planificar/planificar3.jpg' %}" data-lightbox="portfolio" data-title="Estructura Desglosada de Riesgos" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-planificar" data-wow-delay="0.1s">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/planificar/planificar1.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Equipo de Riesgos</a></h4>
+                
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/planificar/planificar1.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Equipo de Gestión de Riesgos" title="Preview"><i class="ion ion-eye"></i></a>                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-planificar" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/planificar/planificar2.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Evaluación y Categorización</a></h4>          
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/planificar/planificar2.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Evaluación y Categorización del Riesgo" title="Preview"><i class="ion ion-eye"></i></a>                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-identificar">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/Identificar/identificar1.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Agregar Riesgos</a></h4>                
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/Identificar/identificar1.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Agregar Riesgos" title="Preview"><i class="ion ion-eye"></i></a>                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-identificar" data-wow-delay="0.1s">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/Identificar/identificar2.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Identificar Riesgos</a></h4>               
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/Identificar/identificar2.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Identificar Riesgos" title="Preview"><i class="ion ion-eye"></i></a>               
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-identificar" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/Identificar/identificar3.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Editar Riesgo</a></h4>
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/Identificar/identificar3.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Editar Riesgo" title="Preview"><i class="ion ion-eye"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-evaluar">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/evaluar/evaluar1.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Evaluar Riesgos</a></h4>
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/evaluar/evaluar1.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Evaluar Riesgos" title="Preview"><i class="ion ion-eye"></i></a>                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-evaluar" data-wow-delay="0.1s">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/evaluar/evaluar2.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Impacto y Probabilidad</a></h4>
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/evaluar/evaluar2.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Matriz de Impacto y Probabilidad" title="Preview"><i class="ion ion-eye"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-respuestas" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/respuestas/respuestas1.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Plan de Respuesta</a></h4>
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/respuestas/respuestas1.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Plan de Respuesta" title="Preview"><i class="ion ion-eye"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-lg-4 col-md-6 portfolio-item filter-respuestas" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/respuestas/respuestas2.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Linea Base</a></h4>
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/respuestas/respuestas2.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Linea Base de la Gestión de Riesgos" title="Preview"><i class="ion ion-eye"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-controlar" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/controlar/controlar1.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Cronograma</a></h4>
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/controlar/controlar1.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Cronograma de la gestión de Riesgos" title="Preview"><i class="ion ion-eye"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-controlar" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <img src="{% static 'risk_project/rapid/img/controlar/controlar2.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a >Agregar Observación</a></h4>
+                <div>
+                  <a href="{% static 'risk_project/rapid/img/controlar/controlar2.jpg' %}" class="link-preview" data-lightbox="portfolio" data-title="Agregar Observación" title="Preview"><i class="ion ion-eye"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- #portfolio -->
+  
+    <!--==========================
+      About Us Section
+    ============================-->
+    <section id="about">
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-5 col-md-6">
+            <div class="about-img">
+              <img src="{% static 'risk_project/rapid/img/team-1.jpg' %}" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-7 col-md-6">
+            <div class="about-content">
+              <h2>Acerca de</h2>              
+              <p style="text-align: justify;">RISKO es un <b>producto de formación</b> del proyecto titulado "SOFTWARE PARA LA GESTIÓN DE RIESGOS BASADO EN LAS MEJORES PRÁCTICAS DE LA ADMINISTRACIÓN DE PROYECTOS" adscrito al proyecto de investigación "MODELO PARA LA ADMINISTRACIÓN Y GESTIÓN DE PROYECTOS FASE II"  del grupo de investigación <b>GIDIS</b> de la Universidad Francisco de Paula Santander. Cúcuta, Colombia.</p>
+              
+              <ul>
+                <li style="text-align: justify;"><i class="ion-android-checkmark-circle"></i>RISKO aporta técnicas y herramientas especificas para los procesos de la gestión de riesgos.</li>
+                <li style="text-align: justify;"><i class="ion-android-checkmark-circle"></i> RISKO implementa un sistema de retroalimentación que permite lanzar sugerencias a los gerentes en base a la información aportada.</li>
+                <li style="text-align: justify;"><i class="ion-android-checkmark-circle"></i> RISKO busca brindar soluciones que permitan a los gerentes de proyectos una gestión de riesgos simplificada.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- #about -->
+
+
+
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer" class="section-bg">
+    <div class="footer-top">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-6">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+
+                  <div class="footer-newsletter">
+                    <h3>RISKO</h3>
+                    <p style="text-align: justify;">Es un software que permite a los gerentes de proyectos realizar una gestión de riesgos efectiva y simplificada aplicando las mejores practicas de la administración de proyectos.</p>
+                  </div>
+
+                  <div class="footer-newsletter">
+                    <h4>INSTITUCIÓN</h4>
+                    <p style="text-align: justify;">RISKO nace bajo un proyecto del grupo de investigación GIDIS (Grupo de Investigación y Desarrollo de Ingeneria del Sofware) pertenenciente a la Universidad Francisco de Paula Santander en Cúcuta, Colombia.</p>
+                   
+                  </div>
+                  <a href="https://studentsprojects.cloud.ufps.edu.co/legacy/gidis/">
+                    <img src="{% static 'risk_project/index/images/gidis.jpg' %}" width="100" height="100" alt="Image"></a> &nbsp
+                  <a href="https://ww2.ufps.edu.co/">
+                    <img src="{% static 'risk_project/index/images/ufps.jpg' %}"  width="100" height="100" alt="Image"></a>
+
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="footer-links">
+                    <h4>LINKS DE INTERÉS</h4>
+                    <ul>
+                      <li><a href="#intro">Inicio</a></li>
+                      <li><a href="#services">¿Qué hacemos?</a></li>
+                      <li><a href="#why-us">¿Por qué escogernos?</a></li>
+                      <li><a href="/registrargerente/">Registrese</a></li>
+                      <li><a href="/accounts/login/">Iniciar sesión</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="footer-links">
+                    <h4>CONTACTENOS</h4>
+                    <p style="text-align: justify;">
+                      Programa de Ingeniería de Sistemas de   
+                      la Universidad Francisco de Paula Santander.<br>
+                      Avenida Gran Colombia No. 12E-96 
+                      Barrio Colsag, Cúcuta, Colombia. <br>
+                      <strong>Telefono:</strong> +(57) 7 5776655 Extensiones 201 y 203<br>
+                      <strong>Correo:</strong> riskprojectufps@gmail.com<br>
+                    </p>
+                  </div>
+
+                  <div class="social-links">
+                    <a href="https://github.com/CamiloGalvis/risk_ufps_front" class="github"><i class="fa fa-github"></i></a>           
+                    
+                    
+                  </div>
+
+                </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="form">
+              
+              <h4>Dejanos un comentario</h4>
+              <p style="text-align: justify;">Al dejarnos un comentario realizas un gran aporte y nos ayudas a mejorar cada día.</p>
+              <form  method="post" role="form" action="/">
+                {% csrf_token %}
+                <div class="form-group">
+                  <input type="text" name="name" class="form-control" id="name" maxlength="149" placeholder="Nombre" data-rule="minlen:4" required/>
+                  
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" id="email" maxlength="149" placeholder="Correo Electronico" data-rule="email" required  />
+                  
+                </div>               
+                <div class="form-group">
+                  <textarea class="form-control" name="message" rows="5" maxlength="1950" data-rule="required" required placeholder="Mensaje"></textarea>
+                  
+                </div>                
+
+                <div class="text-center"><button type="submit" title="Send Message">Enviar Comentario</button></div>
+              </form>
+            </div>
+
+          </div>
+
+          
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>GIDIS</strong>. Todos los derechos reservados
+      </div>      
+      
+        
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <!-- Uncomment below i you want to use a preloader -->
+  <!-- <div id="preloader"></div> -->
+
+  <!-- JavaScript Libraries -->
+  <script src="{% static 'risk_project/rapid/lib/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'risk_project/rapid/lib/jquery/jquery-migrate.min.js' %}"></script>
+  <script src="{% static 'risk_project/rapid/lib/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'risk_project/rapid/lib/easing/easing.min.js' %}"></script>
+  <script src="{% static 'risk_project/lib/mobile-nav/mobile-nav.js' %}"></script>
+  <script src="{% static 'risk_project/rapid/lib/wow/wow.min.js' %}"></script>
+  <script src="{% static 'risk_project/rapid/lib/waypoints/waypoints.min.js' %}"></script>
+  <script src="{% static 'risk_project/rapid/lib/counterup/counterup.min.js' %}"></script>
+  <script src="{% static 'risk_project/rapid/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'risk_project/rapid/lib/isotope/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'risk_project/rapid/lib/lightbox/js/lightbox.min.js' %}"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="{% static 'risk_project/rapid/contactform/contactform.js' %}"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{% static 'risk_project/rapid/js/main.js' %}"></script>
+
+</body>
+</html>

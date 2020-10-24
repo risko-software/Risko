@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'risk_project/plugins/jqwidgets/styles/jqx.base.css' %}" />
+        <link rel="stylesheet" href="{% static 'risk_project/plugins/jqwidgets/styles/jqx.light.css' %}" />
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/scripts/jquery-1.12.4.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxcore.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxdata.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxdata.export.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxbuttons.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxscrollbar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxlistbox.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxdropdownlist.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxdatatable.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxtreegrid.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxtooltip.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxinput.js' %}"></script>
+         <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxcalendar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxdatetimeinput.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    </head>
+<body>
+    <style>     
+        .green {
+            color: black\9;
+            background-color: #2585B2;
+        }
+        .yellow {
+            color: black\9;
+            background-color: #65B225;
+        }
+        .red {
+            color: black\9;
+            background-color: #E75A10;
+        }
+
+        .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+            color: black;
+            background-color: #2585B2;
+        }
+        .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+            color: black;
+            background-color: #65B225;
+        }
+        .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+            color: black;
+            background-color: #E75A10;
+        }
+    </style>
+    <div style='margin-top: 20px;'>
+        <div style='float: left;'>
+            <!--<input type="button" value="Export to Excel" id='excelExport' />
+            <br />
+            <br />
+            -->
+        </div>
+        <div style='margin-left: 10px; float: left;'>
+            <input type="button" value="Exportar a Project XML" id='xmlExport' />
+            <br/>
+            <br/>
+            <!--<input type="button" value="Export to CSV" id='csvExport' />
+            <br />
+            <br />
+            <input type="button" value="Export to TSV" id='tsvExport' />-->
+        </div>
+        <div style='margin-left: 10px; float: left;'>
+            <!--<input type="button" value="Export to HTML" id='htmlExport' />
+            <br />
+            <br />
+            <input type="button" value="Export to JSON" id='jsonExport' />-->
+        </div>
+        <div style='margin-left: 10px; float: left;'>
+            <!--<input type="button" value="Export to PDF" id='pdfExport' />-->
+        </div>
+    </div>
+    
+    <div id="treeGrid"></div>
+</body>
+<script type="text/javascript" src="{% static 'risk_project/dist/js/risk_ufps/convert_xml.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/dist/js/risk_ufps/actividades/json2xml.js' %}"></script>
+<script type="text/javascript">
+
+    /*
+     *  Corresponde a todos los riesgos del proyecto
+     *
+     */
+    var lista_riesgos = JSON.parse("{{lista_riesgos|escapejs}}");  
+      console.log(lista_riesgos)
+    /*
+     *  Corresponde a todo el conjunto de riesgos del proyecto 
+     *  junto con sus respuestas asociadas  
+     */
+    var respuestas_riesgo = JSON.parse("{{respuestas_riesgo|escapejs}}");  
+    console.log(respuestas_riesgo);
+
+    /*
+     * Es todo el conjunto de tareas asociadas a un riesgo determinado
+     */
+    var lista_tareas = JSON.parse("{{lista_tareas|escapejs}}");  
+    console.log(lista_tareas);
+
+    /*
+     * Es el conjunto de id de filas que serán bloqueadas.
+     */
+    var no_tareas_id = [];
+
+    /*
+     * Es el conjunto de datos utilizados para pintar.
+     */
+    var data_riesgo = [];
+
+    function formatear_datos(){
+        let cont = 1;
+        no_tareas_id.push(cont);
+        let data = [
+          {        
+            "id": cont, 
+            "text": "{{ proyecto.proyecto_nombre }}", 
+            "start_date": "" ,
+            "end_date": "",
+            "duration": "",
+            "start_date_real":"", 
+            "end_date_real":"", 
+            "duration_real":"", 
+            "estado": "", 
+            "estado_text": "",  
+            "observacion":"",
+            "is_tarea":false,
+            "icon": "{% static 'risk_project/dist/img/proyecto.png' %}",
+            children:[]     
+          }
+        ];        
+        Object.keys(respuestas_riesgo).forEach(function(key) {
+          let riesgo_id = key.split("_")[1];
+          let riesgo = get_riesgo_by_id(riesgo_id);    
+          cont++;   
+          no_tareas_id.push(cont);       
+          let riesgo_aux = {
+            "id":cont, 
+            "text":riesgo['riesgo_nombre'], 
+            "start_date":"",
+            "end_date":"",
+            "duration":"",
+            "start_date_real":"", 
+            "end_date_real":"", 
+            "duration_real":"", 
+            "estado":"",  
+            "estado_text": "",
+            "observacion":"",
+            "is_tarea":false,
+            "icon": "{% static 'risk_project/dist/img/riesgos.png' %}",
+            children:[]
+          };
+          let respuestas = respuestas_riesgo[key]
+          for(i in respuestas){
+            cont++;
+            no_tareas_id.push(cont);
+            let actividad_aux = {
+            "id":cont, 
+            "text":respuestas[i]['respuesta_nombre'], 
+            "start_date":"",
+            "end_date":"",
+            "duration":"",
+            "start_date_real":"", 
+            "end_date_real":"", 
+            "duration_real":"", 
+            "estado":"",  
+            "estado_text": "",
+            "observacion":"",
+            "is_tarea":false,
+            "icon": "{% static 'risk_project/dist/img/actividades.png' %}",
+            children:[]
+            };
+            let tareas = get_tareas_by_riesgo_and_respuesta(key, respuestas[i]);
+            for(j in tareas){
+                cont++;
+                let tarea_aux = {        
+                    "id":cont, 
+                    "text":tareas[j]['tarea_nombre'], 
+                    "start_date":tareas[j]['fecha_inicio']+'T00:00:00.000000' ,
+                    "end_date":tareas[j]['fecha_fin']+'T00:00:00.000000',
+                    "duration":tareas[j]['duracion'],
+                    "start_date_real":tareas[j]['fecha_inicio_real'], 
+                    "end_date_real":tareas[j]['fecha_fin_real'], 
+                    "duration_real":tareas[j]['duracion_real'], 
+                    "estado_text":get_estado(tareas[j]['tarea_estado']),
+                    "estado":tareas[j]['tarea_estado'],
+                    "observacion":tareas[j]['tarea_observacion'],
+                    "tarea_id":tareas[j]['tarea_id'],
+                    "is_tarea":true,
+                    "icon": "{% static 'risk_project/dist/img/tarea.png' %}",
+                    "riesgo_id":parseInt(riesgo_id)    
+                  }                        
+              actividad_aux['children'].push(tarea_aux);
+            }
+            riesgo_aux['children'].push(actividad_aux);
+          } 
+          data[0]['children'].push(riesgo_aux);     
+        });
+        return data;
+    }
+
+    function ajustar_columnas(datos){
+      let proyecto = datos[0];
+      let riesgos = proyecto.children;
+      let duracion_riesgos = 0;
+      let duracion_riesgos_normal = 0;
+      for(let i = 0; i < riesgos.length; i++){
+        let actividades = riesgos[i].children;
+        let duracion_actividades = 0;
+        let duracion_actividades_normal = 0;
+        for(let j = 0; j < actividades.length; j++){
+          let tareas = actividades[j].children;
+          let duracion_tarea = 0;
+          let duracion_tarea_normal = 0;
+          for(let k = 0; k < tareas.length; k++){
+            let tarea_aux = tareas[k];
+            duracion_tarea += parseInt(tarea_aux.duration_real);
+            duracion_tarea_normal += parseInt(tarea_aux.duration);
+            let comparacion = compare_fechas_and_durations(actividades[j], tarea_aux);
+            asignar_comparacion(actividades[j], comparacion);
+          }
+          actividades[j].duration_real = duracion_tarea;
+          actividades[j].duration = duracion_tarea_normal;
+          duracion_actividades += parseInt(actividades[j].duration_real);
+          duracion_actividades_normal += parseInt(actividades[j].duration);
+          let comparacion = compare_fechas_and_durations(riesgos[i], actividades[j]);
+          asignar_comparacion(riesgos[i], comparacion);         
+        }
+        riesgos[i].duration_real = duracion_actividades;        
+        riesgos[i].duration = duracion_actividades_normal;        
+        duracion_riesgos += parseInt(riesgos[i].duration_real);
+        duracion_riesgos_normal += parseInt(riesgos[i].duration); 
+        let comparacion = compare_fechas_and_durations(proyecto, riesgos[i]);
+        asignar_comparacion(proyecto, comparacion); 
+      } 
+      proyecto.duration_real = duracion_riesgos;
+      proyecto.duration = duracion_riesgos_normal;
+      return datos;     
+    }
+
+    function compare_fechas_and_durations(elemento_1, elemento_2) {
+      return {
+        start_date:get_date_menor(elemento_1.start_date, elemento_2.start_date),
+        end_date:get_date_mayor(elemento_1.end_date, elemento_2.end_date),
+        duration:get_duracion_mayor(elemento_1.duration, elemento_2.duration),
+        start_date_real:get_date_menor(elemento_1.start_date_real, elemento_2.start_date_real),
+        end_date_real:get_date_mayor(elemento_1.end_date_real, elemento_2.end_date_real),
+        duration_real:get_duracion_mayor(elemento_1.duration_real, elemento_2.duration_real)
+      }
+    } 
+
+    function asignar_comparacion(elemento, comparacion) {
+      elemento.start_date = comparacion.start_date;
+      elemento.end_date = comparacion.end_date;
+      elemento.duration = comparacion.duration;
+      elemento.start_date_real = comparacion.start_date_real;
+      elemento.end_date_real = comparacion.end_date_real;
+      elemento.duration_real = comparacion.duration_real; 
+    }   
+
+    function update_columnas(datos){
+      let proyecto = datos[0];
+      let riesgos = proyecto.children;
+      let duracion_riesgos = 0;
+      for(let i = 0; i < riesgos.length; i++){
+        let actividades = riesgos[i].children;
+        let duracion_actividades = 0;
+        for(let j = 0; j < actividades.length; j++){
+          let tareas = actividades[j].children;
+          let duracion_tarea = 0;
+          for(let k = 0; k < tareas.length; k++){
+            let tarea_aux = tareas[k];
+            duracion_tarea += parseInt(tarea_aux.duration_real);
+            let comparacion = update_fechas_and_durations(actividades[j], tarea_aux);            
+            update_asignar_comparacion(actividades[j], comparacion);
+          }
+          actividades[j].duration_real = duracion_tarea;
+          duracion_actividades += parseInt(actividades[j].duration_real);
+          let comparacion = update_fechas_and_durations(riesgos[i], actividades[j]);
+          update_asignar_comparacion(riesgos[i], comparacion);         
+        }
+        riesgos[i].duration_real = duracion_actividades;        
+        duracion_riesgos += parseInt(riesgos[i].duration_real);        
+        let comparacion = update_fechas_and_durations(riesgos[i], proyecto);
+        update_asignar_comparacion(proyecto, comparacion); 
+      } 
+      proyecto.duration_real = duracion_riesgos;
+      return datos;     
+    }    
+
+    function update_fechas_and_durations(elemento_1, elemento_2) {
+      return {
+        //start_date:get_date_menor(elemento_1.start_date, elemento_2.start_date),
+        //end_date:get_date_mayor(elemento_1.end_date, elemento_2.end_date),
+        //duration:get_duracion_mayor(elemento_1.duration, elemento_2.duration),
+        start_date_real:get_date_menor(elemento_1.start_date_real, elemento_2.start_date_real),
+        end_date_real:get_date_mayor(elemento_1.end_date_real, elemento_2.end_date_real),
+        duration_real:get_duracion_mayor(elemento_1.duration_real, elemento_2.duration_real)
+      }
+    }    
+
+    function update_asignar_comparacion(elemento, comparacion) {
+
+      if(new Date(elemento.start_date_real) > new Date(comparacion.start_date_real)){
+        elemento.start_date_real = comparacion.start_date_real;
+      }
+      if(new Date(elemento.end_date_real) < new Date(comparacion.end_date_real)){
+        elemento.end_date_real = comparacion.end_date_real
+      }
+      //if(elemento.duration_real != comparacion.duration_real){
+        //elemento.duration_real = comparacion.duration_real;
+      //}
+    }   
+
+    
+
+    function get_estado(valor) {
+        let estado = ""; 
+        if(valor == 1){
+          estado = 'No iniciado';
+        }else if(valor == 2){
+          estado = 'Iniciado';
+        }else{
+          estado = 'Completado';
+        }
+        return estado;
+    }
+
+    function get_date_menor(string_date_1, string_date_2){
+      if(string_date_1 == ''){
+        string_date_1 = string_date_2;
+      }else if(string_date_2 == ''){
+        string_date_2 = string_date_1;
+      }
+      if(new Date(string_date_1) < new Date(string_date_2)){
+        return string_date_1;
+      }
+      return string_date_2;
+    }
+
+    function get_date_mayor(string_date_1, string_date_2){
+      if(string_date_1 == ''){
+        string_date_1 = string_date_2;
+      }else if(string_date_2 == ''){
+        string_date_2 = string_date_1;
+      }
+      if(new Date(string_date_1) > new Date(string_date_2)){
+        return string_date_1;
+      }
+      return string_date_2;
+    }
+
+    function get_duracion_mayor(duration_1, duration_2) {
+      if(duration_1 > duration_2){
+        return duration_1;
+      }
+      return duration_2;
+    }
+
+    function get_riesgo_by_id(riesgo_id){
+      let riesgo = {};
+      for (var i = 0; i < lista_riesgos.length; i++) {
+        if(lista_riesgos[i]['riesgo_id'] == riesgo_id){
+          riesgo = lista_riesgos[i];
+          break;
+        }
+      }
+      return riesgo;
+    }
+
+    function get_tareas_by_riesgo_and_respuesta(riesgo_key, respuesta){
+      let tareas = lista_tareas[riesgo_key]
+      let aux = [];
+      for(i in tareas){
+        if(tareas[i]['riesgo_has_respuesta'] == respuesta['riesgo_has_respuesta']){
+          aux.push(tareas[i]);
+        }
+      }
+      return aux;
+    }
+
+    function get_data_json(){
+      return data_riesgo;
+    }
+
+    function modificar_data_json(){
+      data_riesgo[0].children[0].children[1].children[0].start_date = "2020-11-11";
+      //data_riesgo[0].children[0].children[1].children[0].data.start_date = "2020-11-11";
+      return data_riesgo;
+    }
+
+    $(document).ready(function () {
+      let entrada = formatear_datos(); 
+      console.log(entrada);      
+      //var employees = JSON.stringify(ajustar_columnas(entrada));
+      data_riesgo = ajustar_columnas(entrada);
+      console.log(data_riesgo);
+      
+      var source = {
+        dataType: "json",
+        dataFields: [
+            { name: 'id', type: 'number' },
+            { name: 'text', type: 'string' },
+            { name: 'start_date', type: 'date' },
+            { name: 'end_date', type: 'date' },
+            { name: 'duration', type: 'number' },
+            { name: 'start_date_real', type: 'date' },
+            { name: 'end_date_real', type: 'date' },
+            { name: 'duration_real', type: 'number' },
+            { name: 'estado', type: 'string' },
+            { name: 'observacion', type: 'string' },
+            { name: 'children', type: 'array' }, 
+            { name: 'icon', type: 'string' },           
+        ],
+        hierarchy:{
+            root: 'children'
+        },
+        id: 'id',
+        localData: data_riesgo
+    };
+    var cellclass = function (row, columnfield, value) {
+ 
+      if (value == 'No iniciado') {
+          return 'red';
+      }
+      else if (value == 'Iniciado') {
+          return 'yellow';
+      }
+      else if (value == 'Completado'){
+        return 'green';
+      }
+      
+    }
+    var dataAdapter = new jqx.dataAdapter(source);
+
+    console.log(dataAdapter);
+    $("#treeGrid").jqxTreeGrid({
+      width: '100%',
+      height:500,
+      source: dataAdapter,
+      sortable: false,
+      editable: true,
+      altRows: true,
+      columnsResize: true,
+      pageable: false,
+      icons:true,
+      editSettings: {
+        saveOnPageChange: true,
+        saveOnBlur: true,
+        saveOnSelectionChange: true,
+        cancelOnEsc: true,
+        saveOnEnter: true,
+        editSingleCell: true,
+        editOnDoubleClick: true,
+        editOnF2: true
+      },
+      ready: function(){
+       
+        for (let i = 0; i < no_tareas_id.length; i++) {
+          $("#treeGrid").jqxTreeGrid('lockRow', no_tareas_id[i]);
+          $("#treeGrid").jqxTreeGrid('expandRow', no_tareas_id[i]);      
+        }
+        $("#treeGrid").jqxTreeGrid('setColumnProperty', 'end_date_real', 'editable', false);             
+      },
+      columns: [            
+        {
+          text:'ID',
+          dataField:'id',
+          width: 100,
+          align:'center',
+          hidden:true,
+          //cellclassname: cellclass
+        },
+        {
+          text:'Tarea',
+          dataField:'text',
+          width: 150,
+          align:'center',
+          //cellclassname: cellclass
+        },
+        //{ text: 'Title', dataField: 'Title', width: 200 },
+        {
+          text:'Fecha inicio', 
+          dataField:'start_date', 
+          width:110, 
+          align:'center',
+          cellsalign:'right',
+          cellsformat:'dd-MM-yyyy', 
+          //cellclassname: cellclass
+        },
+        {
+          text:'Fecha fin',
+          dataField:'end_date',
+          width:110,
+          align:'center',
+          cellsalign:'right', 
+          cellsformat:'dd-MM-yyyy',
+          //cellclassname: cellclass
+        },
+        {
+          text:'Duración',
+          dataField:'duration',
+          width: 80,
+          align:'center',
+          cellsalign:'center', 
+          //cellclassname: cellclass
+        },
+        {
+          text:'Fecha inicio real',
+          dataField:'start_date_real', 
+          columntype:'custom', 
+          width:110, 
+          align:'center',
+          cellsalign:'right', 
+          cellsformat:'dd-MM-yyyy',
+          //cellclassname: cellclass,
+          createEditor: function (row, cellvalue, editor, celltext, width, height) {             
+            var div = $("<div class='datetimeinput'></div>").appendTo(editor);
+            var datum = null;
+            if(celltext.length > 0)
+              datum = cellvalue;
+            div.jqxDateTimeInput({
+              value:datum, 
+              formatString:'dd-MM-yyyy', 
+              width:width, 
+              height:height 
+            });
+          },
+          initEditor: function (row, cellvalue, editor, celltext, width, height) {
+            var datum = null;
+            if(celltext.length > 0)
+              datum = cellvalue;
+            $(editor.find('.datetimeinput')).jqxDateTimeInput('setDate', datum);
+          },
+          getEditorValue: function (row, cellvalue, editor) {              
+            return $(editor.find('.datetimeinput')).jqxDateTimeInput('getDate');
+          }
+        },
+        {
+          text:'Fecha fin real',
+          dataField:'end_date_real', 
+          columntype:'custom', 
+          width:110, 
+          align:'center',
+          cellsalign:'right', 
+          cellsformat:'dd-MM-yyyy',
+          //cellclassname: cellclass,
+          createEditor: function (row, cellvalue, editor, celltext, width, height) {             
+            var div = $("<div class='datetimeinput'></div>").appendTo(editor);
+            var datum = null;
+            if(celltext.length > 0)
+              datum = cellvalue;
+            div.jqxDateTimeInput({
+              value:datum, 
+              formatString:'dd-MM-yyyy', 
+              width:width, 
+              height:height 
+            });
+          },
+          initEditor: function (row, cellvalue, editor, celltext, width, height) {
+            var datum = null;
+            if(celltext.length > 0)
+              datum = cellvalue;
+            $(editor.find('.datetimeinput')).jqxDateTimeInput('setDate', datum);
+          },
+          getEditorValue: function (row, cellvalue, editor) {              
+            return $(editor.find('.datetimeinput')).jqxDateTimeInput('getDate');
+          }
+        },
+        {
+          text:'Duración real', 
+          dataField:'duration_real', 
+          width: 100,
+          align:'center',
+          cellsalign:'center', 
+          //cellclassname: cellclass
+        },
+        { 
+          text:'Estado', 
+          dataField:'estado_text', 
+          columnType: "template",
+          width:100,
+          align:'center',
+          cellclassname: cellclass,
+          createEditor: function (row, cellvalue, editor, cellText, width, height) {          
+            var lista = ["No iniciado", "Iniciado", "Completado"];
+            editor.jqxDropDownList({
+              autoDropDownHeight: true, 
+              source: lista, 
+              width: '100%', 
+              height: '100%' }
+              );
+          },
+        },
+        { 
+          text:'Observación', 
+          dataField:'observacion', 
+          align:'center',
+          //cellclassname: cellclass
+        },
+      ],
+    });
+    
+    // Cell Begin Edit
+    $("#treeGrid").on('cellBeginEdit', function (event) {
+      var args = event.args;
+      // row key
+      var rowKey = args.key;
+      // row's data.
+      //var rowData = args.row;
+      // column's data field.
+      var columnDataField = args.dataField;
+      // column's display field.
+      //var columnDisplayField = args.displayField;
+      // cell's value.
+      //var value = args.value;
+      if (columnDataField == 'text' || columnDataField == 'start_date' || columnDataField == 'end_date' || columnDataField == 'duration') {
+        $("#treeGrid").jqxTreeGrid('endCellEdit', rowKey, columnDataField);
+      }
+    });
+    
+    $("#treeGrid").on('cellValueChanged', function (event) {
+      var args = event.args;
+      var row = args.row;
+      //var records = row.records;
+      let contenido = row.data;
+      console.log(row); 
+      if (contenido.is_tarea) {
+        update_columnas(data_riesgo);
+        var parent = $("#treeGrid").jqxTreeGrid('getRows')[0];
+        var parentRowKey = $("#treeGrid").jqxTreeGrid('getKey', parent);
+        //console.log("PADRE", parent);
+        $("#treeGrid").jqxTreeGrid('setCellValue', parentRowKey, 'start_date_real',data_riesgo[0].start_date_real);
+        $("#treeGrid").jqxTreeGrid('setCellValue', parentRowKey, 'end_date_real',data_riesgo[0].end_date_real);
+        $("#treeGrid").jqxTreeGrid('setCellValue', parentRowKey, 'duration_real',data_riesgo[0].duration_real);
+
+        //$("#treeGrid").jqxTreeGrid('updateBoundData');
+        //var fecha = row.BirthDate;
+        //var parentRowKey = $("#treeGrid").jqxTreeGrid('getKey', parent);
+        //        $("#treeGrid").jqxTreeGrid('setCellValue', 2, 'BirthDate', fecha);
+              /* var parent = row.parent;
+               var parentRowKey = $("#treeGrid").jqxTreeGrid('getKey', parent);
+               var value = "";
+               var records = parent.records;
+               if (records.length > 0) {
+                   for (var i = 0; i < records.length; i++) {
+                       var rowKey = $("#treeGrid").jqxTreeGrid('getKey', records[i]);
+                       var cellValue = $("#treeGrid").jqxTreeGrid('getCellValue', rowKey, 'value');
+                       value += cellValue;
+                       if (i < records.length - 1) {
+                           value += ", ";
+                       }
+                   }
+               }
+
+               $("#treeGrid").jqxTreeGrid('setCellValue', parentRowKey, 'value', value);*/
+           }
+       });
+
+
+
+
+
+        //$("#excelExport").jqxButton();
+        //$("#xmlExport").jqxButton();
+        //$("#csvExport").jqxButton();
+        //$("#tsvExport").jqxButton();
+        //$("#htmlExport").jqxButton();
+        //$("#jsonExport").jqxButton();
+        //$("#pdfExport").jqxButton();
+
+        /*$("#excelExport").click(function () {
+            $("#treeGrid").jqxTreeGrid('exportData', 'xls');
+        });*/
+        $("#xmlExport").click(function () {
+          //$("#treeGrid").jqxTreeGrid('exportData', 'xml');
+          let mi_data = get_data_json()[0];
+          //console.log(parsear_data_json(mi_data));
+          let dd = parsear_data_json(mi_data);
+          console.log(dd);
+          let xml2 = json2xml(eval(dd));
+          xml2 = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+xml2;
+          var blob = new Blob([xml2], {type: "text/xml;charset=utf-8"});
+          saveAs(blob, mi_data.text+".xml");
+        });
+        /*$("#csvExport").click(function () {
+            $("#treeGrid").jqxTreeGrid('exportData', 'csv');
+        });
+        $("#tsvExport").click(function () {
+            $("#treeGrid").jqxTreeGrid('exportData', 'tsv');
+        });
+        $("#htmlExport").click(function () {
+            $("#treeGrid").jqxTreeGrid('exportData', 'html');
+        });
+        $("#jsonExport").click(function () {
+            $("#treeGrid").jqxTreeGrid('exportData', 'json');
+        });*/
+        /*$("#pdfExport").click(function () {
+            $("#treeGrid").jqxTreeGrid('exportData', 'pdf');
+        });*/
+    });
+
+
+    </script>
+</html>
+
+
+
+
+
+
+
+

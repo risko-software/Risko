@@ -1,0 +1,760 @@
+{% extends "procesos/plantilla_procesos.html" %}
+
+{% block title %} Proyecto {% endblock %}
+
+{% load static %}
+
+{% block organigrama_up %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="container">
+    <section class="content-header"  style="margin-top: 70px;">
+      <h1>
+        {% if proyecto %}
+        {{ proyecto.proyecto_nombre }}
+        {% endif %}
+        <small>Planificar Respuestas</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-folder-open"></i> Proyecto</a></li>
+        <li class="active">Planificar Respuestas</li>
+      </ol>
+      {% if mensaje %}
+      <div class="callout callout-info">
+        <h4>Registro Exitoso</h4>
+        {{mensaje}}      
+      </div>
+      {% endif %}
+      {% if mensaje_eliminar %}
+      <div class="callout callout-danger">
+        <h4>Borrado Exitoso</h4>
+          {{mensaje_eliminar}}      
+      </div>
+      {% endif %}
+      {% if mensaje_editar %}
+      <div class="callout callout-warning">
+        <h4>Actualización Exitosa</h4>
+        {{mensaje_editar}}      
+      </div>
+      {% endif %}
+    </section>
+    {% if proyecto.proyecto_linea_base != 0 %}  
+    <section class="content">
+        <div class="box">
+            <div class="box-group" id="accordion">
+              <div class="panel box box-primary">
+                <div class="box-header with-border">
+                  	<h4 class="box-title">
+                    	<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" style="color:#444444";>
+                      		<label data-toggle="tooltip" data-placement="top" title="Presione aqui para ver mas información del proceso y generar su informe."><strong>Controlar riesgos proyecto: {{ proyecto.proyecto_nombre }}  
+                      			<i class="fa fa-sort-desc"></i>
+                      		</strong></label>
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse in">
+                  <div class="box-body">
+                    Este proceso tiene por objetivo implementar los planes de respuesta a los riesgos y oportunidades del proyecto si estos se presentan, y así mismo monitorearlos constantemente junto con los riesgos y oportunidades inactivos, con la finalidad de identificar si se presentan nuevos riesgos a lo largo del proyecto. 
+                    </br>
+                    <a class="btn btn-primary pull-right" href="/mi_proyecto/{{ proyecto.proyecto_id }}/controlar_riesgos/informe/">Generar informe</a>
+                  </div>
+                </div>
+              </div>
+           </div>
+         </div>
+          <div class="box">
+             <div class="box-header">
+              <h3 class="box-title">
+                <strong>Diagrama de gantt de tareas - Proyecto: {{ proyecto.proyecto_nombre }}</strong> 
+              </h3>         
+               <button class="btn btn-primary pull-right" onclick="registrar_observaciones();">Observar estado</button>
+
+              {% if proyecto.proyecto_fin_status %}
+              <button class="btn btn-primary pull-right" onclick="confirmar_cambios();" disabled="true">Confirmar cambios</button>
+              {% else %}
+              <button class="btn btn-primary pull-right" onclick="confirmar_cambios();">Confirmar cambios</button>
+              {% endif %}  
+
+            </div>
+            <div class="box-body">
+              <!--<button onclick="obtener_mi_json()">obtener json</button>-->
+              <ul class="chart-legend clearfix">    
+                <span class="label pull-left" style="background-color:#967769; ">Proyecto</span>            
+                <span class="label pull-left" style="background-color:#E75A10; ">Riesgo</span>       
+                <span class="label pull-left" style="background-color:#65B225;">Acciones</span>
+                <span class="label pull-left"style="background-color:#2585B2;">Tareas</span>
+              </ul>
+              <br>
+              <div id="gantt_here" style='width:100%; height:50vh;'></div>
+            </div>
+          </div>
+    </section>
+    {% else %}
+    <section class="content">
+        <div class="box box-primary">
+        <div class="box-header with-border">
+        <h4 class="box-title">
+        <label data-toggle="tooltip" data-placement="top" title="En esta sección podrá administrar los riesgos del proyecto."><strong>Controlar riesgos</strong></label>
+        </h4>
+        </div>
+        <div class="box-body">
+          <div class="alert alert-info alert-dismissible">                
+                <h4><i class="icon fa fa-info"></i>  Atencion !</h4>
+                Antes de poder monitorear e implementar los planes de respuesta a los riesgos, usted debe contar con un linea base de la gestion de riesgos.<br/><br/>
+                Para crear una nueva linea base a su proyecto, por favor vaya la seccion <strong>Linea Base de la Adiministración de Riesgos</strong> de la siguiente pagina: clic <a href="/mi_proyecto/{{proyecto.proyecto_id}}/planificar_respuestas/">aquí.</a>
+
+
+              </div>
+        </div>    
+      </div>
+    </section>
+    {% endif %}
+  </div>
+</div>
+
+<!-- /.modal costos -->
+
+<div class="modal fade" id="modal-resumen" > 
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Estado</h4>
+      </div>
+      <div class="box-body" style="overflow-y: scroll; width:100%; height:50vh;">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-1"></div>
+          <div class="col-md-10">
+            <table class="table table-striped" id="tareas_tabla">
+              <thead>
+              <tr>
+                <th>Tarea</th>
+                <th>Fechas planeadas</th>
+                <th>Fechas reales</th>                
+                <th>Estado</th>
+                <th>Avance</th> 
+                <th>Atraso</th> 
+                <th>Observaciones</th>
+                <th>Recursos</th>
+              </tr>
+              </thead>
+              <tbody id="resumen_body">
+
+              </tbody>
+              <tfoot>
+              <tr>
+                <th>Tarea</th>
+                <th>Fechas planeadas</th>
+                <th>Fechas reales</th>
+                <th>Estado</th> 
+                <th>Avance</th>
+                <th>Atraso</th>           
+                <th>Observaciones</th>
+                <th>Recursos</th>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="col col-lg-1"></div>
+        </div>   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>   
+</div>
+
+<!-- /.modal costos -->
+
+{% endblock %}
+{% block organigrama_down %}
+<!-- DataTables -->
+<script src="{% static 'risk_project/bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+
+<script src="{% static 'risk_project/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+<!-- /DataTables -->
+
+
+<script src="{% static 'risk_project/plugins/gantt/dhtmlxgantt.js' %}" ></script>
+<link rel="stylesheet" href="{% static 'risk_project/plugins/gantt/dhtmlxgantt.css' %}" type="text/css">
+
+<script type="text/javascript">
+  /*
+   *  Corresponde a todos los riesgos del proyecto
+   *
+   */
+  var lista_riesgos = JSON.parse("{{lista_riesgos|escapejs}}");  
+  console.log(lista_riesgos)
+
+  /*
+   *  Corresponde a todo el conjunto de riesgos del proyecto 
+   *  junto con sus respuestas asociadas  
+   */
+  var respuestas_riesgo = JSON.parse("{{respuestas_riesgo|escapejs}}");  
+  console.log(respuestas_riesgo);
+
+  /*
+   * Es todo el conjunto de tareas asociadas a un riesgo determinado
+   */
+  var lista_tareas = JSON.parse("{{lista_tareas|escapejs}}");  
+  console.log(lista_tareas);
+
+  //Contiene los id de las tareas a las cuales se les bloquea l opcion de editar
+  var cod_padres = [1];
+
+  function formatear_datos(){
+    let padre = 0;    
+    let cont = 1;
+    let data = [
+      {
+        id: cont, 
+        text: "{{ proyecto.proyecto_nombre }}", 
+        start_date: null, 
+        duration: null, 
+        parent:0, 
+        progress: 0, 
+        open: true,  
+        is_tarea:false,   
+        color:"#967769",     
+      }
+    ];
+    Object.keys(respuestas_riesgo).forEach(function(key) {
+      let riesgo_id = key.split("_")[1];
+      let riesgo = get_riesgo_by_id(riesgo_id);      
+      cont = cont + 1;
+      cont_riesgo = cont;      
+      cod_padres.push(cont_riesgo);
+      data.push({
+        id: cont, 
+        text: riesgo['riesgo_nombre'], 
+        start_date: null, 
+        duration: null, 
+        parent:1, 
+        progress: 0, 
+        open: true,
+        is_tarea:false,
+        color:"#E75A10",
+      });
+      let respuestas = respuestas_riesgo[key]
+      for(i in respuestas){
+        cont = cont + 1;
+        padre = cont; 
+        cod_padres.push(padre);
+        data.push({
+          id: cont, 
+          text: respuestas[i]['respuesta_nombre'], 
+          start_date: null, 
+          duration: null, 
+          parent:cont_riesgo, 
+          progress: 0, 
+          open: true,
+          is_tarea:false,
+          color:"#65B225",
+        });
+        let tareas = get_tareas_by_riesgo_and_respuesta(key, respuestas[i]);        
+        tareas = tareas.sort(function(a, b) {
+          f_1 = Date.parse(a.fecha_inicio)
+          f_2 = Date.parse(b.fecha_inicio)
+          return f_1 - f_2;
+        });
+        for(j in tareas){
+          cont = cont + 1;
+          data.push({
+            id: cont, 
+            text: tareas[j]['tarea_nombre'], 
+            start_date:tareas[j]['fecha_inicio_real'], 
+            duration: tareas[j]['duracion_real'], 
+            parent:padre, 
+            progress: 0, 
+            color:"#2585B2", 
+            duracion_planeada:tareas[j]['duracion'],
+            tarea_id:tareas[j]['tarea_id'],
+            fecha_inicio:tareas[j]['fecha_inicio'],
+            fecha_fin:tareas[j]['fecha_fin'],
+            fecha_inicio_real:tareas[j]['fecha_inicio_real'],
+            duracion_real:tareas[j]['duracion_real'],
+            fecha_fin_real:tareas[j]['fecha_fin_real'],
+            tarea_estado:tareas[j]['tarea_estado'],   
+            tarea_estado_old:tareas[j]['tarea_estado'],     
+            tarea_observacion:tareas[j]['tarea_observacion'],        
+            tipos:[
+              {name:'No iniciado', value:1},
+              {name:'Iniciado', value:2},
+              {name:'Completado', value:3}              
+            ],
+            is_tarea:true,
+            riesgo_id:parseInt(riesgo_id),
+          });
+        }
+      }      
+    });
+    return data;
+  }
+
+
+  function get_tareas_by_riesgo_and_respuesta(riesgo_key, respuesta){
+    let tareas = lista_tareas[riesgo_key]
+    let aux = [];
+    for(i in tareas){
+      if(tareas[i]['riesgo_has_respuesta'] == respuesta['riesgo_has_respuesta']){
+        aux.push(tareas[i]);
+      }
+    }
+    return aux;
+  }
+
+  function activar_cont_fechas_reales(select){
+    if(select > 1){
+      document.getElementById('cont_fechas_reales').removeAttribute('hidden');  
+      if(select == 3){
+        document.getElementById('cont_duracion_real').removeAttribute('hidden');          
+      }else{
+        document.getElementById('cont_duracion_real').setAttribute('hidden', true);          
+      }
+    }else{
+      document.getElementById('cont_fechas_reales').setAttribute('hidden', true);
+    }    
+  }
+
+  function ocultar_cont_fechas_reales(select){
+    document.getElementById('cont_duracion_real').setAttribute('hidden', true);          
+    document.getElementById('cont_fechas_reales').setAttribute('hidden', true); 
+  }
+
+  {% if proyecto.proyecto_linea_base != 0 %}  
+  $(document).ready(function(){
+    //console.log(formatear_datos());
+    gantt.form_blocks["my_editor"] = {
+      render: function (sns) {        
+        var myvar = '<div class="dhx_cal_ltext"  style="height:200px; margin-top: 5px; overflow-y:scroll;" >'+
+        ' <div class="container">'+
+        '   <div class="row">'+
+        '     <div class="col-md-3">'+
+        '       <div class="form-group">'+
+        '         <label for="input_descripcion" class="col-sm-4 control-label">'+
+        '           Nombre'+
+        '         </label>'+
+        '         <div class="col-sm-8">'+
+        '             <input class=\'editor_description\' type=\'text\' readonly/>'+
+        '         </div>'+
+        '       </div>'+
+        '     </div>'+
+        '   </div>'+
+        '   <br>'+
+        '     <div class="row">'+
+        '       <div class="col-md-3">'+
+        '         <div class="form-group">'+
+        '            <label for="inputEmail3" class="col-sm-4 control-label" >'+
+        '               Fecha inicio planificada'+
+        '             </label>            '+
+        '            <div class="col-sm-8">'+
+        '             <input class=\'editor_fecha_inicio\' id="inputEmail3" type=\'date\' readonly/>'+
+        '            </div>'+
+        '         </div>'+
+        '       </div>'+
+        '       <div class="col-md-2">'+
+        '         <div class="form-group">'+
+        '             <label for="input_editor_fecha_fin" class="col-sm-4 control-label" >'+
+        '               fecha fin planificada'+
+        '             </label>            '+
+        '             <div class="col-sm-8">'+
+        '               <input class=\'editor_fecha_fin\' id="input_editor_fecha_fin" type=\'date\' readonly/>  '+
+        '             </div>'+
+        '         </div>                '+
+        '       </div>'+
+        '   </div>'+
+        '   <br>  '+
+        '   <div class="row">'+
+        '     <div class="col-md-3">'+
+        '       <div class="form-group">'+
+        '         <label for="j" class="col-sm-4 control-label">'+
+        '           Estado'+
+        '         </label>'+
+        '         <div class="col-sm-8">'+
+        '             <select id=\'j\' class=\'editor_selects\' onchange="activar_cont_fechas_reales(this.value);">                '+
+        '             </select>'+
+        '         </div>'+
+        '       </div>'+
+        '     </div>'+
+        '   </div>'+
+        '   <br>'+
+        '   <div class="row" id="cont_fechas_reales" hidden="true">'+
+        '       <div class="col-md-3">'+
+        '         <div class="form-group">'+
+        '             <label for="input_fecha_inicio_real" class="col-sm-4 control-label" >'+
+        '               Fecha inicio real'+
+        '             </label>            '+
+        '             <div class="col-sm-8">'+
+        '               <input class=\'editor_fecha_inicio_real\' id="input_fecha_inicio_real" type=\'date\' />'+
+        '             </div>'+
+        '         </div>'+
+        '       </div>'+
+        '       <div class="col-md-2" id="cont_duracion_real">'+
+        '         <div class="form-group">'+
+        '             <label for="input_editor_duracion_real" class="col-sm-4 control-label" >'+
+        '               Duracion días'+
+        '             </label>'+
+        '             <div class="col-sm-8">'+
+        '               <input class=\'editor_duracion_real\' id="input_editor_duracion_real" type=\'number\' value="1" min="1" style="width:50px;" /> '+
+        '               <input hidden="true" class=\'editor_fecha_fin_real\' id="input_editor_fecha_fin_real" type=\'date\'/> '+
+        '             </div>'+
+        '         </div>                '+
+        '       </div>'+
+        '   </div>    '+
+        '   <br>'+
+        '<div class="row">'+
+        ' <div class="col-md-3">'+
+        '   <div class="form-group">'+
+        '     <label for="input_editor_observacion" class="col-sm-4 control-label">'+
+        '       Observación'+
+        '     </label>'+
+        '     <div class="col-sm-8">'+
+        '       <textarea placeholder="Observaciones sobre la tarea" style="width: 300px; height: 50px;" class="editor_observacion" id="input_editor_observacion" maxlength="200" rows="3">'+
+        '     </div>'+
+        '   </div>'+
+        ' </div>'+
+        '</div>'+
+        '<br>'
+        ' </div>'+
+        '</div>';
+             return myvar;
+      },
+      set_value: function (node, value, task) {
+          node.querySelector(".editor_description").value = value || "";
+          
+          node.querySelector(".editor_fecha_inicio").value = parsear_fecha(new Date(task.fecha_inicio)) || "";
+          node.querySelector(".editor_fecha_fin").value = parsear_fecha(new Date(task.fecha_fin)) || "";
+          node.querySelector(".editor_observacion").value = task.tarea_observacion || "";
+
+          $("#j").html('');
+
+          let mi_estado = parseInt(task.tarea_estado);
+
+          for (var i = 0; i < task.tipos.length; i++) {
+            if(task.tipos[i]['value'] >= mi_estado && task.tipos[i]['value'] <= mi_estado+1){
+              var o1 = new Option(task.tipos[i]['name'], task.tipos[i]['value']);                 
+              if(mi_estado == task.tipos[i]['value']){
+                o1.setAttribute("selected","true");
+              }
+              node.querySelector(".editor_selects").append(o1);
+            }                                
+          }         
+          activar_cont_fechas_reales(mi_estado); 
+          let mi_fecha_inicio_real = task.fecha_inicio_real;
+          node.querySelector(".editor_fecha_inicio_real").value = mi_fecha_inicio_real || "";
+          node.querySelector(".editor_duracion_real").value = task.duracion_real;
+          node.querySelector(".editor_fecha_fin_real").value = parsear_fecha(new Date(task.fecha_fin_real)) || "";
+      },
+      get_value: function (node, task) {          
+          task.tarea_estado = node.querySelector(".editor_selects").value;   
+          task.fecha_inicio = node.querySelector(".editor_fecha_inicio").value;
+          task.fecha_fin = node.querySelector(".editor_fecha_fin").value;    
+          task.fecha_inicio_real = node.querySelector(".editor_fecha_inicio_real").value;
+          task.fecha_fin_real = node.querySelector(".editor_fecha_fin_real").value;
+          task.duracion_real = node.querySelector(".editor_duracion_real").value;
+          let d_real = parseInt(task.duracion_real);
+          console.log('diracion', d_real);
+          task.start_date = gantt.date.add(task.fecha_inicio_real, 0, 'day');
+          task.end_date = gantt.date.add(task.fecha_inicio_real, d_real, 'day');
+
+          task.tarea_observacion =   node.querySelector(".editor_observacion").value;
+         
+          return node.querySelector(".editor_description").value;
+      },
+      focus: function (node) {
+          var a = node.querySelector(".editor_description");
+          a.select();
+          a.focus();
+      }
+    };  
+    gantt.config.lightbox.sections = [
+        { name:"description", height:400, map_to:"text", type:"my_editor", focus:true},
+        //{ name:"agua", height:72, type:"duration", map_to:"auto"}
+    ];
+    gantt.config.buttons_left = ["dhx_cancel_btn"];
+  gantt.config.buttons_right = ["dhx_save_btn"];
+    gantt.attachEvent("onBeforeLightbox", function(id) {
+      //console.log(id, cod_padres);      
+      if(cod_padres.includes(parseInt(id))){
+        return false;    
+      }
+        return true;
+    });
+    gantt.i18n.setLocale("es");
+    gantt.config.date_format = "%Y-%m-%d";
+    //gantt.config.readonly_property = "start_date";
+    var dateEditor = {type: "date", map_to: "start_date", min: new Date(2018, 0, 1), max: new Date(2019, 0, 1)};
+    gantt.config.columns = [
+      {name:"text",       label:"Tarea", min_width: 150, max_width:300, tree:true},
+      {name:"start_date", label:"Fecha inicio", align:"center",resize: true, editor: dateEditor, width:150},
+      {name:"end_date",   label:"Fecha fin",   align:"center",  width:1999 }, 
+      //{name:"duration",   label:"Días",   align:"center",  width:80 }, 
+    ];
+    gantt.config.autosize = "y";
+    gantt.config.show_unscheduled = false;
+    gantt.init("gantt_here");    
+    mis_datos = formatear_datos();
+    console.log(mis_datos);
+    gantt.parse({data:mis_datos});
+
+  });
+  {% endif %}
+  function obtener_mi_json() {
+    var json = gantt.serialize();
+    console.log(json);
+    return json;
+  }
+
+  function parsear_fecha(now){    
+    var day = now.getDate();
+    if(day <= 9){
+      day = '0' + day;
+    } 
+    var month = now.getMonth() + 1;
+    if(month <= 9){
+      month = '0' + month;
+    }
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+    return today;
+  }
+
+  function diferencia_fechas(date_1, date_2){
+    //var date_1 = new Date('2015-2-15');
+    //var date_2 = new Date('2015-3-13');
+    var day_as_milliseconds = 86400000;
+    var diff_in_millisenconds = date_2 - date_1;
+    var diff_in_days = diff_in_millisenconds / day_as_milliseconds;
+
+    return diff_in_days;
+  }
+
+  function get_riesgo_by_id(riesgo_id){
+    let riesgo = {};
+    for (var i = 0; i < lista_riesgos.length; i++) {
+      if(lista_riesgos[i]['riesgo_id'] == riesgo_id){
+        riesgo = lista_riesgos[i];
+        break;
+      }
+    }
+    return riesgo;
+  }
+
+  function registrar_observaciones(){
+    table = $("#tareas_tabla").DataTable();
+    table.destroy();
+    resumen = document.getElementById('resumen_body');
+    resumen.innerHTML = '';
+    mi_gantt = obtener_mi_json();
+    for (var i = 0; i < mi_gantt['data'].length; i++) {
+      tarea = mi_gantt['data'][i];
+      if(tarea['is_tarea'] == true){            
+        let tr = document.createElement("tr");   
+        let td_nombre = document.createElement("td");
+        let td_fecha_planeada = document.createElement("td");
+        let td_fecha_real = document.createElement("td");
+        let td_estado = document.createElement("td");
+        let td_avance = document.createElement("td");
+        let td_atraso = document.createElement("td");
+        let td_observacion = document.createElement("td");
+        let td_recursos = document.createElement("td");
+
+        td_nombre.append(document.createTextNode(tarea.text));
+
+        let inicio_var = "Inicio: " + parsear_fecha(new Date(tarea.fecha_inicio));
+        let fin_var = "Fin: " + parsear_fecha(new Date(tarea.fecha_fin)); 
+        let duracion_var = "Duración: " + tarea.duracion_planeada + " dias";
+        td_fecha_planeada.append(document.createTextNode(inicio_var));
+        td_fecha_planeada.append(document.createElement("br"));
+        td_fecha_planeada.append(document.createTextNode(fin_var));
+        td_fecha_planeada.append(document.createElement("br"));
+        td_fecha_planeada.append(document.createTextNode(duracion_var));
+
+        let inicio_real_var = "Inicio: "+parsear_fecha(new Date(tarea.fecha_inicio_real));
+        let fin_real_var = "Fin: "+parsear_fecha(new Date(tarea.fecha_fin_real));
+        let duracion_real_var = "Duración: " + tarea.duration + " dias";
+        td_fecha_real.append(document.createTextNode(inicio_real_var));
+        td_fecha_real.append(document.createElement("br"));
+        td_fecha_real.append(document.createTextNode(fin_real_var));
+        td_fecha_real.append(document.createElement("br"));
+        td_fecha_real.append(document.createTextNode(duracion_real_var));
+
+        let porc_avance = calcular_porcentaje_avance(tarea.tarea_estado, tarea.fecha_inicio_real,tarea.fecha_fin_real, tarea.duracion_planeada);        
+        td_avance.append(document.createTextNode(porc_avance+" % "));
+
+        let por_atraso = calcular_porcentaje_atraso(tarea.duracion_planeada, tarea.duracion_real);
+        
+        td_atraso.append(document.createTextNode(por_atraso+" % "));        
+               
+        td_estado.append(document.createTextNode(get_estado(tarea.tarea_estado)));
+
+        let observacion = tarea.tarea_observacion;
+        if(observacion=='') observacion = "Sin observacion";
+        td_observacion.append(document.createTextNode(observacion));
+
+        let recursos = get_recursos_by_tarea_id_and_riesgo_id(tarea.tarea_id, tarea.riesgo_id);        
+        td_recursos.append(parsear_recursos_ul(recursos));
+
+        tr.append(td_nombre);
+        tr.append(td_fecha_planeada);
+        tr.append(td_fecha_real);       
+        tr.append(td_estado);
+        tr.append(td_avance);
+        tr.append(td_atraso);
+        tr.append(td_observacion);
+        tr.append(td_recursos);
+        resumen.append(tr);         
+      }
+    }
+    trasnformar_tabla("tareas_tabla");
+    $("#modal-resumen").modal('show');
+  }
+
+  function calcular_porcentaje_atraso(duracion_planeada, duracion_real) {
+    console.log(duracion_planeada, duracion_real);
+    dife = duracion_real-duracion_planeada;
+    porc = (dife * 100) / duracion_planeada;
+    if (porc < 0){
+      porc = 0.0;
+    }
+    return porc;
+  } 
+        
+  function calcular_porcentaje_avance(estado, fecha_inicio_planeada, fecha_fin_planeada, duracion_planeada){
+    fecha_inicio = new Date(fecha_inicio_planeada);
+    fecha_fin = new Date(fecha_fin_planeada);
+    if (estado == 1){
+      return 0.0;
+    }else if (estado == 3){
+      return 100;
+    }
+    fecha_actual = new Date();
+    dife = diferencia_dias(fecha_actual,fecha_inicio);
+    avance = (dife*100)/duracion_planeada;
+    return avance.toFixed(2); 
+  }
+
+  function diferencia_dias(fecha1, fecha2){
+    let resta = fecha2.getTime() - fecha1.getTime();
+    return Math.round(resta/(1000*60*60*24));
+  }
+
+  function get_recursos_by_tarea_id_and_riesgo_id(tarea_id, riesgo_id){
+    let key = "riesgo_"+riesgo_id;
+    let recursos = [];
+    if(lista_tareas.hasOwnProperty(key)){
+      tareas = lista_tareas[key];
+      for (let i = 0; i < tareas.length; i++) {
+        if(tareas[i]['tarea_id'] == tarea_id){
+          recursos = tareas[i]['recursos'];
+          break;
+        }
+      }
+    }
+    return recursos;
+  }
+
+  function parsear_recursos_ul(recursos){
+    let ul = document.createElement('ul');
+    if(recursos.length > 0){
+      for (let i = 0; i < recursos.length; i++) {
+        let contenido = recursos[i]['recurso_nombre'] + '  x  '+recursos[i]['cantidad'];
+        let li = document.createElement('li');
+        li.append(document.createTextNode(contenido));
+        ul.append(li);
+      }
+    }else{
+      let contenido = "Sin recursos";
+      let li = document.createElement('li');
+      li.append(document.createTextNode(contenido));
+      ul.append(li);
+    }
+    return ul;
+  }
+
+  function get_estado(valor) {
+    if(valor == 1){
+      return 'No iniciado';
+    }else if(valor == 2){
+      return 'Iniciado';
+    }else if(valor == 3){
+      return 'Completado';
+    }else{
+      return 'Retrasado';
+    }      
+  }
+
+  function confirmar_cambios() {
+   $.ajax({
+      url: "/mi_proyecto/{{proyecto.proyecto_id}}/actualizar_gantt/",
+      type: 'POST',
+      headers: {'X-CSRFToken': csrftoken},
+      data: {'gantt':JSON.stringify(gantt.serialize())},      
+      success: function(data) {
+        //alert("Registro exitoso "+data);
+        location.reload();
+        //mi_proyecto/{{proyecto.proyecto_id}}/controlar_riesgos/";
+      }, error: function (jqXhr, textStatus, errorMessage) {
+        console.log("Fallo Registro " + textStatus + errorMessage);
+        location.reload();
+        //window.location.href = "/mi_proyecto/{{proyecto.proyecto_id}}/controlar_riesgos/";
+      }
+  });
+}
+  
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+
+
+function trasnformar_tabla(id_tabla) {
+  t = $("#"+id_tabla).DataTable({
+    "language": {
+         "sProcessing":    "Procesando...",
+         "sLengthMenu":    "Mostrar _MENU_ registros",
+         "sZeroRecords":   "No se encontraron resultados",
+         "sEmptyTable":    "No cuentas con riesgos asociados a esta subcategoría.",
+         "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+         "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+         "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+         "sInfoPostFix":   "",
+         "sSearch":        "Buscar:",
+         "sUrl":           "",
+         "sInfoThousands":  ",",
+         "sLoadingRecords": "Cargando...",
+         "oPaginate": {
+             "sFirst":    "Primero",
+             "sLast":    "Último",
+             "sNext":    "Siguiente",
+             "sPrevious": "Anterior"
+         },
+         "oAria": {
+             "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+         }
+     }
+  }); 
+}
+</script>
+
+<script src="{% static 'risk_project/plugins/gantt/api.js' %}"></script>
+{% endblock %}

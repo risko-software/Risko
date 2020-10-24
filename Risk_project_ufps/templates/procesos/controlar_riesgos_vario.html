@@ -1,0 +1,478 @@
+{% extends "procesos/plantilla_procesos.html" %}
+
+{% block title %} Proyecto {% endblock %}
+
+{% load static %}
+
+{% block organigrama_up %}
+<link rel="stylesheet" href="{% static 'risk_project/plugins/jqwidgets/styles/jqx.base.css' %}" type="text/css" />
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/scripts/jquery-1.12.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxcore.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxdata.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxbuttons.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxscrollbar.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxlistbox.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxdropdownlist.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxdatatable.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxtreegrid.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxtooltip.js' %}"></script>
+<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/jqxinput.js' %}"></script>
+<!--<script type="text/javascript" src="{% static 'risk_project/plugins/jqwidgets/scripts/demos.js' %}"></script>-->
+{% endblock %}
+
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="container">
+    <section class="content-header"  style="margin-top: 70px;">
+      <h1>
+        {% if proyecto %}
+        {{ proyecto.proyecto_nombre }}
+        {% endif %}
+        <small>Planificar Respuestas</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-folder-open"></i> Proyecto</a></li>
+        <li class="active">Planificar Respuestas</li>
+      </ol>
+      {% if mensaje %}
+      <div class="callout callout-info">
+        <h4>Registro Exitoso</h4>
+        {{mensaje}}      
+      </div>
+      {% endif %}
+      {% if mensaje_eliminar %}
+      <div class="callout callout-danger">
+        <h4>Borrado Exitoso</h4>
+          {{mensaje_eliminar}}      
+      </div>
+      {% endif %}
+      {% if mensaje_editar %}
+      <div class="callout callout-warning">
+        <h4>Actualización Exitosa</h4>
+        {{mensaje_editar}}      
+      </div>
+      {% endif %}
+    </section>
+    {% if proyecto.proyecto_linea_base != 0 %}  
+    <section class="content">
+        <div class="box">
+            <div class="box-group" id="accordion">
+              <div class="panel box box-primary">
+                <div class="box-header with-border">
+                  	<h4 class="box-title">
+                    	<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" style="color:#444444";>
+                      		<label data-toggle="tooltip" data-placement="top" title="Presione aqui para ver mas información del proceso y generar su informe."><strong>Controlar riesgos proyecto: {{ proyecto.proyecto_nombre }}  
+                      			<i class="fa fa-sort-desc"></i>
+                      		</strong></label>
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse in">
+                  <div class="box-body">
+                    Este proceso tiene por objetivo implementar los planes de respuesta a los riesgos y oportunidades del proyecto si estos se presentan, y así mismo monitorearlos constantemente junto con los riesgos y oportunidades inactivos, con la finalidad de identificar si se presentan nuevos riesgos a lo largo del proyecto. 
+                    </br>
+                    <a class="btn btn-primary pull-right" href="/mi_proyecto/{{ proyecto.proyecto_id }}/controlar_riesgos/informe/">Generar informe</a>
+                  </div>
+                </div>
+              </div>
+           </div>
+         </div>
+          <div class="box">
+             <div class="box-header">
+              <h3 class="box-title">
+                <strong>Diagrama de gantt de tareas - Proyecto: {{ proyecto.proyecto_nombre }}</strong> 
+              </h3>         
+              {% if proyecto.proyecto_fin_status %}
+              <button class="btn btn-primary pull-right" onclick="confirmar_cambios();" disabled="true">Confirmar cambios</button>
+              {% else %}
+              <button class="btn btn-primary pull-right" onclick="confirmar_cambios();">Confirmar cambios</button>
+              {% endif %}  
+
+            </div>
+            <div class="box-body">
+              <!--<button onclick="obtener_mi_json()">obtener json</button>-->
+              <ul class="chart-legend clearfix">    
+                <span class="label pull-left" style="background-color:#967769; ">Proyecto</span>            
+                <span class="label pull-left" style="background-color:#E75A10; ">Riesgo</span>       
+                <span class="label pull-left" style="background-color:#65B225;">Acciones</span>
+                <span class="label pull-left"style="background-color:#2585B2;">Tareas</span>
+              </ul>
+              <br>
+              <div id="treegrid"></div>
+          </div>
+    </section>
+    {% else %}
+    <section class="content">
+        <div class="box box-primary">
+        <div class="box-header with-border">
+        <h4 class="box-title">
+        <label data-toggle="tooltip" data-placement="top" title="En esta sección podrá administrar los riesgos del proyecto."><strong>Controlar riesgos</strong></label>
+        </h4>
+        </div>
+        <div class="box-body">
+          <div class="alert alert-info alert-dismissible">                
+                <h4><i class="icon fa fa-info"></i>  Atencion !</h4>
+                Antes de poder monitorear e implementar los planes de respuesta a los riesgos, usted debe contar con un linea base de la gestion de riesgos.<br/><br/>
+                Para crear una nueva linea base a su proyecto, por favor vaya la seccion <strong>Linea Base de la Adiministración de Riesgos</strong> de la siguiente pagina: clic <a href="/mi_proyecto/{{proyecto.proyecto_id}}/planificar_respuestas/">aquí.</a>
+
+
+              </div>
+        </div>    
+      </div>
+    </section>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+{% block organigrama_down %}
+
+
+<script type="text/javascript">
+  /*
+   *  Corresponde a todos los riesgos del proyecto
+   *
+   */
+  var lista_riesgos = JSON.parse("{{lista_riesgos|escapejs}}");  
+  console.log(lista_riesgos)
+
+  /*
+   *  Corresponde a todo el conjunto de riesgos del proyecto 
+   *  junto con sus respuestas asociadas  
+   */
+  var respuestas_riesgo = JSON.parse("{{respuestas_riesgo|escapejs}}");  
+  console.log(respuestas_riesgo);
+
+  /*
+   * Es todo el conjunto de tareas asociadas a un riesgo determinado
+   */
+  var lista_tareas = JSON.parse("{{lista_tareas|escapejs}}");  
+  console.log(lista_tareas);
+  var j = jQuery.noConflict();
+window.jQuery = j;
+  {% if proyecto.proyecto_linea_base != 0 %}  
+   $(document).ready(function () {
+      var employees = [{ "EmployeeID": 1, "FirstName": "Nancy", "LastName": "Davolio", "ReportsTo": 2, "Country": "USA", "Title": "Sales Representative", "HireDate": "1992-05-01 00:00:00", "BirthDate": "1948-12-08 00:00:00", "City": "Seattle", "Address": "507 - 20th Ave. E.Apt. 2A" }, { "EmployeeID": 2, "FirstName": "Andrew", "LastName": "Fuller", "ReportsTo": null, "Country": "USA", "Title": "Vice President, Sales", "HireDate": "1992-08-14 00:00:00", "BirthDate": "1952-02-19 00:00:00", "City": "Tacoma", "Address": "908 W. Capital Way" }, { "EmployeeID": 3, "FirstName": "Janet", "LastName": "Leverling", "ReportsTo": 2, "Country": "USA", "Title": "Sales Representative", "HireDate": "1992-04-01 00:00:00", "BirthDate": "1963-08-30 00:00:00", "City": "Kirkland", "Address": "722 Moss Bay Blvd." }, { "EmployeeID": 4, "FirstName": "Margaret", "LastName": "Peacock", "ReportsTo": 2, "Country": "USA", "Title": "Sales Representative", "HireDate": "1993-05-03 00:00:00", "BirthDate": "1937-09-19 00:00:00", "City": "Redmond", "Address": "4110 Old Redmond Rd." }, { "EmployeeID": 5, "FirstName": "Steven", "LastName": "Buchanan", "ReportsTo": 2, "Country": "UK", "Title": "Sales Manager", "HireDate": "1993-10-17 00:00:00", "BirthDate": "1955-03-04 00:00:00", "City": "London", "Address": "14 Garrett Hill" }, { "EmployeeID": 6, "FirstName": "Michael", "LastName": "Suyama", "ReportsTo": 5, "Country": "UK", "Title": "Sales Representative", "HireDate": "1993-10-17 00:00:00", "BirthDate": "1963-07-02 00:00:00", "City": "London", "Address": "Coventry House Miner Rd." }, { "EmployeeID": 7, "FirstName": "Robert", "LastName": "King", "ReportsTo": 5, "Country": "UK", "Title": "Sales Representative", "HireDate": "1994-01-02 00:00:00", "BirthDate": "1960-05-29 00:00:00", "City": "London", "Address": "Edgeham Hollow Winchester Way" }, { "EmployeeID": 8, "FirstName": "Laura", "LastName": "Callahan", "ReportsTo": 2, "Country": "USA", "Title": "Inside Sales Coordinator", "HireDate": "1994-03-05 00:00:00", "BirthDate": "1958-01-09 00:00:00", "City": "Seattle", "Address": "4726 - 11th Ave. N.E." }, { "EmployeeID": 9, "FirstName": "Anne", "LastName": "Dodsworth", "ReportsTo": 5, "Country": "UK", "Title": "Sales Representative", "HireDate": "1994-11-15 00:00:00", "BirthDate": "1966-01-27 00:00:00", "City": "London", "Address": "7 Houndstooth Rd." }];
+      // prepare the data
+      var source =
+      {
+          dataType: "json",
+          dataFields: [
+              { name: 'EmployeeID', type: 'number' },
+              { name: 'ReportsTo', type: 'number' },
+              { name: 'FirstName', type: 'string' },
+              { name: 'LastName', type: 'string' },
+              { name: 'Country', type: 'string' },
+              { name: 'City', type: 'string' },
+              { name: 'Address', type: 'string' },
+              { name: 'Title', type: 'string' },
+              { name: 'HireDate', type: 'date' },
+              { name: 'BirthDate', type: 'date' }
+          ],
+          hierarchy:
+          {
+              keyDataField: { name: 'EmployeeID' },
+              parentDataField: { name: 'ReportsTo' }
+          },
+          id: 'EmployeeID',
+          localData: employees
+      };
+      var dataAdapter = new jqx.dataAdapter(source);
+      // create Tree Grid
+      $("#treegrid").jqxTreeGrid(
+      {
+          width: 500,
+          source: dataAdapter,
+          ready: function () {
+              $("#treegrid").jqxTreeGrid('expandRow', '2');
+          },
+          columns: [
+            { text: 'FirstName', dataField: 'FirstName', width: 150 },
+            { text: 'LastName', dataField: 'LastName', width: 150 },
+            { text: 'Title', dataField: 'Title', width: 200 }
+          ]
+      });
+    // Cell Begin Edit
+    $("#treegrid").on('cellBeginEdit', function (event) {
+        var args = event.args;
+        // row key
+        var rowKey = args.key;
+        // row's data.
+        var rowData = args.row;
+        // column's data field.
+        var columnDataField = args.dataField;
+        // column's display field.
+        var columnDisplayField = args.displayField;
+        // cell's value.
+        var value = args.value;
+        if (columnDataField == "ShippedDate")
+            value = dataAdapter.formatDate(value, 'dd/MM/yyyy');
+        $("#log").html("cellBeginEdit - Row ID: " + rowKey + ", Column: " + columnDataField + ", Value: " + value + "<br/>" + $("#log").html());
+     });
+            // Cell End Edit
+            $("#treegrid").on('cellEndEdit', function (event) {
+                var args = event.args;
+                // row key
+                var rowKey = args.key;
+                // row's data.
+                var rowData = args.row;
+                // column's data field.
+                var columnDataField = args.dataField;
+                // column's display field.
+                var columnDisplayField = args.displayField;
+                // cell's value.
+                var value = args.value;
+                if (columnDataField == "ShippedDate")
+                    value = dataAdapter.formatDate(value, 'dd/MM/yyyy');
+                $("#log").html("<br/>cellEndEdit - Row ID: " + rowKey + ", Column: " + columnDataField + ", Value: " + value + "<br/>" + $("#log").html());
+            });
+        });
+  //});
+  {% endif %}
+
+   function formatear_datos(){
+    let padre = 0;    
+    let cont = 1;
+    let data = [
+      {
+        id: cont, 
+        text: "{{ proyecto.proyecto_nombre }}", 
+        start_date: null, 
+        duration: null, 
+        parent:0, 
+        progress: 0, 
+        open: true,  
+        is_tarea:false,   
+        color:"#967769",     
+      }
+    ];
+    Object.keys(respuestas_riesgo).forEach(function(key) {
+      let riesgo_id = key.split("_")[1];
+      let riesgo = get_riesgo_by_id(riesgo_id);      
+      cont = cont + 1;
+      cont_riesgo = cont;      
+      cod_padres.push(cont_riesgo);
+      data.push({
+        id: cont, 
+        text: riesgo['riesgo_nombre'], 
+        start_date: null, 
+        duration: null, 
+        parent:1, 
+        progress: 0, 
+        open: true,
+        is_tarea:false,
+        color:"#E75A10",
+      });
+      let respuestas = respuestas_riesgo[key]
+      for(i in respuestas){
+        cont = cont + 1;
+        padre = cont; 
+        cod_padres.push(padre);
+        data.push({
+          id: cont, 
+          text: respuestas[i]['respuesta_nombre'], 
+          start_date: null, 
+          duration: null, 
+          parent:cont_riesgo, 
+          progress: 0, 
+          open: true,
+          is_tarea:false,
+          color:"#65B225",
+        });
+        let tareas = get_tareas_by_riesgo_and_respuesta(key, respuestas[i]);        
+        tareas = tareas.sort(function(a, b) {
+          f_1 = Date.parse(a.fecha_inicio)
+          f_2 = Date.parse(b.fecha_inicio)
+          return f_1 - f_2;
+        });
+        for(j in tareas){
+          cont = cont + 1;
+          data.push({
+            id: cont, 
+            text: tareas[j]['tarea_nombre'], 
+            start_date:tareas[j]['fecha_inicio_real'], 
+            duration: tareas[j]['duracion_real'], 
+            parent:padre, 
+            progress: 0, 
+            color:"#2585B2", 
+            duracion_planeada:tareas[j]['duracion'],
+            tarea_id:tareas[j]['tarea_id'],
+            fecha_inicio:tareas[j]['fecha_inicio'],
+            fecha_fin:tareas[j]['fecha_fin'],
+            fecha_inicio_real:tareas[j]['fecha_inicio_real'],
+            duracion_real:tareas[j]['duracion_real'],
+            fecha_fin_real:tareas[j]['fecha_fin_real'],
+            tarea_estado:tareas[j]['tarea_estado'],   
+            tarea_estado_old:tareas[j]['tarea_estado'],     
+            tarea_observacion:tareas[j]['tarea_observacion'],        
+            tipos:[
+              {name:'No iniciado', value:1},
+              {name:'Iniciado', value:2},
+              {name:'Completado', value:3}              
+            ],
+            is_tarea:true,
+            riesgo_id:parseInt(riesgo_id),
+          });
+        }
+      }      
+    });
+    return data;
+  }
+
+
+  function get_tareas_by_riesgo_and_respuesta(riesgo_key, respuesta){
+    let tareas = lista_tareas[riesgo_key]
+    let aux = [];
+    for(i in tareas){
+      if(tareas[i]['riesgo_has_respuesta'] == respuesta['riesgo_has_respuesta']){
+        aux.push(tareas[i]);
+      }
+    }
+    return aux;
+  }
+
+ 
+  function parsear_fecha(now){    
+    var day = now.getDate();
+    if(day <= 9){
+      day = '0' + day;
+    } 
+    var month = now.getMonth() + 1;
+    if(month <= 9){
+      month = '0' + month;
+    }
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+    return today;
+  }
+
+  function diferencia_fechas(date_1, date_2){
+    //var date_1 = new Date('2015-2-15');
+    //var date_2 = new Date('2015-3-13');
+    var day_as_milliseconds = 86400000;
+    var diff_in_millisenconds = date_2 - date_1;
+    var diff_in_days = diff_in_millisenconds / day_as_milliseconds;
+
+    return diff_in_days;
+  }
+
+  function get_riesgo_by_id(riesgo_id){
+    let riesgo = {};
+    for (var i = 0; i < lista_riesgos.length; i++) {
+      if(lista_riesgos[i]['riesgo_id'] == riesgo_id){
+        riesgo = lista_riesgos[i];
+        break;
+      }
+    }
+    return riesgo;
+  }
+
+  function calcular_porcentaje_atraso(duracion_planeada, duracion_real) {
+    console.log(duracion_planeada, duracion_real);
+    dife = duracion_real-duracion_planeada;
+    porc = (dife * 100) / duracion_planeada;
+    if (porc < 0){
+      porc = 0.0;
+    }
+    return porc;
+  } 
+        
+  function calcular_porcentaje_avance(estado, fecha_inicio_planeada, fecha_fin_planeada, duracion_planeada){
+    fecha_inicio = new Date(fecha_inicio_planeada);
+    fecha_fin = new Date(fecha_fin_planeada);
+    if (estado == 1){
+      return 0.0;
+    }else if (estado == 3){
+      return 100;
+    }
+    fecha_actual = new Date();
+    dife = diferencia_dias(fecha_actual,fecha_inicio);
+    avance = (dife*100)/duracion_planeada;
+    return avance.toFixed(2); 
+  }
+
+  function diferencia_dias(fecha1, fecha2){
+    let resta = fecha2.getTime() - fecha1.getTime();
+    return Math.round(resta/(1000*60*60*24));
+  }
+
+  function get_recursos_by_tarea_id_and_riesgo_id(tarea_id, riesgo_id){
+    let key = "riesgo_"+riesgo_id;
+    let recursos = [];
+    if(lista_tareas.hasOwnProperty(key)){
+      tareas = lista_tareas[key];
+      for (let i = 0; i < tareas.length; i++) {
+        if(tareas[i]['tarea_id'] == tarea_id){
+          recursos = tareas[i]['recursos'];
+          break;
+        }
+      }
+    }
+    return recursos;
+  }
+
+  function parsear_recursos_ul(recursos){
+    let ul = document.createElement('ul');
+    if(recursos.length > 0){
+      for (let i = 0; i < recursos.length; i++) {
+        let contenido = recursos[i]['recurso_nombre'] + '  x  '+recursos[i]['cantidad'];
+        let li = document.createElement('li');
+        li.append(document.createTextNode(contenido));
+        ul.append(li);
+      }
+    }else{
+      let contenido = "Sin recursos";
+      let li = document.createElement('li');
+      li.append(document.createTextNode(contenido));
+      ul.append(li);
+    }
+    return ul;
+  }
+
+  function get_estado(valor) {
+    if(valor == 1){
+      return 'No iniciado';
+    }else if(valor == 2){
+      return 'Iniciado';
+    }else if(valor == 3){
+      return 'Completado';
+    }else{
+      return 'Retrasado';
+    }      
+  }
+
+  function confirmar_cambios() {
+   $.ajax({
+      url: "/mi_proyecto/{{proyecto.proyecto_id}}/actualizar_gantt/",
+      type: 'POST',
+      headers: {'X-CSRFToken': csrftoken},
+      data: {'gantt':JSON.stringify(gantt.serialize())},      
+      success: function(data) {
+        //alert("Registro exitoso "+data);
+        location.reload();
+        //mi_proyecto/{{proyecto.proyecto_id}}/controlar_riesgos/";
+      }, error: function (jqXhr, textStatus, errorMessage) {
+        console.log("Fallo Registro " + textStatus + errorMessage);
+        location.reload();
+        //window.location.href = "/mi_proyecto/{{proyecto.proyecto_id}}/controlar_riesgos/";
+      }
+  });
+}
+  
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+</script>
+{% endblock %}
