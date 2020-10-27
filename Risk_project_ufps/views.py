@@ -604,8 +604,8 @@ def editar_rol(request):
     lista_roles = rol_controller.listar_roles(gerente)
     if request.method == 'POST':
         rol = rol_controller.get_rol_by_id(request.POST['rol_id'])
-        rol_editado = rol_controller.editar_rol(rol, request.POST['rol_nombre'], request.POST['rol_descripcion'])
-        if rol_editado == None:
+        rol_editado = rol_controller.editar_rol(rol, request.POST['rol_nombre'], request.POST['rol_descripcion'])        
+        if rol_editado == None: 
             mensaje_editar = "No se pudo actualizar la información del rol."
             return render(request, "roles_equipo.html", {"mensaje_error": mensaje_editar, "lista_roles": lista_roles})
         mensaje_editar = "Se actualizo la información del rol exitosamente."

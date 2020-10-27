@@ -12,7 +12,7 @@ class RolController:
 		return rol_dao.listar_roles(gerente)
 
 	def editar_rol(self, rol, nombre, descripcion):
-		rol_dao = RolDao()
+		rol_dao = RolDao() 
 		return rol_dao.editar_rol(rol, nombre, descripcion)
 	
 	def get_rol_by_id(self, rol_id):

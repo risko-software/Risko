@@ -29,12 +29,12 @@ class RolDao:
         rol = rol
         try:
             rol.rol_nombre = nombre
-            rol.rol_descripcion = limpiar_descripcion(descripcion),
+            rol.rol_descripcion = limpiar_descripcion(descripcion)
             rol.save()
         except Exception as e:
             print(e)
         finally:
-            return rol
+            return rol 
 
     def get_rol_by_id(self, rol_id):
         rol = None
