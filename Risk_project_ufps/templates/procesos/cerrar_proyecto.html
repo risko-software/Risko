@@ -166,7 +166,7 @@
       <h4><i class="icon fa fa-info"></i>Atencion !</h4>
           No puede cerrar el proyecto hasta que haya definido una <strong> linea Base de la Adiministración de Riesgos</strong><br><br>
           Para crear una nueva linea base a su proyecto por favor dirigirse a la siguiente pagina: clic 
-          <a href="/mi_proyecto/{{proyecto.proyecto_id}}/planificar_respuestas/">aquí.</a>
+          <a href="{% url 'planificar_respuestas' proyecto.proyecto_id %}">aquí.</a>
     </div>    
   </div>
   
@@ -185,7 +185,7 @@
           <h4 class="modal-title">Agregar Lección Aprendida al Proyecto</h4>
         </div>
         <div class="box-body">
-         <form  action="/mi_proyecto/{{ proyecto.proyecto_id }}/registrar_leccion/" method="post">
+         <form  action="{% url 'registrar_leccion' proyecto.proyecto_id %}" method="post">
           {% csrf_token %}
           <div class="row">
           
@@ -224,7 +224,7 @@
           <span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title"> Eliminar Lección Aprendida </h4>
         </div>
-        <form  action="/mi_proyecto/{{ proyecto.proyecto_id }}/eliminar_leccion/" method="post">
+        <form  action="{% url 'eliminar_leccion' proyecto.proyecto_id %}" method="post">
           {% csrf_token %}
           <div class="modal-body">
 
@@ -252,7 +252,7 @@
           <span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title"><i class="fa fa-warning"></i> Finalizar Proyecto {{ proyecto.proyecto_nombre }} </h4>
         </div>
-        <form  action="/mi_proyecto/{{ proyecto.proyecto_id }}/cerrar_proyecto/" method="post">
+        <form  action="{% url 'cerrar_proyecto' proyecto.proyecto_id %}" method="post">
           {% csrf_token %}
           <div class="modal-body" style="overflow-y: scroll; width:100%; height:50vh;">
 
@@ -313,7 +313,7 @@
           <h4 class="modal-title">Editar Lección Aprendida</h4>
         </div>
         <div class="box-body">
-         <form  action="/mi_proyecto/{{ proyecto.proyecto_id }}/editar_leccion/" method="post">
+         <form  action="{% url 'editar_leccion' proyecto.proyecto_id %}" method="post">
           {% csrf_token %}
           <div class="row">
           
