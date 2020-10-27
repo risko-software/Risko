@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'nk8@)vil_l(_guo+$=!=*@59zl5$=h7w6z^hvdc03j&v@rgdzp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ['MODE_DEBUG'] == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -78,37 +78,37 @@ WSGI_APPLICATION = 'Risk_project.wsgi.application'
 
 DATABASES = {
     'default': {
-          'ENGINE': 'django.db.backends.mysql',
-           'OPTIONS': {
-            'sql_mode': 'STRICT_TRANS_TABLES',
+          'ENGINE':'django.db.backends.mysql',
+           'OPTIONS':{
+            'sql_mode':'STRICT_TRANS_TABLES',
             },
-           'NAME': 'riesgos_users',
-           'USER': 'root',
-           'PASSWORD': '',
-           'HOST': 'localhost',
-           'PORT': '3306',
+           'NAME':os.environ['DEFAULT_NAME'],
+           'USER':os.environ['DEFAULT_USER'],
+           'PASSWORD':os.environ['DEFAULT_PASSWORD'],
+           'HOST':os.environ['DEFAULT_HOST'],
+           'PORT':os.environ['DEFAULT_PORT'],
     },
     'riesgos': {
-            'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {
-            'sql_mode': 'STRICT_ALL_TABLES',
+            'ENGINE':'django.db.backends.mysql',
+            'OPTIONS':{
+            'sql_mode':'STRICT_ALL_TABLES',
             },
-            'NAME': 'riesgos_bd',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': 'localhost',
-            'PORT': '3306',
+            'NAME':os.environ['RIESGOS_NAME'],
+            'USER':os.environ['RIESGOS_USER'],
+            'PASSWORD':os.environ['RIESGOS_PASSWORD'],
+            'HOST':os.environ['RIESGOS_HOST'],
+            'PORT':os.environ['RIESGOS_PORT'],
     },
     'base': {
-            'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {
-            'sql_mode': 'STRICT_ALL_TABLES',
+            'ENGINE':'django.db.backends.mysql',
+            'OPTIONS':{
+            'sql_mode':'STRICT_ALL_TABLES',
             },
-            'NAME': 'riesgos_base',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': 'localhost',
-            'PORT': '3306',
+            'NAME':os.environ['BASE_NAME'],
+            'USER':os.environ['BASE_USER'],
+            'PASSWORD':os.environ['BASE_PASSWORD'],
+            'HOST':os.environ['BASE_HOST'],
+            'PORT':os.environ['BASE_PORT'],
     },
 }
 
@@ -154,18 +154,36 @@ USE_L10N = True
 USE_TZ = False
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-file
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    # '/static'
+]
+
+STATIC_ROOT = '/risko/static' #os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/risko/static/'
+
+"""STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = [
+    BASE_DIR + "static",
+    'Risk_project_ufps/static/',
+]"""
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/risko/inicio/'
 LOGOUT_REDIRECT_URL = '/risko/accounts/login/'
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'riskprojectufps@gmail.com'
-EMAIL_HOST_PASSWORD = 'RWj3fn@C8'
+EMAIL_USE_TLS=True
+EMAIL_HOST=os.environ['EMAIL_HOST'] 
+EMAIL_PORT=os.environ['EMAIL_PORT']
+EMAIL_HOST_USER=os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD =os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

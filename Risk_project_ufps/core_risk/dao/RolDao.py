@@ -28,7 +28,7 @@ class RolDao:
     def editar_rol(self, rol, nombre, descripcion):
         rol = rol
         try:
-            rol.rol_nombre = nombre
+            rol.rol_nombre = limpiar_descripcion(nombre)
             rol.rol_descripcion = limpiar_descripcion(descripcion)
             rol.save()
         except Exception as e:
