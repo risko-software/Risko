@@ -30,31 +30,31 @@ def _static_butler(request, path, **kwargs):
     return serve_static(request, path, insecure=True, **kwargs)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include("Risk_project_ufps.urls")),
-    path('reset/password_reset', 
+    path('risko/admin/', admin.site.urls),
+    path('risko/', include("Risk_project_ufps.urls")),
+    path('risko/reset/password_reset', 
     	PasswordResetView.as_view(
     		template_name='registration/password_reset_formf.html', 
     		email_template_name='registration/password_reset_emailf.html'), 
     	name="password_reset"
     	),
-    path('reset/password_reset_done', 
+    path('risko/reset/password_reset_done', 
     	PasswordResetDoneView.as_view(
     		template_name='registration/password_reset_donef.html'), 
     	name = 'password_reset_done'
     	),
-    re_path(r'^reset/(?P<uidb64>[0-9A-za-z_\-]+)/(?P<token>.+)/$', 
+    re_path(r'^risko/reset/(?P<uidb64>[0-9A-za-z_\-]+)/(?P<token>.+)/$', 
     	PasswordResetConfirmView.as_view(
     		template_name='registration/password_reset_confirmf.html'), 
     	name = 'password_reset_confirm'
     	),
-    path('reset/done',
+    path('risko/reset/done',
     	PasswordResetCompleteView.as_view(
     		template_name='registration/password_reset_completef.html'
     	), 
     	name = 'password_reset_complete'
     	),
-    re_path(r'static/(.+)', _static_butler),
+    re_path(r'risko/static/(.+)', _static_butler),
 ]
 
 

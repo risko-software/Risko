@@ -111,7 +111,7 @@
             <h4 class="modal-title">Editar Riesgo</h4>
           </div>
           <div class="box-body">
-           <form  action="/editar_riesgo/" method="post">
+           <form  action="/risko/editar_riesgo/" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">
@@ -183,7 +183,7 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"> Eliminar </h4>
           </div>
-          <form  action="/eliminar_riesgo/" method="post">
+          <form  action="/risko/eliminar_riesgo/" method="post">
             {% csrf_token %}
           <div class="modal-body">
             <p id="contenido_modal">&hellip;</p>

@@ -6,6 +6,7 @@ COPY . /code
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+ENV MODE_DEBUG=False
 
 ENV DEFAULT_NAME=""
 ENV DEFAULT_USER=""
@@ -32,6 +33,9 @@ ENV EMAIL_HOST=""
 ENV EMAIL_PORT=""
 ENV EMAIL_HOST_USER=""
 ENV EMAIL_HOST_PASSWORD=""
+
+RUN mkdir /var/log/risko_log
+VOLUME /var/log/risko_log
 
 EXPOSE 8080
 

@@ -122,7 +122,7 @@
         <div class="pad margin no-print">
           <div class="callout callout-info" style="margin-bottom: 0!important;">
             <h4>Nota:</h4>
-            Hasta el momento no puede agregar proyectos porque no cuenta con una EDR definida. Por favor, configure su EDR <a href="/mi_rbs/">aquí.</a>
+            Hasta el momento no puede agregar proyectos porque no cuenta con una EDR definida. Por favor, configure su EDR <a href="/risko/mi_rbs/">aquí.</a>
           </div>
         </div>
         {% endif %} 
@@ -206,7 +206,7 @@ $("#form_proyecto").submit(function(e) {
                 'el proyecto se ha registrado',
                 'success'
               ).then(function () {
-                window.location.href = "/nuevoproyecto/";
+                window.location.href = "/risko/nuevoproyecto/";
               });                
             }, error: function (jqXhr, textStatus, errorMessage) {
               console.log(errorMessage);
@@ -215,7 +215,7 @@ $("#form_proyecto").submit(function(e) {
                 title: 'Oops...',
                 text: '¡ No se pudo registrar el proyecto !',             
               }).then(function () {
-                window.location.href = "/nuevoproyecto/";
+                window.location.href = "/risko/nuevoproyecto/";
               });
             }
         });

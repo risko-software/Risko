@@ -315,7 +315,7 @@
     $.ajax({
       type: 'GET',
 
-      url: "/rbs/listar/",      
+      url: "/risko/rbs/listar/",      
 
       contentType: 'application/json',
       dataType: 'json',
@@ -730,7 +730,7 @@
   function confirmar_cambios(){
     $.ajax({
       type: 'POST',
-      url: "/rbs/confirmar_cambios/",
+      url: "/risko/rbs/confirmar_cambios/",
       headers: {'X-CSRFToken': csrftoken},
       data:{'acciones':  JSON.stringify(acciones)},
       success: function (data, status, xhr) {              

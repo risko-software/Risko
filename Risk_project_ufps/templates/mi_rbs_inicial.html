@@ -131,16 +131,16 @@
     if(radioValue){
       $.ajax({
         type: 'POST',
-        url: "/rbs/configurar/",    
+        url: "/risko/rbs/configurar/",    
         headers: {'X-CSRFToken': csrftoken},      
         data: {"rbs_option":radioValue},
         success: function(data, status, xhr) {
-          window.location.href = "/mi_rbs/"
+          window.location.href = "/risko/mi_rbs/"
            console.log(xhr);
         },
         error: function(jqXhr, textStatus, errorMessage) {
           alert("ha ocurrido un error");
-          window.location.href = "/mi_rbs/";
+          window.location.href = "/risko/mi_rbs/";
           console.log(errorMessage);
         }
       });
