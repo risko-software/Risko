@@ -1100,7 +1100,7 @@ function asosiar_riesgos(proyecto_id){
   }
   $.ajax({
     type: 'POST',
-    url: "{% url 'asociar_riesgo' "+proyecto_id+" %}",   
+    url: "{% url 'asociar_riesgo' proyecto.proyecto_id %}",   
     headers: {'X-CSRFToken': csrftoken},   
     //contentType:'json',   
     data: {"riesgos_seleccionados":JSON.stringify(aux), "riesgos_sugeridos": JSON.stringify(aux_sugeridos)},
