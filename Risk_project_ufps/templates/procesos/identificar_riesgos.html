@@ -60,7 +60,7 @@
                   <div class="box-body">
                     Este proceso permite identificar los riesgos individuales y generales del proyecto para documentar sus características y las fuentes de riesgo que los generan. También, establece un punto en común donde el equipo del proyecto puede acudir para atender adecuadamente a los riesgos identificados. A continuación podras descargar un informe del proceso identificar riesgos actualizado.
                   </br>
-                   <a class="btn btn-primary  pull-right" href="/mi_proyecto/{{ proyecto.proyecto_id }}/generar_informe/">Generar informe</a>
+                   <a class="btn btn-primary  pull-right" href="{% url 'generar_informe_identificar' proyecto.proyecto_id %}">Generar informe</a>
                  </div>
                </div>
              </div>
@@ -453,7 +453,7 @@
         </div>
         <div class="chart tab-pane" id="nueva-respuesta" style="position: relative; height: 300px;">
          <div class="box-body">
-          <form action="/proyecto/{{ proyecto.proyecto_id }}/nueva_respuesta_identificar/" method="post">
+          <form action="{% url 'nueva_respuesta_identificar' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">
@@ -579,7 +579,7 @@
         </div>
         <div class="chart tab-pane" id="nueva-actividad" style="position: relative; height: 300px;">
          <div class="box-body">
-          <form action="/proyecto/{{ proyecto.proyecto_id }}/actividad_riesgo/" method="post">
+          <form action="{% url 'nueva_actividad_riesgo' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-12">
@@ -658,7 +658,7 @@
         </div>
         <div class="chart tab-pane" id="nuevo-responsable" style="position: relative; height: 300px;">
          <div class="box-body">
-          <form action="/proyecto/{{ proyecto.proyecto_id }}/responsable_riesgo/" method="post">
+          <form action="{% url 'nuevo_responsable_riesgo' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-12">
@@ -674,7 +674,7 @@
                      {% endfor %}
                      {% else %}
                      <div class="alert alert-info alert-dismissible"><h4><i class="icon fa fa-info"></i>  Atencion</h4> Hasta el momento este proyecto no cuenta con un equipo de gestion de riesgos para poder asignar reponsables<br/></br> Si usted lo desea, puede definir su equipo de gestion de riesgos dando clic 
-                  <a href="/mi_proyecto/{{proyecto.proyecto_id}}/planificar/">aqui</a></div>
+                  <a href="{% url 'mi_proyecto_planificar' proyecto.proyecto_id %}">aqui</a></div>
                      {% endif %} 
                    </select>
                  </div>
@@ -774,7 +774,7 @@
           </div>
           <div class="box-body">
           {% if proyecto %}
-          <form action="/proyecto/{{ proyecto.proyecto_id }}/editar_riesgo/" method="post">
+          <form action="{% url 'editar_riesgo_proyecto' proyecto.proyecto_id %}" method="post">
           {% else %}  
           <form action="#" method="post">
           {% endif %}
@@ -846,7 +846,7 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"> Eliminar </h4>
           </div>
-          <form  action="/proyecto/{{ proyecto.proyecto_id }}/eliminar_riesgo/" method="post">
+          <form  action="{% url 'eliminar_riesgo_proyecto' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
           <div class="modal-body">
             <p id="contenido_modal">&hellip;</p>
@@ -872,7 +872,7 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"> Eliminar </h4>
           </div>
-          <form  action="/proyecto/{{ proyecto.proyecto_id }}/eliminar_responsable_riesgo/" method="post">
+          <form  action="{% url 'eliminar_responsable_riesgo' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
           <div class="modal-body">
             <p id="contenido_modal_re">&hellip;</p>
@@ -899,7 +899,7 @@
           <span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title"> Eliminar </h4>
         </div>
-        <form  action="/proyecto/{{ proyecto.proyecto_id }}/eliminar_actividad_proyecto/" method="post">
+        <form  action="{% url 'eliminar_actividad_proyecto' proyecto.proyecto_id %}" method="post">
           {% csrf_token %}
           <div class="modal-body">
             <p id="contenido_modal_actividad">&hellip;</p>
@@ -927,7 +927,7 @@
           <span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title"> Eliminar </h4>
         </div>
-        <form  action="/mi_proyecto/{{ proyecto.proyecto_id }}/desasociar_respuesta_identificar/" method="post">
+        <form  action="{% url 'desasociar_respuesta_identificar' proyecto.proyecto_id %}" method="post">
           {% csrf_token %}
           <div class="modal-body">
             <p id="contenido_modal_actividad">&hellip;</p>
@@ -1100,7 +1100,7 @@ function asosiar_riesgos(proyecto_id){
   }
   $.ajax({
     type: 'POST',
-    url: "/mi_proyecto/"+proyecto_id+"/identificar/asociar_riesgo/",   
+    url: "{% url 'asociar_riesgo' "+proyecto_id+" %}",   
     headers: {'X-CSRFToken': csrftoken},   
     //contentType:'json',   
     data: {"riesgos_seleccionados":JSON.stringify(aux), "riesgos_sugeridos": JSON.stringify(aux_sugeridos)},
@@ -1298,7 +1298,7 @@ function asosiar_riesgos(proyecto_id){
         console.log(riesgo_content);
        $.ajax({
           type: 'POST',
-          url: "/proyecto/riesgo/insertar/",    
+          url: "{% url 'insertar_riesgo_proyecto' %}",    
           headers: {'X-CSRFToken': csrftoken},      
           data: riesgo_content,
           success: function(data, status, xhr) {
@@ -1319,8 +1319,8 @@ function asosiar_riesgos(proyecto_id){
   
   if(data.length == 0 || contar_subcategorias() == 0){
     body_nuevo_riesgo = document.getElementById('body_nuevo_riesgo');
-    body_nuevo_riesgo.innerHTML = '';
-    let str = '<div class="alert alert-info alert-dismissible"><h4><i class="icon fa fa-info"></i>  Atencion</h4> Hasta el momento usted no cuenta con subcategorias para asignar riesgos<br/>Para definir nuevas subcategorias dale clic <a href="/mi_rbs/">aqui</a></div>';
+    body_nuevo_riesgo.innerHTML = ''; 
+    let str = '<div class="alert alert-info alert-dismissible"><h4><i class="icon fa fa-info"></i>  Atencion</h4> Hasta el momento usted no cuenta con subcategorias para asignar riesgos<br/>Para definir nuevas subcategorias dale clic <a href="'+"{% url 'mi_rbs'  %}"+'>aqui</a></div>';
       let html = $.parseHTML(str);
       $(body_nuevo_riesgo).append(html);
   }
@@ -1358,7 +1358,7 @@ function construir_listado_actividades() {
     div_actividades.appendChild(select_actividades);
   }else{
     div_actividades.innerHTML = '';
-    let str = '<div class="alert alert-info alert-dismissible"><h4><i class="icon fa fa-info"></i>  Atencion</h4> Hasta el momento este proyecto no cuenta con actividades del cronograma<br/> Si usted lo desea, puede subir las actividades dando clic <a href="/mi_proyecto/{{proyecto.proyecto_id}}/">aqui</a></div>';
+    let str = '<div class="alert alert-info alert-dismissible"><h4><i class="icon fa fa-info"></i>  Atencion</h4> Hasta el momento este proyecto no cuenta con actividades del cronograma<br/> Si usted lo desea, puede subir las actividades dando clic <a href="'+"{% url 'mi_proyecto' proyecto.proyecto_id %}"+'">aqui</a></div>';
       let html = $.parseHTML(str);
       $(div_actividades).append(html); 
       let bbb = document.getElementById("btn_agregar_actividad");

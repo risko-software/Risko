@@ -42,7 +42,7 @@ urlpatterns = [
     path('mi_proyecto/<int:id>/', mi_proyecto, name='mi_proyecto'),
     path('mi_proyecto/eliminar_proyecto/', eliminar_proyecto, name='eliminar_proyecto'),      
 
-    path('mi_proyecto/<int:proyecto_id>/planificar/', planificar_proyecto, name='mi_proyecto'),
+    path('mi_proyecto/<int:proyecto_id>/planificar/', planificar_proyecto, name='mi_proyecto_planificar'),
     path('mi_proyecto/<int:proyecto_id>/planificar/<str:mensaje>/', planificar_proyecto_2, name='planificar_proyecto_2'),
 
     path('mi_proyecto/registrar_responsable/', registrar_responsable, name='registrar_responsable'),    
@@ -50,7 +50,7 @@ urlpatterns = [
     path('mi_proyecto/eliminar_responsable/', eliminar_responsable, name='eliminar_responsable'),
     
     path('mi_proyecto/<int:proyecto_id>/identificar/', identificar_proyecto, name='identificar'),
-    path('proyecto/riesgo/insertar/', registrar_riesgo_proyecto, name='mi_proyecto'),
+    path('proyecto/riesgo/insertar/', registrar_riesgo_proyecto, name='insertar_riesgo_proyecto'),
     path('proyecto/<int:proyecto_id>/eliminar_riesgo/', eliminar_riesgo_proyecto, name='eliminar_riesgo_proyecto'),
     path('proyecto/<int:proyecto_id>/nueva_respuesta/', proyecto_nueva_respuesta, name='proyecto_nueva_respuesta'),
     path('proyecto/<int:proyecto_id>/responsable_riesgo/', nuevo_responsable_riesgo, name='nuevo_responsable_riesgo'),
