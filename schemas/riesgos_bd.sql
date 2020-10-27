@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `riesgos_bd`
+-- Base de datos: `db02student1151381`
 --
 
 -- --------------------------------------------------------
@@ -35,45 +35,45 @@ BEGIN
 ####################################################################
 ##########################
 UPDATE 
-  `riesgos_bd`.`gerente` g
+  `db02student1151381`.`gerente` g
 SET 
   g.`proyecto_linea_base` = var_linea_base
 WHERE 
   g.`gerente_id` = var_gerente_id;
 ##########################
 UPDATE 
-  `riesgos_bd`.`proyecto` p 
+  `db02student1151381`.`proyecto` p 
 SET 
   p.`proyecto_linea_base`= var_linea_base
 WHERE 
   p.`proyecto_id` = var_proyecto_id;
 ##########################
 UPDATE 
-  `riesgos_bd`.`actividad` a 
+  `db02student1151381`.`actividad` a 
 SET 
   a.`proyecto_linea_base` = var_linea_base
 WHERE
   a.`proyecto_id` = var_proyecto_id;
 ##########################
 UPDATE 
-  `riesgos_bd`.`rbs` r 
+  `db02student1151381`.`rbs` r 
 SET 
   r.`proyecto_linea_base` = var_linea_base 
 WHERE 
   r.`gerente_id` = var_gerente_id;
 ##########################
 UPDATE 
-  `riesgos_bd`.`categoria` c 
+  `db02student1151381`.`categoria` c 
 INNER JOIN 
-  `riesgos_bd`.`sub_categoria` sc 
+  `db02student1151381`.`sub_categoria` sc 
 ON 
   c.`categoria_id` = sc.`categoria_id` 
 INNER JOIN 
-  `riesgos_bd`.`riesgo` r 
+  `db02student1151381`.`riesgo` r 
 ON 
   sc.`sub_categoria_id` = r.`sub_categoria_id` 
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr 
+  `db02student1151381`.`proyecto_has_riesgo` phr 
 ON 
   r.`riesgo_id` = phr.`riesgo_id` 
 SET 
@@ -82,13 +82,13 @@ WHERE
   phr.`proyecto_id` = var_proyecto_id;
 ##################################
 UPDATE 
-  `riesgos_bd`.`sub_categoria` sc
+  `db02student1151381`.`sub_categoria` sc
 INNER JOIN 
-  `riesgos_bd`.`riesgo` r
+  `db02student1151381`.`riesgo` r
 ON 
   sc.`sub_categoria_id` = r.`sub_categoria_id`
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   r.`riesgo_id` = phr.`riesgo_id`
 SET 
@@ -97,37 +97,37 @@ WHERE
     phr.`proyecto_id` = var_proyecto_id;
 ###################################
 UPDATE 
-  `riesgos_bd`.`clasificacion_riesgo` cr
+  `db02student1151381`.`clasificacion_riesgo` cr
 SET 
   cr.`proyecto_linea_base` = var_linea_base
 WHERE
   cr.`proyecto_id` = var_proyecto_id;
 ##################################
 UPDATE 
-  `riesgos_bd`.`impacto` i
+  `db02student1151381`.`impacto` i
 SET 
   i.`proyecto_linea_base` = var_linea_base 
 WHERE
   i.`proyecto_id` = var_proyecto_id;
 ##################################
 UPDATE 
-  `riesgos_bd`.`propabilidad` p
+  `db02student1151381`.`propabilidad` p
 SET 
   p.`proyecto_linea_base` = var_linea_base
 WHERE 
   p.`proyecto_id` = var_proyecto_id;
 ##################################
 UPDATE 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 SET 
   phr.`proyecto_linea_base` = var_linea_base 
 WHERE 
   phr.`proyecto_id` = var_proyecto_id;
 ##################################
 UPDATE 
-  `riesgos_bd`.`proyecto_has_riesgo_actividad` phra 
+  `db02student1151381`.`proyecto_has_riesgo_actividad` phra 
 INNER JOIN
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   phra.`proyecto_has_riesgo_id` = phr.`proyecto_has_riesgo_id`
 SET 
@@ -136,23 +136,23 @@ WHERE
     phr.`proyecto_id` = var_proyecto_id;
 ###################################
 UPDATE 
-  `riesgos_bd`.`tipo_recurso` tr
+  `db02student1151381`.`tipo_recurso` tr
 SET 
   tr.`proyecto_linea_base` = var_linea_base 
 WHERE 
   tr.`gerente_id` = var_gerente_id;
 ###################################
 UPDATE 
-  `riesgos_bd`.`recurso` r 
+  `db02student1151381`.`recurso` r 
 SET 
   r.`proyecto_linea_base` = var_linea_base
 WHERE
   r.`proyecto_id` = var_proyecto_id;
 ###################################
 UPDATE 
-  `riesgos_bd`.`riesgo` r
+  `db02student1151381`.`riesgo` r
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   r.`riesgo_id` = phr.`riesgo_id`
 SET 
@@ -161,17 +161,17 @@ WHERE
     phr.`proyecto_id` = var_proyecto_id;
 ###################################
 UPDATE 
-  `riesgos_bd`.`respuesta` rta 
+  `db02student1151381`.`respuesta` rta 
 INNER JOIN 
-  `riesgos_bd`.`riesgo_has_respuesta` rhr
+  `db02student1151381`.`riesgo_has_respuesta` rhr
 ON
   rta.`respuesta_id` = rhr.`respuesta_id`
 INNER JOIN
-  `riesgos_bd`.`riesgo` r
+  `db02student1151381`.`riesgo` r
 ON 
   rhr.`riesgo_id` = r.`riesgo_id`
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   r.`riesgo_id` = phr.`riesgo_id`
 SET 
@@ -180,13 +180,13 @@ WHERE
     phr.`proyecto_id` = var_proyecto_id;
 ###################################
 UPDATE 
-  `riesgos_bd`.`riesgo_has_respuesta` rhr
+  `db02student1151381`.`riesgo_has_respuesta` rhr
 INNER JOIN 
-  `riesgos_bd`.`riesgo` r
+  `db02student1151381`.`riesgo` r
 ON
   rhr.`riesgo_id` = r.`riesgo_id`
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   r.`riesgo_id` = phr.`riesgo_id`
 SET 
@@ -195,9 +195,9 @@ WHERE
     phr.`proyecto_id` = var_proyecto_id;
 #####################################
 UPDATE 
-  `riesgos_bd`.`proyecto_has_riesgo_respuesta` phrr
+  `db02student1151381`.`proyecto_has_riesgo_respuesta` phrr
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   phrr.`proyecto_has_id` = phr.`proyecto_has_riesgo_id`
 SET 
@@ -206,29 +206,29 @@ WHERE
     phr.`proyecto_id` = var_proyecto_id;
 #######################################
 UPDATE 
-  `riesgos_bd`.`responsble`r
+  `db02student1151381`.`responsble`r
 SET 
   r.`proyecto_linea_base` = var_linea_base
 WHERE
     r.`proyecto_id` = var_proyecto_id;
 #######################################
 UPDATE 
-  `riesgos_bd`.`rol` r
+  `db02student1151381`.`rol` r
 SET
   r.`proyecto_linea_base` = var_linea_base
 WHERE
     r.`gerente_id` = var_gerente_id;
 #######################################
 UPDATE 
-  `riesgos_bd`.`tarea` t
+  `db02student1151381`.`tarea` t
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo_respuesta` pr
+  `db02student1151381`.`proyecto_has_riesgo_respuesta` pr
 ON 
   t.`proyecto_has_riesgo_id` = pr.`proyecto_has_id`
 AND 
   t.`riesgo_has_respuesta_id` = pr.`respuesta_has_id`
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` rp 
+  `db02student1151381`.`proyecto_has_riesgo` rp 
 ON 
   pr.`proyecto_has_id` = rp.`proyecto_has_riesgo_id`
 SET
@@ -237,9 +237,9 @@ WHERE
   rp.`proyecto_id` = var_proyecto_id;
 #######################################
 UPDATE 
-  `riesgos_bd`.`tarea_has_recurso` thr
+  `db02student1151381`.`tarea_has_recurso` thr
 INNER JOIN 
-  `riesgos_bd`.`recurso` r
+  `db02student1151381`.`recurso` r
 ON 
   thr.`recurso_id` = r.`recurso_id`
 SET
@@ -253,7 +253,7 @@ WHERE
 ## LUEGO COPIO TODO DE LA TABLA 'riesgos_bd' A 'riesgos_base'
 ####################################################################
 ############################################
-INSERT INTO `riesgos_base`.`gerente`(
+INSERT INTO `db03student1151381`.`gerente`(
     `gerente_id`,
     `proyecto_linea_base`,
     `gerente_nombre`,
@@ -283,11 +283,11 @@ SELECT
     `pais_id`,
    var_proyecto_id
 FROM 
-  `riesgos_bd`.`gerente`
+  `db02student1151381`.`gerente`
 WHERE 
-  `riesgos_bd`.`gerente`.`gerente_id` = var_gerente_id;
+  `db02student1151381`.`gerente`.`gerente_id` = var_gerente_id;
 #############################################
-INSERT INTO `riesgos_base`.`proyecto`(
+INSERT INTO `db03student1151381`.`proyecto`(
     `proyecto_id`,
     `proyecto_nombre`,
     `proyecto_objetivo`,
@@ -321,11 +321,11 @@ SELECT
     `sector_id`,
     `proyecto_linea_base`
 FROM
-    `riesgos_bd`.`proyecto`
+    `db02student1151381`.`proyecto`
 WHERE
-    `riesgos_bd`.`proyecto`.`proyecto_id` = var_proyecto_id;
+    `db02student1151381`.`proyecto`.`proyecto_id` = var_proyecto_id;
 ############################################
-INSERT INTO `riesgos_base`.`actividad`(
+INSERT INTO `db03student1151381`.`actividad`(
     `actividad_id`,
     `actividad_orden`,
     `actividad_uuid`,
@@ -345,11 +345,11 @@ SELECT
     `proyecto_id`,
     `proyecto_linea_base`
 FROM
-    `riesgos_bd`.`actividad`
+    `db02student1151381`.`actividad`
 WHERE
-    `riesgos_bd`.`actividad`.`proyecto_id` = var_proyecto_id;
+    `db02student1151381`.`actividad`.`proyecto_id` = var_proyecto_id;
 ##############################################
-INSERT INTO `riesgos_base`.`rbs`(
+INSERT INTO `db03student1151381`.`rbs`(
     `rbs_id`,
     `rbs_default`,
     `gerente_id`,
@@ -363,11 +363,11 @@ SELECT
     `proyecto_linea_base`,
    var_proyecto_id
 FROM
-    `riesgos_bd`.`rbs`
+    `db02student1151381`.`rbs`
 WHERE
-    `riesgos_bd`.`rbs`.`gerente_id` = var_gerente_id;
+    `db02student1151381`.`rbs`.`gerente_id` = var_gerente_id;
 ############################################
-INSERT INTO `riesgos_base`.`categoria`(
+INSERT INTO `db03student1151381`.`categoria`(
     `categoria_id`,
     `categoria_nombre`,
     `categoria_descripcion`,
@@ -387,23 +387,23 @@ SELECT DISTINCT
     c.`proyecto_linea_base`,
   var_proyecto_id
 FROM
-    `riesgos_bd`.`categoria` c
+    `db02student1151381`.`categoria` c
 INNER JOIN
-  `riesgos_bd`.`sub_categoria` sc
+  `db02student1151381`.`sub_categoria` sc
 ON
   c.`categoria_id` = sc.`categoria_id`
 INNER JOIN 
-  `riesgos_bd`.`riesgo` r
+  `db02student1151381`.`riesgo` r
 ON 
   sc.`sub_categoria_id` = r.`sub_categoria_id`
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   r.`riesgo_id` = phr.`riesgo_id`
 WHERE
     phr.`proyecto_id` = var_proyecto_id;
 #######################################
-INSERT INTO `riesgos_base`.`sub_categoria`(
+INSERT INTO `db03student1151381`.`sub_categoria`(
     `sub_categoria_id`,
     `sub_categoria_nombre`,
     `sub_categoria_descripcion`,
@@ -423,19 +423,19 @@ SELECT DISTINCT
     sc.`proyecto_linea_base`,
   var_proyecto_id
 FROM
-    `riesgos_bd`.`sub_categoria` sc
+    `db02student1151381`.`sub_categoria` sc
 INNER JOIN 
-  `riesgos_bd`.`riesgo` r
+  `db02student1151381`.`riesgo` r
 ON 
   sc.`sub_categoria_id` = r.`sub_categoria_id`
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   r.`riesgo_id` = phr.`riesgo_id`
 WHERE
     phr.`proyecto_id` = var_proyecto_id;
 ##############################################
-INSERT INTO `riesgos_base`.`clasificacion_riesgo`(
+INSERT INTO `db03student1151381`.`clasificacion_riesgo`(
     `clasificacion_riesgo_id`,
     `clasificacion_riesgo_nombre`,
     `clasificacion_riesgo_min`,
@@ -453,11 +453,11 @@ SELECT
     `proyecto_id`,
     `proyecto_linea_base`
 FROM
-    `riesgos_bd`.`clasificacion_riesgo`
+    `db02student1151381`.`clasificacion_riesgo`
 WHERE
-    `riesgos_bd`.`clasificacion_riesgo`.`proyecto_id` = var_proyecto_id;
+    `db02student1151381`.`clasificacion_riesgo`.`proyecto_id` = var_proyecto_id;
 ######################################
-INSERT INTO `riesgos_base`.`impacto`(
+INSERT INTO `db03student1151381`.`impacto`(
     `impacto_id`,
     `impacto_categoria`,
     `impacto_valor`,
@@ -471,11 +471,11 @@ SELECT
     `proyecto_id`,
     `proyecto_linea_base`
 FROM
-    `riesgos_bd`.`impacto`
+    `db02student1151381`.`impacto`
 WHERE
-    `riesgos_bd`.`impacto`.`proyecto_id` = var_proyecto_id;
+    `db02student1151381`.`impacto`.`proyecto_id` = var_proyecto_id;
 ##########################################
-INSERT INTO `riesgos_base`.`propabilidad`(
+INSERT INTO `db03student1151381`.`propabilidad`(
     `propabilidad_id`,
     `propabilidad_categoria`,
     `propabilidad_valor`,
@@ -489,11 +489,11 @@ SELECT
     `proyecto_id`,
     `proyecto_linea_base`
 FROM
-    `riesgos_bd`.`propabilidad`
+    `db02student1151381`.`propabilidad`
 WHERE
-    `riesgos_bd`.`propabilidad`.`proyecto_id` = var_proyecto_id;
+    `db02student1151381`.`propabilidad`.`proyecto_id` = var_proyecto_id;
 #####################################
-INSERT INTO `riesgos_base`.`rol`(
+INSERT INTO `db03student1151381`.`rol`(
     `rol_id`,
     `rol_nombre`,
     `rol_descripcion`,
@@ -509,11 +509,11 @@ SELECT
     `proyecto_linea_base`,
    var_proyecto_id
 FROM
-    `riesgos_bd`.`rol`
+    `db02student1151381`.`rol`
 WHERE
-    `riesgos_bd`.`rol`.`gerente_id` = var_gerente_id;
+    `db02student1151381`.`rol`.`gerente_id` = var_gerente_id;
 ##########################################
-INSERT INTO `riesgos_base`.`responsble`(
+INSERT INTO `db03student1151381`.`responsble`(
     `responsable_id`,
     `responsble_nombre`,
     `responsble_descripcion`,
@@ -529,11 +529,11 @@ SELECT
     `proyecto_id`,
     `proyecto_linea_base`
 FROM
-    `riesgos_bd`.`responsble`
+    `db02student1151381`.`responsble`
 WHERE
-    `riesgos_bd`.`responsble`.`proyecto_id` = var_proyecto_id; 
+    `db02student1151381`.`responsble`.`proyecto_id` = var_proyecto_id; 
 #########################################
-INSERT INTO `riesgos_base`.`riesgo`(
+INSERT INTO `db03student1151381`.`riesgo`(
     `riesgo_id`,
     `proyecto_linea_base`,
     `riesgo_nombre`,
@@ -559,15 +559,15 @@ SELECT
     r.`sub_categoria_id`,
   var_proyecto_id
 FROM
-    `riesgos_bd`.`riesgo` r
+    `db02student1151381`.`riesgo` r
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   r.`riesgo_id` = phr.`riesgo_id`
 WHERE
     phr.`proyecto_id` = var_proyecto_id;       
 ##########################################
-INSERT INTO `riesgos_base`.`proyecto_has_riesgo`(
+INSERT INTO `db03student1151381`.`proyecto_has_riesgo`(
     `proyecto_has_riesgo_id`,
     `riesgo_id`,
     `is_editado`,
@@ -589,11 +589,11 @@ SELECT
     `responsable_id`,
     `proyecto_linea_base`
 FROM
-    `riesgos_bd`.`proyecto_has_riesgo`
+    `db02student1151381`.`proyecto_has_riesgo`
 WHERE
-    `riesgos_bd`.`proyecto_has_riesgo`.`proyecto_id` = var_proyecto_id;
+    `db02student1151381`.`proyecto_has_riesgo`.`proyecto_id` = var_proyecto_id;
 ###############################################
-INSERT INTO `riesgos_base`.`proyecto_has_riesgo_actividad`(
+INSERT INTO `db03student1151381`.`proyecto_has_riesgo_actividad`(
     `proyecto_has_riesgo_actividad_id`,
     `actividad_id`,
     `proyecto_has_riesgo_id`,
@@ -607,15 +607,15 @@ SELECT
     phra.`proyecto_linea_base`,
   var_proyecto_id
 FROM
-    `riesgos_bd`.`proyecto_has_riesgo_actividad` phra
+    `db02student1151381`.`proyecto_has_riesgo_actividad` phra
 INNER JOIN
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   phra.`proyecto_has_riesgo_id` = phr.`proyecto_has_riesgo_id`
 WHERE
     phr.`proyecto_id` = var_proyecto_id;
 ######################################################
-INSERT INTO `riesgos_base`.`tipo_recurso`(
+INSERT INTO `db03student1151381`.`tipo_recurso`(
     `tipo_recurso_id`,
     `tipo_recurso_nombre`,
     `tipo_recurso_descripcion`,
@@ -631,11 +631,11 @@ SELECT
     `proyecto_linea_base`,
   var_proyecto_id
 FROM
-    `riesgos_bd`.`tipo_recurso`
+    `db02student1151381`.`tipo_recurso`
 WHERE
-    `riesgos_bd`.`tipo_recurso`.`gerente_id` = var_gerente_id;
+    `db02student1151381`.`tipo_recurso`.`gerente_id` = var_gerente_id;
 #############################################################    
-INSERT INTO `riesgos_base`.`recurso`(
+INSERT INTO `db03student1151381`.`recurso`(
     `recurso_id`,
     `recurso_nombre`,
     `recurso_costo`,
@@ -651,12 +651,12 @@ SELECT
     `tipo_recurso_id`,
     `proyecto_linea_base`
 FROM
-    `riesgos_bd`.`recurso`
+    `db02student1151381`.`recurso`
 WHERE
-    `riesgos_bd`.`recurso`.`proyecto_id` = var_proyecto_id;
+    `db02student1151381`.`recurso`.`proyecto_id` = var_proyecto_id;
 
 #################################################  
-INSERT INTO `riesgos_base`.`respuesta`(
+INSERT INTO `db03student1151381`.`respuesta`(
     `respuesta_id`,
     `respuesta_nombre`,
   `respuesta_tipo`,
@@ -674,23 +674,23 @@ SELECT DISTINCT
     rta.`proyecto_linea_base`,
   var_proyecto_id
 FROM
-    `riesgos_bd`.`respuesta` rta
+    `db02student1151381`.`respuesta` rta
 INNER JOIN 
-  `riesgos_bd`.`riesgo_has_respuesta` rhr
+  `db02student1151381`.`riesgo_has_respuesta` rhr
 ON
   rta.`respuesta_id` = rhr.`respuesta_id`
 INNER JOIN
-  `riesgos_bd`.`riesgo` r
+  `db02student1151381`.`riesgo` r
 ON 
   rhr.`riesgo_id` = r.`riesgo_id`
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   r.`riesgo_id` = phr.`riesgo_id`
 WHERE
     phr.`proyecto_id` = var_proyecto_id;
 ####################################################  
-INSERT INTO `riesgos_base`.`riesgo_has_respuesta`(
+INSERT INTO `db03student1151381`.`riesgo_has_respuesta`(
     `riesgo_has_respuesta_id`,
     `riesgo_id`,
     `respuesta_id`,
@@ -704,19 +704,19 @@ SELECT
     rhr.`proyecto_linea_base`,
   var_proyecto_id
 FROM
-    `riesgos_bd`.`riesgo_has_respuesta` rhr
+    `db02student1151381`.`riesgo_has_respuesta` rhr
 INNER JOIN 
-  `riesgos_bd`.`riesgo` r
+  `db02student1151381`.`riesgo` r
 ON
   rhr.`riesgo_id` = r.`riesgo_id`
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   r.`riesgo_id` = phr.`riesgo_id`
 WHERE
     phr.`proyecto_id` = var_proyecto_id;
 ###########################################
-INSERT INTO `riesgos_base`.`proyecto_has_riesgo_respuesta`(
+INSERT INTO `db03student1151381`.`proyecto_has_riesgo_respuesta`(
     `proyecto_has_id`,
     `respuesta_has_id`,
     `tipo_respuesta`,
@@ -730,15 +730,15 @@ SELECT
     phrr.`proyecto_linea_base`,
   var_proyecto_id
 FROM
-    `riesgos_bd`.`proyecto_has_riesgo_respuesta` phrr
+    `db02student1151381`.`proyecto_has_riesgo_respuesta` phrr
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` phr
+  `db02student1151381`.`proyecto_has_riesgo` phr
 ON
   phrr.`proyecto_has_id` = phr.`proyecto_has_riesgo_id`
 WHERE
     phr.`proyecto_id` = var_proyecto_id;
 ######################################
-INSERT INTO `riesgos_base`.`tarea`(
+INSERT INTO `db03student1151381`.`tarea`(
     `tarea_id`,
     `proyecto_linea_base`,
     `tarea_nombre`,
@@ -772,21 +772,21 @@ SELECT DISTINCT
     t.`tarea_estado`,
   var_proyecto_id
 FROM
-    `riesgos_bd`.`tarea` t
+    `db02student1151381`.`tarea` t
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo_respuesta` pr
+  `db02student1151381`.`proyecto_has_riesgo_respuesta` pr
 ON 
   t.`proyecto_has_riesgo_id` = pr.`proyecto_has_id`
 AND 
   t.`riesgo_has_respuesta_id` = pr.`respuesta_has_id`
 INNER JOIN 
-  `riesgos_bd`.`proyecto_has_riesgo` rp 
+  `db02student1151381`.`proyecto_has_riesgo` rp 
 ON 
   pr.`proyecto_has_id` = rp.`proyecto_has_riesgo_id`
 WHERE 
   rp.`proyecto_id` = var_proyecto_id;
 ############################################
-INSERT INTO `riesgos_base`.`tarea_has_recurso`(
+INSERT INTO `db03student1151381`.`tarea_has_recurso`(
     `tarea_id`,
     `recurso_id`,
     `proyecto_linea_base`,
@@ -800,9 +800,9 @@ SELECT
     thr.`cantidad`,
   var_proyecto_id
 FROM
-    `riesgos_bd`.`tarea_has_recurso` thr
+    `db02student1151381`.`tarea_has_recurso` thr
 INNER JOIN 
-  `riesgos_bd`.`recurso` r
+  `db02student1151381`.`recurso` r
 ON 
   thr.`recurso_id` = r.`recurso_id`
 WHERE
