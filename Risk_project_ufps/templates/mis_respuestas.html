@@ -123,7 +123,7 @@
             <h4 class="modal-title">Editar Respuesta</h4>
           </div>
           <div class="box-body">
-           <form  action="/risko/editar_respuesta/" method="post">
+           <form  action="{% url 'editar_respuesta' %}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">
@@ -165,7 +165,7 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"> Eliminar </h4>
           </div>
-          <form  action="/risko/eliminar_respuesta/" method="post">
+          <form  action="{% url 'eliminar_respuesta' %}" method="post">
             {% csrf_token %}
           <div class="modal-body">
             <input type="text" class="form-control" id="respuesta_id_e" name="respuesta_id_e" style="visibility:hidden">

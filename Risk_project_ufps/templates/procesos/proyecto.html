@@ -269,7 +269,7 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"> Eliminar Proyeto </h4>
           </div>
-          <form  action="/mi_proyecto/eliminar_proyecto/" method="post">
+          <form  action="{% url 'eliminar_proyecto' %}" method="post">
             {% csrf_token %}
           <div class="modal-body">
             <p id="contenido_modal">Estas seguro que deseas eliminar el proyecto:</p>
@@ -310,7 +310,7 @@
 $(function() {
 $("#form_proyecto").submit(function(e) {
     e.preventDefault();
-    var actionurl = "/mi_proyecto/{{ proyecto.proyecto_id }}/";
+    var actionurl = "{% url 'mi_proyecto' proyecto.proyecto_id %}";
     if(flag_actividades == 1){
       actualizar_proyecto_normal(actionurl);
     }else{

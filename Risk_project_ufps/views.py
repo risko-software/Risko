@@ -165,7 +165,7 @@ def mi_perfil(request):
 
 
 # Carga la vista de inicio
-@login_required(login_url='/accounts/login/')
+#@login_required(login_url='/risko/accounts/login/')
 def inicio(request):
     proyecto_controller = ProyectoController()
     lista_proyectos = proyecto_controller.listar_proyectos(request.user.id)
@@ -1147,9 +1147,9 @@ def eliminar_responsable(request):
 
     if request.method == 'POST':
         mensaje_eliminar = responsable_controller.eliminar_responsable(responsable)
-        return HttpResponseRedirect(reverse('mi_proyecto', args=(proyecto_id,)))
+        return HttpResponseRedirect(reverse('mi_proyecto_planificar', args=(proyecto_id,)))
 
-    return HttpResponseRedirect(reverse('mi_proyecto', args=(proyecto_id,)))
+    return HttpResponseRedirect(reverse('mi_proyecto_planificar', args=(proyecto_id,)))
 
 def nuevo_responsable_riesgo(request, proyecto_id):
     proyecto = Proyecto.objects.get(proyecto_id=proyecto_id)

@@ -55,7 +55,7 @@
             {% else %}
             <button type="button"  class="btn btn-block btn-info btn-xs">
             {% endif %}  
-            <a href="/risko/mi_proyecto/{{ proyecto.proyecto_id }}/" style="color:#FEFEFE">Gestionar Proyecto
+            <a href="{% url 'mi_proyecto' proyecto.proyecto_id %}" style="color:#FEFEFE">Gestionar Proyecto
               <i class="fa fa-arrow-circle-right"></i>
             </a>
           </button>

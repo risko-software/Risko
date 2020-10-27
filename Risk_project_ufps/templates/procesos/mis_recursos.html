@@ -50,7 +50,7 @@
     <!-- /.box-header -->
 
     <div class="box-body">
-      <form role="form" action="/recursos/{{ proyecto.proyecto_id }}/" method="post">
+      <form role="form" action="{% url 'recursos' proyecto.proyecto_id %}" method="post">
         {% csrf_token %}
         <div class="row">
           <div class="col-md-6">
@@ -188,7 +188,7 @@
             <h4 class="modal-title">Editar Tipo de Recurso</h4>
           </div>
           <div class="box-body">
-           <form  action="/editar_recurso/{{ proyecto.proyecto_id }}/" method="post">
+           <form  action="{% url 'editar_recurso' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">
@@ -229,7 +229,7 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"> Eliminar </h4>
           </div>
-          <form  action="/eliminar_recurso/{{ proyecto.proyecto_id }}/" method="post">
+          <form action="{% url 'eliminar_recurso' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
           <div class="modal-body">
             

@@ -216,7 +216,7 @@
         </div>
         <div class="chart tab-pane" id="nuevo-recurso" style="position: relative; height: 300px;">
          <div class="box-body" id="recurso_form_nuevo">
-          <form action="/mi_proyecto/{{ proyecto.proyecto_id }}/nuevo_recurso_tarea/" method="post">
+          <form action="{% url 'nuevo_recurso_tarea' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">
@@ -268,7 +268,7 @@
        </div><!-- /.box-body -->
        <div class="callout callout-warning" id="recurso_letrero_uno" >
         <h4>Notificación</h4>
-        Este proyecto no cuenta con recursos para poder asignar. <b>Registre sus recursos <a href="/recursos/{{proyecto.proyecto_id}}/">aqui</a></b>      
+        Este proyecto no cuenta con recursos para poder asignar. <b>Registre sus recursos <a href="{% url 'recursos' proyecto.proyecto_id %}">aqui</a></b>      
       </div>
       <div class="callout callout-warning" id="recurso_letrero_dos" hidden="true">
         <h4>Notificación</h4>

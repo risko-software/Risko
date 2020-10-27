@@ -61,7 +61,7 @@
                   <div class="box-body">
                       Este proceso permite desarrollar y establecer estrategias junto con sus recursos para las acciones a ejecutar cuando un riesgo logre materializarse a lo largo de todo el proyecto. A continuación podras descargar un informe del proceso planificar respuestas actualizado.
                       <br/>
-                      <a class="btn btn-primary  pull-right" href="/mi_proyecto/{{ proyecto.proyecto_id }}/planificar_respuestas/informe/">Generar informe</a>
+                      <a class="btn btn-primary  pull-right" href="{% url 'generar_informe_planificar_respuesta' proyecto.proyecto_id %}">Generar informe</a>
                   </div>
                 </div>
               </div>
@@ -205,7 +205,7 @@
           <div id="fechas_noti_content">
             
           </div>
-          <form action="/mi_proyecto/{{ proyecto.proyecto_id }}/nueva_tarea/" method="post">
+          <form action="{% url 'nueva_tarea' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">
@@ -327,7 +327,7 @@
         </div>
         <div class="chart tab-pane" id="nuevo-recurso" style="position: relative; height: 300px;">
          <div class="box-body" id="recurso_form_nuevo">
-          <form action="/mi_proyecto/{{ proyecto.proyecto_id }}/nuevo_recurso_tarea/" method="post">
+          <form action="{% url 'nuevo_recurso_tarea' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">
@@ -383,7 +383,7 @@
        </div><!-- /.box-body -->
        <div class="callout callout-warning" id="recurso_letrero_uno" >
         <h4>Notificación</h4>
-        Este proyecto no cuenta con recursos para poder asignar. <b>Registre sus recursos <a href="/recursos/{{proyecto.proyecto_id}}/">aqui</a></b>      
+        Este proyecto no cuenta con recursos para poder asignar. <b>Registre sus recursos <a href="{% url 'recursos' proyecto.proyecto_id %}">aqui</a></b>      
       </div>
       <div class="callout callout-warning" id="recurso_letrero_dos" hidden="true">
         <h4>Notificación</h4>
@@ -458,7 +458,7 @@
           <div class="chart tab-pane" id="respuesta_sugerida" style="position: relative; height: 300px; overflow-y: scroll;">
 
            <div class="box-body">
-            <form action="/mi_proyecto/{{proyecto.proyecto_id}}/asociar_respuesta_sugeridas/" method="post">
+            <form action="{% url 'asociar_respuesta_sugeridas' proyecto.proyecto_id %}" method="post">
               {% csrf_token %}
               <table id="tabla2" class="table table-bordered table-striped">
               <thead>
@@ -503,7 +503,7 @@
         </div>
         <div class="chart tab-pane" id="nueva_respuesta" style="position: relative; height: 300px;">
          <div class="box-body">
-          <form action="/mi_proyecto/{{ proyecto.proyecto_id }}/nueva_respuesta_planificar/" method="post">
+          <form action="{% url 'nueva_respuesta_planificar' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">
@@ -589,7 +589,7 @@
         </div>
         <div class="box-body">
           {% if proyecto %}
-          <form action="/mi_proyecto/{{ proyecto.proyecto_id }}/editar_respuesta_planificar/" method="post">
+          <form action="{% url 'editar_respuesta_planificar' proyecto.proyecto_id %}" method="post">
            {% else %}  
            <form action="#" method="post">
             {% endif %}
@@ -668,7 +668,7 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"> Eliminar </h4>
           </div>
-          <form  action="/mi_proyecto/{{ proyecto.proyecto_id }}/desasociar_respuesta_riesgo/" method="post">
+          <form  action="{% url 'desasociar_respuesta_riesgo' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
           <div class="modal-body">
             <p id="contenido_modal_respuesta">&hellip;</p>
@@ -703,7 +703,7 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"> Eliminar </h4>
           </div>
-          <form  action="/mi_proyecto/{{ proyecto.proyecto_id }}/eliminar_tarea/" method="post">
+          <form action="{% url 'eliminar_tarea' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
           <div class="modal-body">
             <p id="contenido_modal_tarea">&hellip;</p>
@@ -733,7 +733,7 @@
           </div>
           <div class="box-body">
           {% if proyecto %}
-          <form action="/mi_proyecto/{{ proyecto.proyecto_id }}/editar_tarea/" method="post">
+          <form action="{% url 'editar_tarea' proyecto.proyecto_id %}" method="post">
           {% else %}  
           <form action="#" method="post">
             {% endif %}
@@ -797,7 +797,7 @@
             <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"> Eliminar </h4>
           </div>
-          <form  action="/mi_proyecto/{{ proyecto.proyecto_id }}/desvincular_recurso_tarea/" method="post">
+          <form action="{% url 'desvincular_recurso_tarea' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
           <div class="modal-body">
             <p id="contenido_modal_recurso">&hellip;</p>
@@ -1532,7 +1532,7 @@ function mostrar_modal_informativo() {
 function crear_linea_base() {
   if(Object.keys(lista_tareas).length > 0){
      $.ajax({
-        url: "/mi_proyecto/{{proyecto.proyecto_id}}/crear_linea_base/",
+        url: "{% url 'crear_linea_base' proyecto.proyecto_id %}",
         type: 'POST',
         headers: {'X-CSRFToken': csrftoken},      
         success: function(data) {
@@ -1541,7 +1541,7 @@ function crear_linea_base() {
             'La linea base se ha creado con la fecha actual y esta disponible para controlar.',
             'success'
           ).then(function () {
-            window.location.href = "/mi_proyecto/{{proyecto.proyecto_id}}/planificar_respuestas/";
+            window.location.href = "{% url 'planificar_respuestas' proyecto.proyecto_id %}";
           });              
         }, error: function (jqXhr, textStatus, errorMessage) {
           console.log("Fallo Registro " + textStatus + errorMessage);
@@ -1550,7 +1550,7 @@ function crear_linea_base() {
                 title: 'Oops...',
                 text: '¡ No se pudo crear la linea base !',             
               }).then(function () {
-                window.location.href = "/mi_proyecto/{{proyecto.proyecto_id}}/planificar_respuestas/";
+                window.location.href = "{% url 'planificar_respuestas' proyecto.proyecto_id %}";
               });
         }
       });

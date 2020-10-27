@@ -91,7 +91,7 @@
                   <div class="box-body">
                    Durante este proceso se busca preparar un plan estratégico que permita definir la importancia del proyecto, la manera en que intervendrán la administración de riesgos, el equipo de gestión de riesgos, los criterios de evaluación, entre otros. A continuación podras descargar un informe de gestión de riesgos actualizado.
                     </br>
-                    <a href="/mi_proyecto/{{ proyecto.proyecto_id }}/generar_informe_planificar/" class="btn btn-primary pull-right">Generar informe</a>
+                    <a href="{% url 'generar_informe_planificar' proyecto.proyecto_id %}" class="btn btn-primary pull-right">Generar informe</a>
                  </div>
                </div>
              </div>
@@ -287,7 +287,7 @@
       <label data-toggle="tooltip" data-placement="top" title="En esta sección podrá administrar las categorías de probabilidad e impacto de los riesgos del proyecto."><h3 class="box-title"><strong>Definicion del impacto y la probabilidad &nbsp  &nbsp</strong></h3></label>      
     </div>      
     <div class="box-body">
-      <form class="form-horizontal" id="impacto_form" action="/mi_proyecto/{{proyecto.proyecto_id}}/planificar_proyecto/actualizar_definiciones/" method="POST">
+      <form class="form-horizontal" id="impacto_form" action="{% url 'actualizar_definiciones_riesgo' proyecto.proyecto_id %}" method="POST">
       {% csrf_token %}
       <div class="row">
         <div class="col-md-6">
@@ -356,7 +356,7 @@
       
     </div>      
     <div class="box-body">
-      <form class="form-horizontal" method="post" action="/mi_proyecto/{{ proyecto.proyecto_id }}/planificar_proyecto/actualizar_clasificacion_riesgo/">
+      <form class="form-horizontal" method="post" action="{% url 'actualizar_clasificacion_riesgo' proyecto.proyecto_id %}">
         {% csrf_token %}
         <div class="box-body" id="cont_clasificacion">
         {% if clasificacion_riesgo %}
@@ -420,7 +420,7 @@
         </div>
         <div class="box-body">
         {% if lista_roles|length > 0 %}
-          <form  action="/mi_proyecto/registrar_responsable/" method="post">
+          <form  action="{% url 'registrar_responsable' %}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6">
@@ -458,7 +458,7 @@
         </form>      
         {% else %}
         <div class="alert alert-info alert-dismissible">                
-          <h4><i class="icon fa fa-info"></i>  Atencion</h4> Hasta el momento no has definido roles para los miembros de tu equipo<br/>Para definir los roles dale clic <a href="/roles_equipo/">aqui</a>
+          <h4><i class="icon fa fa-info"></i>  Atencion</h4> Hasta el momento no has definido roles para los miembros de tu equipo<br/>Para definir los roles dale clic <a href="{% url 'roles_equipo' %}">aqui</a>
       </div>
         {% endif %} 
         </div>       
@@ -478,7 +478,7 @@
           <h4 class="modal-title">Editar Miembro del equipo</h4>
         </div>
         <div class="box-body">
-         <form  action="/mi_proyecto/editar_responsable/" method="post">
+         <form  action="{% url 'editar_responsable' %}" method="post">
           {% csrf_token %}
           <div class="row">
             <div class="col-md-6">
@@ -532,7 +532,7 @@
           <span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title"> Eliminar </h4>
         </div>
-        <form  action="/mi_proyecto/eliminar_responsable/" method="post">
+        <form  action="{% url 'eliminar_responsable' %}" method="post">
           {% csrf_token %}
           <div class="modal-body">
 

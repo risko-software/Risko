@@ -315,7 +315,7 @@
     $.ajax({
       type: 'GET',
 
-      url: "/risko/rbs/listar/",      
+      url: "{% url 'listarrbs' %}",      
 
       contentType: 'application/json',
       dataType: 'json',
@@ -730,7 +730,7 @@
   function confirmar_cambios(){
     $.ajax({
       type: 'POST',
-      url: "/risko/rbs/confirmar_cambios/",
+      url: "{% url 'confirmar_cambios_rbs' %}",
       headers: {'X-CSRFToken': csrftoken},
       data:{'acciones':  JSON.stringify(acciones)},
       success: function (data, status, xhr) {              
@@ -739,7 +739,7 @@
           'los cambios se han efectuado',
           'success'
         ).then(function () {
-          window.location.href = "/mi_rbs/";
+          window.location.href = "{% url 'mi_rbs' %}";
         });     
       },
       error: function (jqXhr, textStatus, errorMessage) {
@@ -749,7 +749,7 @@
           title: 'Oops...',
           text: '¡ No se pudo realizar los cambios !',             
         }).then(function () {
-          window.location.href = "/mi_rbs/";
+          window.location.href = "{% url 'mi_rbs' %}";
         });        
       }
     });
