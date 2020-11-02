@@ -788,12 +788,12 @@ def get_data_render_identificar_riesgo(gerente_id, proyecto_id):
     responsable_controller = ResponsableController()
     lista_responsables = responsable_controller.listar_responsables(proyecto.proyecto_id)
     actividad_controller = ActividadController()
-    lista_actividades = actividad_controller.listar_actividades_proyecto(proyecto_id)
+    lista_actividades = dumps(actividad_controller.listar_actividades_proyecto(proyecto_id))
 
     # Retorna responsables por riesgo de un proyecto
     responsables_riesgo = dumps(riesgo_controller.listar_responsables_riesgo(proyecto_id))
     # Retorna actividades por riesgo de un proyecto
-    actividades_riesgo = actividad_controller.listar_actividades_riesgo(proyecto_id)
+    actividades_riesgo = dumps(actividad_controller.listar_actividades_riesgo(proyecto_id))
 
     # (Funcion que retorna respuestas por riesgo de un proyecto (Revisar)!!!)
     respuesta_controller = RespuestaController()

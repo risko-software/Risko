@@ -1479,9 +1479,9 @@ CREATE TABLE `respuesta` (
 CREATE TABLE `riesgo` (
   `riesgo_id` int(11) NOT NULL,
   `riesgo_nombre` varchar(45) DEFAULT NULL,
-  `riesgo_causa` tinytext DEFAULT NULL,
-  `riesgo_evento` tinytext DEFAULT NULL,
-  `riesgo_efecto` tinytext DEFAULT NULL,
+  `riesgo_causa` text DEFAULT NULL,
+  `riesgo_evento` text DEFAULT NULL,
+  `riesgo_efecto` text DEFAULT NULL,
   `riesgo_tipo` tinyint(4) DEFAULT NULL COMMENT '0 si es un riesgo, 1 si es oportunidad',
   `riesgo_prom_evaluacion` float DEFAULT 0 COMMENT 'La evaluacion del riesgo de acuerdo a todos los proyectos.',
   `riesgo_uid` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1547,7 +1547,9 @@ INSERT INTO `sector` (`sector_id`, `sector_nombre`) VALUES
 (13, 'financiero'),
 (14, 'construcción'),
 (15, 'minero'),
-(16, 'comunicaciones');
+(16, 'comunicaciones'),
+(17, 'educación'),
+(18, 'gobierno');
 
 -- --------------------------------------------------------
 

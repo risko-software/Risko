@@ -87,9 +87,9 @@ class ReporteController:
         respuesta_controller = RespuestaController()
         tarea_controller = TareaController()
 
-        riesgos = riesgo_controller.get_riesgos_by_proyecto_linea(proyecto, proyecto.proyecto_linea_base)
-        respuestas_riesgo = respuesta_controller.listar_riesgos_respuesta_base(proyecto.proyecto_id)
-        lista_tareas = tarea_controller.listar_tareas_group_by_riesgo_base(proyecto)
+        riesgos = riesgo_controller.get_riesgos_by_proyecto_aux(proyecto)
+        respuestas_riesgo = respuesta_controller.listar_riesgos_respuesta(proyecto.proyecto_id)
+        lista_tareas = tarea_controller.listar_tareas_group_by_riesgo(proyecto)
 
         mezcla = self.mezclar_respuestas_with_tareas(riesgos, respuestas_riesgo, lista_tareas)
 
@@ -352,5 +352,6 @@ class ReporteController:
         for recurso in recursos:            
             aux += "- "+recurso['recurso_nombre']
             aux += " -- costo: $"+str(recurso['recurso_costo'])
-            aux += " -- cant: "+str(recurso['cantidad'])+"\n"
+            aux += " -- cant: "+str(recurso['cantidad'])
+            aux += " -- total: "+str(int((recurso['cantidad']))*int((recurso['recurso_costo'])) )+"\n"
         return aux
