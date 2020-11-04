@@ -1447,6 +1447,14 @@ def get_data_planificar_respuesta(proyecto_id: int):
     proyecto = proyecto_controller.obtener_proyecto(proyecto_id)
     lista_riesgos = riesgo_controller.get_riesgos_by_proyecto(proyecto)
 
+    riesgos_evaluados = riesgo_controller.evaluar_riesgos_by_proyecto_id(lista_riesgos, proyecto_id)
+    valores = get_valores_by_proyecto(proyecto_id)
+
+    lista_riesgos=sort_riesgos_by_evaluacion(lista_riesgos, riesgos_evaluados, valores['impactos'], valores['probabilidades'])
+
+    riesgos_evaluados = dumps(riesgos_evaluados)
+    valores = dumps(valores)
+    
     actividades_by_riesgos = dumps(actividad_controller.listar_actividades_riesgo(proyecto_id))
 
     # Listado de respuestas por riesgo, reutilizado de identificar
@@ -1460,9 +1468,9 @@ def get_data_planificar_respuesta(proyecto_id: int):
     respuestas_sugeridas = dumps(respuesta_controller.obtener_respuestas_sugeridas(proyecto_id))
     # Este metodo me lo invente para no tener que volver a consultar los los riesgos de un proyecto
     # Entre menos llamados a los metodos que hacen innerjoin mucho mejor
-    riesgos_evaluados = dumps(riesgo_controller.evaluar_riesgos_by_proyecto_id(lista_riesgos, proyecto_id))
+    #riesgos_evaluados = dumps(riesgo_controller.evaluar_riesgos_by_proyecto_id(lista_riesgos, proyecto_id))
     rangos = dumps(proyecto_controller.obtener_rangos_parseados_by_proyecto_id(proyecto_id))
-    valores = dumps(get_valores_by_proyecto(proyecto_id))
+    
     linea_base = crear_arreglo_linea_base(proyecto_id)
 
     actividad_controller = ActividadController()
@@ -1482,7 +1490,35 @@ def get_data_planificar_respuesta(proyecto_id: int):
         actividades_by_riesgos=actividades_by_riesgos
     )
 
+def sort_riesgos_by_evaluacion(riesgos, riesgos_evaluados, impactos, probabilidades):
+    """ Mi intención consistia en ahorrarme un inner join, ahora me di cuenta que fue una
+        mala idea. por esa razon es que existe este metodo. Ahora me toca evaluar los metodos
+        y ordenarlos para que esten de mayor a menor, pido disculpas por las molestias
+    """
+    for riesgo in riesgos:
+        key = "riesgo_"+str(riesgo['riesgo_id'])
+        evaluacion = riesgos_evaluados[key]
+        impacto = get_impacto_escala_by_id(impactos, evaluacion['impacto_id'])
+        probabilidad = get_probabilidad_escala_by_id(probabilidades, evaluacion['propabilidad_id'])
+        riesgo['riesgo_prom_evaluacion'] = int(impacto) * int(probabilidad)
+    riesgos = sorted(riesgos, key=lambda riesgo: riesgo['riesgo_prom_evaluacion'],  reverse=True)
+    return riesgos
 
+def get_impacto_escala_by_id(impactos, impacto_id):
+    value = 0
+    for impacto in impactos:
+        if impacto['id'] == impacto_id:
+            value = impacto['escala']
+            break
+    return value
+
+def get_probabilidad_escala_by_id(probabilidades, probabilidad_id):
+    value = 0
+    for probabilidad in probabilidades:
+        if probabilidad['id'] == probabilidad_id:
+            value = probabilidad['escala']
+            break
+    return value
 def crear_arreglo_linea_base(proyecto_id):
     proyecto_controller = ProyectoController()
     arreglo = proyecto_controller.get_lineas_base(proyecto_id)
@@ -1866,8 +1902,15 @@ def linea_base(request, proyecto_id, numero_linea, fecha_linea):
     proyecto_controller = ProyectoController()
     riesgo_controller = RiesgoController()
     respuesta_controller = RespuestaController()
-    proyecto = proyecto_controller.obtener_proyecto(proyecto_id)   
+    proyecto = proyecto_controller.obtener_proyecto(proyecto_id)  
+
     lista_riesgos = riesgo_controller.get_riesgos_by_proyecto_linea(proyecto, numero_linea)  # En teoria ya
+
+    riesgos_evaluados = riesgo_controller.evaluar_riesgos_by_proyecto_id_linea(lista_riesgos, proyecto_id, numero_linea)
+    valores = get_valores_by_proyecto_linea(proyecto_id, numero_linea)  # Este
+    #lista_riesgos=sort_riesgos_by_evaluacion(lista_riesgos, riesgos_evaluados, valores['impactos'], valores['probabilidades'])
+    valores = dumps(valores)
+    riesgos_evaluados = dumps(riesgos_evaluados)
     # Listado de respuestas por riesgo, reutilizado de identificar
     respuestas_riesgo = dumps(
     respuesta_controller.listar_riesgos_respuesta_linea(proyecto_id, numero_linea))  # En teoria ya
@@ -1879,11 +1922,8 @@ def linea_base(request, proyecto_id, numero_linea, fecha_linea):
     lista_tareas = dumps(tarea_controller.listar_tareas_group_by_riesgo_linea(proyecto, numero_linea))  # En teoria ya
     # Este metodo me lo invente para no tener que volver a consultar los los riesgos de un proyecto
     # Entre menos llamados a los metodos que hacen innerjoin mucho mejor
-    riesgos_evaluados = dumps(riesgo_controller.evaluar_riesgos_by_proyecto_id_linea(lista_riesgos, proyecto_id,
-                                                                                     numero_linea))  # En teoria ya
-    rangos = dumps(
-        proyecto_controller.obtener_rangos_parseados_by_proyecto_id_linea(proyecto_id, numero_linea))  # En teoria ya
-    valores = dumps(get_valores_by_proyecto_linea(proyecto_id, numero_linea))  # Este
+    
+    rangos = dumps(proyecto_controller.obtener_rangos_parseados_by_proyecto_id_linea(proyecto_id, numero_linea))  # En teoria ya    
     linea_base = crear_arreglo_linea_base(proyecto.proyecto_id)
     data = dict(
         proyecto=proyecto,

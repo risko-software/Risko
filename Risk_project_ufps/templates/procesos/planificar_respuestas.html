@@ -184,6 +184,8 @@
                   <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
                     <th>Opciones</th>                                      
                   </tr>
                 </thead>
@@ -193,6 +195,8 @@
                   <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
                     <th>Opciones</th>      
                   </tr>
                 </tfoot>
@@ -914,8 +918,6 @@
   var respuestas_riesgo = JSON.parse("{{respuestas_riesgo|escapejs}}");  
   console.log(respuestas_riesgo);
 
-  
-
   var lista_tareas = JSON.parse("{{lista_tareas|escapejs}}");  
   console.log(lista_tareas);
 
@@ -1009,8 +1011,6 @@
 	$(document).ready(function() {
     pintar_rangos_riesgos();
 	    var t = $("#tabla_riesgos").DataTable({
-			 
-			"order": [[ 1, 'asc' ]],
 	    	"language": {
 	         "sProcessing":    "Procesando...",
 	         "sLengthMenu":    "Mostrar _MENU_ registros",
@@ -1035,7 +1035,6 @@
 	             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
 	         }
 	    	}	    	
-        	
 		}); 
 	 
 	    t.on( 'order.dt search.dt', function () {
@@ -1375,30 +1374,39 @@
       let tareas = lista_tareas[key];
       for (var i = 0; i < tareas.length; i++) {
         let tarea = tareas[i];
-        let temp = '<tr><td>'+tarea["tarea_nombre"]+'</td><td>'+tarea["tarea_descripcion"];
+        let temp = '<tr><td>'+tarea["tarea_nombre"]+'</td><td>'+tarea["tarea_descripcion"]+'</td><td>'+limpiar_string_fecha(tarea["fecha_inicio"])+'</td><td>'+limpiar_string_fecha(tarea["fecha_fin"])+'</td>';
         if("{{proyecto.proyecto_fin_status}}"==1){
           temp+=
-          '</td><td><button type="button" class="btn btn-default" disabled = "true" data-toggle="#modal_eliminar" onclick="abrir_modal_editar_tarea(\''+tarea["tarea_id"]+'\', \''+tarea["tarea_nombre"]+'\', \''+tarea["tarea_descripcion"]+'\',\''+tarea["fecha_inicio"]+'\',\''+tarea["fecha_fin"]+'\')" data-target="#modal_eliminar"><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger" disabled = "true" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar_tarea(\''+tarea["tarea_id"]+'\', \''+tarea["tarea_nombre"]+'\',\''+tarea["tarea_descripcion"]+'\')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i></button></td></tr>';          
+          '<td><button type="button" class="btn btn-default" disabled = "true" data-toggle="#modal_eliminar" onclick="abrir_modal_editar_tarea(\''+tarea["tarea_id"]+'\', \''+tarea["tarea_nombre"]+'\', \''+tarea["tarea_descripcion"]+'\',\''+tarea["fecha_inicio"]+'\',\''+tarea["fecha_fin"]+'\')" data-target="#modal_eliminar"><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger" disabled = "true" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar_tarea(\''+tarea["tarea_id"]+'\', \''+tarea["tarea_nombre"]+'\',\''+tarea["tarea_descripcion"]+'\')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i></button></td></tr>';          
         }else{
           temp+=
-        '</td><td><button type="button" class="btn btn-default" data-toggle="#modal_eliminar" onclick="abrir_modal_editar_tarea(\''+tarea["tarea_id"]+'\', \''+tarea["tarea_nombre"]+'\', \''+tarea["tarea_descripcion"]+'\',\''+tarea["fecha_inicio"]+'\',\''+tarea["fecha_fin"]+'\')" data-target="#modal_eliminar"><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar_tarea(\''+tarea["tarea_id"]+'\', \''+tarea["tarea_nombre"]+'\',\''+tarea["tarea_descripcion"]+'\')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i></button></td></tr>';
+        '<td><button type="button" class="btn btn-default" data-toggle="#modal_eliminar" onclick="abrir_modal_editar_tarea(\''+tarea["tarea_id"]+'\', \''+tarea["tarea_nombre"]+'\', \''+tarea["tarea_descripcion"]+'\',\''+tarea["fecha_inicio"]+'\',\''+tarea["fecha_fin"]+'\')" data-target="#modal_eliminar"><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar_tarea(\''+tarea["tarea_id"]+'\', \''+tarea["tarea_nombre"]+'\',\''+tarea["tarea_descripcion"]+'\')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i></button></td></tr>';
         }       // 
         let gg = $.parseHTML(temp) 
         $(tareas_riesgo).append(gg);
       }
     }else{
       let tr = document.createElement("tr");   
-      let td_nombre = document.createElement("td");
+      let td_nombre = document.createElement("td");       
       let td_descripcion = document.createElement("td");
+      let td_fecha_inicio = document.createElement("td");
+      let td_fecha_fin = document.createElement("td");
       let td_acciones = document.createElement("td");
       td_nombre.appendChild(document.createTextNode("No cuentas con tareas asociadas a este riesgo.")); 
       tr.appendChild(td_nombre);
       tr.appendChild(td_descripcion);
+      tr.appendChild(td_fecha_inicio);
+      tr.appendChild(td_fecha_fin);
       tr.appendChild(td_acciones);    
       tareas_riesgo.appendChild(tr);  
     }  
   }
 
+function limpiar_string_fecha(fecha){
+  let d = new Date(fecha);
+  var datestring = d.getDate()  + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
+  return datestring;
+}
 
 function abrir_modal_eliminar_tarea(id_tarea, nombre_tarea) {                
     $("#modal_eliminar_tarea").modal('show');
