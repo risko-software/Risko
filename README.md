@@ -47,6 +47,7 @@ $ pip install -r requirements.txt
 ```
 
 Para produccion las variables de entorno:
+
 ```sh
 $ #Conexion a la base de datos riesgos_users
 $ DEFAULT_NAME=""
@@ -78,6 +79,18 @@ $ EMAIL_PORT=""
 $ EMAIL_HOST_USER=""
 $ EMAIL_HOST_PASSWORD=""
 
+```
+
+Establecer modo de produccion
+```sh
+$ # Permite correr en modo debug para ver las trazas de error
+$ MODE_DEBUG=False
+```
+
+Contexto de la app
+```sh
+$ #Permite establecer el contexo donde estara corriendo la app, ejemplo: <>/<>/<>/
+$ CONTEXT_RISKO_APP="risko/"
 ```
 
 Hacer la migración de la bd default de django:
@@ -129,7 +142,7 @@ License
 MIT
 
 
-**Free Software, Hell Yeah!**
+**Free Software**
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
