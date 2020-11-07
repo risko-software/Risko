@@ -134,7 +134,7 @@ class RiesgoController():
 
 	def get_riesgos_by_proyecto_linea(self, proyecto, linea_base):        
 		riesgo_dao = RiesgoDao()
-		return riesgo_dao.get_riesgos_by_proyecto(proyecto, linea_base)
+		return riesgo_dao.get_riesgos_by_proyecto_linea(proyecto, linea_base)
 
 	def get_riesgos_by_proyecto_base(self, proyecto):
 		riesgo_dao = RiesgoDao()
