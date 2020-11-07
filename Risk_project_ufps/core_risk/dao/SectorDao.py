@@ -5,7 +5,7 @@ class SectorDao():
   def listar_sectores(self):
     sectores = {}
     try:
-      sectores = Sector.objects.all()
+      sectores = Sector.objects.all().order_by('sector_nombre')
     except Error as e:
       print(e)
     finally:      

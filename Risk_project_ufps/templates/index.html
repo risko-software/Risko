@@ -64,7 +64,7 @@
           <li class="active"><a href="#intro">Inicio</a></li>          
           <li><a href="#services">¿qué hacemos?</a></li>
           <li><a href="#why-us">¿por qué escogernos?</a></li> 
-          <li><a href="#portfolio">Conocenos</a></li>          
+          <li><a href="#portfolio">Conócenos</a></li>          
           <li><a href="#about">Acerca de</a></li>   
           
           <li><a href="{% url 'login' %}">Iniciar sesión</a></li> 
@@ -239,7 +239,7 @@
       <div class="container">
 
         <header class="section-header">
-          <h3 class="section-title">Conocenos</h3>
+          <h3 class="section-title">Conócenos</h3>
         </header>
 
         <div class="row">
@@ -475,9 +475,8 @@
                   <div class="footer-links">
                     <h4>LINKS DE INTERÉS</h4>
                     <ul>
-                      <li><a href="#intro">Inicio</a></li>
-                      <li><a href="https://github.com/risko-software/Risko" target="_blank">Repositorio Github</a></li>
-                      <li><a href="https://hub.docker.com/r/risko2020/risko" target="_blank">Repositorio DockerHub</a></li>
+                      <li><a href="#intro">Inicio</a></li>      
+                      <li><a href="#about">Acerca de</a></li> 
                       <li><a href="{% url 'registrargerente' %}">Registrese</a></li>
                       <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
                     </ul>
@@ -496,7 +495,16 @@
                   </div>
 
                   <div class="social-links">
-                    <a href="https://github.com/risko-software/Risko" class="github"><i class="fa fa-github"></i></a>           
+                    <label data-toggle="tooltip" data-placement="top" title="Repositorio GitHub.">
+                      <a href="https://github.com/risko-software/Risko" class="github">
+                        <i class="fa fa-github"></i>
+                      </a>
+                    </label>  
+                    <label data-toggle="tooltip" data-placement="top" title="Repositorio DockerHub.">
+                      <a href="https://hub.docker.com/r/risko2020/risko" target="_blank" >
+                        <img src="{% static 'risk_project/img/docker_icon.png' %}" style="width: 17px; height: 17px;" />
+                      </a> 
+                    </label>         
                     
                     
                   </div>
@@ -543,7 +551,7 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong>GIDIS</strong>. Todos los derechos reservados
+        <strong>RISKO</strong> - Versión 1.0
       </div>      
       
         
@@ -571,6 +579,10 @@
 
   <!-- Template Main Javascript File -->
   <script src="{% static 'risk_project/rapid/js/main.js' %}"></script>
-
+  <script type="text/javascript">
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
 </body>
 </html>

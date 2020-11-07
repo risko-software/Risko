@@ -34,6 +34,12 @@
         <h4>{{ mensaje_editar }}</h4>            
   </div>
   {% endif %} 
+<br>
+  <label data-toggle="tooltip" data-placement="bottom" title="Volver a iniciar sesión.">
+    &nbsp<a href="{% url 'login' %}" style="margin-left: 35px; margin-top: 35px;">
+      <i class="fa fa-arrow-circle-o-left" aria-hidden="true" style="font-size: 35px;"></i>
+    </a>
+  </label>
 
   <div class="content" style="aling-items:center; justify-content: center;">
     <div class="col-md-4"></div>
@@ -200,6 +206,7 @@
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' /* optional */
     });
+    $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
 

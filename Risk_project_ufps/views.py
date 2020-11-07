@@ -1902,7 +1902,7 @@ def linea_base(request, proyecto_id, numero_linea, fecha_linea):
     proyecto_controller = ProyectoController()
     riesgo_controller = RiesgoController()
     respuesta_controller = RespuestaController()
-    proyecto = proyecto_controller.obtener_proyecto_linea_base(proyecto_id)   
+    proyecto = proyecto_controller.obtener_proyecto(proyecto_id)   
 
     lista_riesgos = riesgo_controller.get_riesgos_by_proyecto_linea(proyecto, numero_linea)  # En teoria ya
 

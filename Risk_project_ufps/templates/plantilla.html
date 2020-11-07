@@ -4,6 +4,7 @@
 <head>
 
 	{% load static %}
+  {% load risko_filter %}
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>
@@ -106,11 +107,9 @@
                   <svg data-jdenticon-value="{{ user.first_name }}" width="100" height="100" class="img-circle">
                   {{ user.first_name }}
                 </svg> 
-
                   <p>
-                   {{ user.first_name }}
-
-                 </p>
+                    {{ user.first_name }}
+                  </p>                  
                </li>
                
                <!-- Menu Footer-->
@@ -152,7 +151,9 @@
         </div>
         <div class="pull-left info">
           <br>
-          <p>{{ user.first_name }}</p>
+          <p>
+           {{ user.first_name|reducir }}
+          </p> 
           <a ><i ></i></a>
         </div>
       </div>
@@ -239,8 +240,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0
     </div>
-    <strong> Copyright &copy; 2019-2020 GIDIS.</strong> All rights
-    reserved.
+    <strong>RISKO</strong>
   </footer>
   <!-- Termina el footer -->
 
