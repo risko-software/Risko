@@ -123,6 +123,7 @@ class TareaController():
             elemento = aux.get(llave)
             #print("elemento", elemento)
             aa = tarea_to_dict(row)
+            #aa = model_to_dict(row)
             #print("aa",aa)
             aa["riesgo_id"] = row.riesgo_id
             aa['fecha_inicio'] = aa['fecha_inicio'].strftime('%Y-%m-%d %H:%M')

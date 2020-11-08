@@ -35,8 +35,12 @@
     {{mensaje}}    
   </div>
   {% endif %}
-  
-
+  <br>
+  <label data-toggle="tooltip" data-placement="bottom" title="Volver a inicio.">
+    &nbsp<a href="{% url 'index' %}" style="margin-left: 35px; margin-top: 35px;">
+      <i class="fa fa-arrow-circle-o-left" aria-hidden="true" style="font-size: 35px;"></i>
+    </a>
+</label>
   <div class="login-box">
     <div class="login-logo">
 
@@ -46,7 +50,7 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
       <p class="login-box-msg">Ingresa tu usuario y contraseña para iniciar</p>
-
+      {{form.non_field_errors}}
       <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         <div class="form-group has-feedback">
@@ -95,6 +99,7 @@
         radioClass: 'iradio_square-blue',
         increaseArea: '20%' /* optional */
       });
+      $('[data-toggle="tooltip"]').tooltip();
     });
   </script>
 
