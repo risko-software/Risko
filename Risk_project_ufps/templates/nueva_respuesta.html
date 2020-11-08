@@ -13,11 +13,11 @@
   <section class="content-header">
 
     <h1>
-      Acciones
-      <small>Nueva Acción de Respuesta</small>
+      Nueva Acción de Respuesta
+      
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Accion</a></li>
+      <li><a href="#"><i class="fa fa-dashboard"></i> Acciones</a></li>
       <li class="active">Nueva Acción de Respuesta</li>
     </ol>
 
@@ -46,14 +46,15 @@
             <div class="col-md-6">
               <div class="form-group">
                 <div class="form-group">
-                  <label >Nombre</label>
-                  <input type="text" class="form-control" maxlength="44" id="respuesta_nombre" placeholder="Ingrese Nombre de la acción de respuesta" name="respuesta_nombre">
+                  <label >Nombre*</label>
+                  <input type="text" class="form-control" maxlength="44" id="respuesta_nombre" placeholder="Ingrese Nombre de la acción de respuesta" name="respuesta_nombre" required>
                 </div>
               </div>
               <div id="bloq_subcategorias" class="form-group">
-                <label>Riesgo Asociado</label>
+                <label>Riesgo Asociado*</label>
                 {% if lista_riesgos %}
-                <select class="form-control select2" id="riesgo_id" name="riesgo_id">
+                <select class="form-control select2" id="riesgo_id" name="riesgo_id" required>
+                  <option value="" disabled selected>Riesgo Asociado</option>
                   {% for riesgo in lista_riesgos %}
                   <option value="{{ riesgo.riesgo_id }}">
                     {{ riesgo.riesgo_nombre }}
@@ -67,12 +68,13 @@
             </div>           
             <div class="col-md-6">
               <div class="form-group">
-                <label>Descripción</label>
-                <textarea class="form-control" rows="3" maxlength="3000" placeholder="Descripción de la acción de respuesta..." name="respuesta_descripcion"></textarea>
+                <label>Descripción*</label>
+                <textarea class="form-control" rows="3" maxlength="3000" placeholder="Descripción de la acción de respuesta..." name="respuesta_descripcion" required></textarea>
               </div>
               <div class="form-group">
-                    <label >Tipo de Acción</label>
-                    <select class="form-control select2" id="" name="tipo_respuesta">
+                    <label >Tipo de Acción*</label>
+                    <select class="form-control select2" id="" name="tipo_respuesta" required>
+                      <option value="" disabled selected>Tipo de Acción</option>
                       <optgroup label="Riesgo">
                         <option value="Mitigar">
                          Mitigar

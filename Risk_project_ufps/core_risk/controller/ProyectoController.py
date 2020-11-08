@@ -26,6 +26,10 @@ class ProyectoController:
         proyecto_dao = ProyectoDao()
         return proyecto_dao.obtener_proyecto(id)
 
+    def obtener_proyecto_linea_base(self, proyecto_id):
+        proyecto_dao = ProyectoDao()
+        return proyecto_dao.obtener_proyecto_linea_base(proyecto_id)
+
     def eliminar_proyecto(self, proyecto):
         proyecto_dao = ProyectoDao()
         return proyecto_dao.eliminar_proyecto(proyecto)

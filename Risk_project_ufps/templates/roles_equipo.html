@@ -19,7 +19,7 @@
      
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li><a href="#"><i class="fa fa-dashboard"></i> Equipo de trabajo</a></li>
       <li class="active">Roles del equipo de trabajo
      </li>
     </ol>
@@ -64,7 +64,7 @@
             <div class="form-group">
 
               <div class="form-group">
-                <label >Nombre Rol</label>
+                <label >Nombre Rol*</label>
                 <input type="text" class="form-control" maxlength="59" placeholder="Ingrese Nombre del rol a registrar" name="rol_nombre" required>
               </div>
 
@@ -73,7 +73,7 @@
           <!-- /.col -->
           <div class="col-md-6">
             <div class="form-group">
-              <label>Descripción</label>
+              <label>Descripción*</label>
               <textarea id="descripcion_nuevo" class="form-control" rows="3" maxlength="3000" placeholder="Descripción del rol a registrar..." name="rol_descripcion" required></textarea>
             </div>
             <div class="box-footer">             
@@ -266,7 +266,7 @@ function abrir_modal_eliminar(nombre, id) {
 
         $("#modal_eliminar").modal('show');
 
-        document.getElementById("contenido_modal").innerHTML = "Estas seguro que desea eliminar el tipo de recurso, este podria estar asociado a un proyecto.";
+        document.getElementById("contenido_modal").innerHTML = "Estas seguro que desea eliminar este rol del equipo de trabajo, este podria estar asociado a un proyecto.";
         document.getElementById("rol").innerHTML = " "+nombre;
         var input_id = document.getElementById("rol_id_e");
        

@@ -14,11 +14,11 @@
   <section class="content-header">
 
     <h1>
-      Riesgos
-      <small>Nuevo Riesgo</small>
+      Nuevo Riesgo
+      
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Riesgo</a></li>
+      <li><a href="#"><i class="fa fa-dashboard"></i> Mi EDR</a></li>
       <li class="active">Nuevo Riesgo</li>
     </ol>
 
@@ -45,16 +45,16 @@
             <div class="col-md-6">
               <div class="form-group">
                 <div class="form-group">
-                  <label >Nombre Riesgo</label>
+                  <label >Nombre Riesgo*</label>
                   <input type="text" class="form-control" maxlength="44" id="nombre" placeholder="Ingrese Nombre del riesgo" name="riesgo_nombre" required>
                 </div>                 
                 <div class="form-group">
-                  <label>Subcategoría a la que pertence</label>
+                  <label>Subcategoría a la que pertence*</label>
                   <select class="form-control select2" id="sub_categoria_id" name="sub_categoria_id" required>              
                   </select>                                
                 </div>              
                 <div class="form-group">
-                  <label>Causa</label>
+                  <label>Causa*</label>
                   <textarea class="form-control" rows="5"  maxlength="3000" placeholder="Descripción de la causa..." name="riesgo_causa" required></textarea>
                 </div>                
               </div>
@@ -62,7 +62,7 @@
             <!-- /.col -->
             <div class="col-md-6">
               <div class="form-group">
-                <label>Tipo</label>
+                <label>Tipo*</label>
                 <select class="form-control select2" style="width: 100%;" name="riesgo_tipo">
                   <option selected="selected" value="0">Riesgo</option>
                   <option value="1">Oportunidad</option>
@@ -70,11 +70,11 @@
                 </select>
               </div>           
               <div class="form-group">
-                <label>Efecto</label>
+                <label>Efecto*</label>
                 <textarea class="form-control" rows="3" maxlength="3000" placeholder="Descripción del efecto..." name="riesgo_efecto" required></textarea>
               </div>
               <div class="form-group">
-                  <label>Evento</label>
+                  <label>Evento*</label>
                   <textarea class="form-control" rows="3" maxlength="3000" placeholder="Descripción del evento..." name="riesgo_evento" required></textarea>
                 </div>
               <div class="box-footer">

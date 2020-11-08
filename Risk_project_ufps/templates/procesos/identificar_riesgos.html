@@ -50,7 +50,7 @@
                 <div class="box-header with-border">
                   <h4 class="box-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" style="color:#444444";>
-                      <label data-toggle="tooltip" data-placement="top" title="Presione aqui para ver mas información del proceso y generar su informe."><strong>Informe Identificar Riesgos Proyecto {{ proyecto.proyecto_nombre }}  <i class="fa fa-sort-desc"></i></strong></label>
+                      <label ><strong>Informe identificar riesgos - Proyecto: {{ proyecto.proyecto_nombre }}  <i class="fa fa-sort-desc"></i></strong></label>
                       
                       
                     </a>
@@ -72,7 +72,7 @@
          <div class="box box-primary">
           <div class="box-header with-border">
             <h4 class="box-title">
-             <label data-toggle="tooltip" data-placement="top" title="En esta sección podra agregar riesgos al proyecto."><strong>Identificar Riesgos Proyecto {{ proyecto.proyecto_nombre }}</strong></label>
+             <label data-toggle="tooltip" data-placement="top" title="En esta sección podra agregar riesgos al proyecto."><strong>Identificar riesgos - Proyecto: {{ proyecto.proyecto_nombre }}</strong></label>
            </h4>
          </div>
          <div class="nav-tabs-custom" style="cursor: move;">
@@ -240,7 +240,7 @@
   <div class="box box-primary">
       <div class="box-header with-border">
         <h4 class="box-title">
-        <label data-toggle="tooltip" data-placement="top" title="En esta sección podrá administrar los riesgos del proyecto."><strong>Riesgos del Proyecto {{ proyecto.proyecto_nombre }}</strong></label>
+        <label data-toggle="tooltip" data-placement="top" title="En esta sección podrá administrar los riesgos del proyecto."><strong>Riesgos identificados - Proyecto: {{ proyecto.proyecto_nombre }}</strong></label>
         </h4>
       </div>
       <div class="box-body">
@@ -930,7 +930,7 @@
         <form  action="{% url 'desasociar_respuesta_identificar' proyecto.proyecto_id %}" method="post">
           {% csrf_token %}
           <div class="modal-body">
-            <p id="contenido_modal_actividad">&hellip;</p>
+            <p id="contenido_modal_eliminar_respuesta">&hellip;</p>
             <h2 id="nombre_rta_me"></h2>
             <input type="text" class="form-control" id="respuesta_id_eliminar" name="respuesta_id_eliminar" style="visibility: hidden;" />         
             <input type="text" class="form-control" id="riesgo_id_eliminar" name="riesgo_id_eliminar" style="visibility: hidden;" />               
@@ -1252,7 +1252,7 @@ function asosiar_riesgos(proyecto_id){
     console.log("id", id);
     console.log("nombre", nombre);
     $("#modal_eliminar").modal('show');
-    document.getElementById("contenido_modal").innerHTML = "Estas seguro que desea eliminar el riesgo del proyecto? Esta acción no se podra reversar.";
+    document.getElementById("contenido_modal").innerHTML = "Estas seguro que desea eliminar el riesgo del proyecto?";
     document.getElementById("nombre_riesgo_me").innerHTML = " "+nombre;
     var input_id = document.getElementById("riesgo_id_e");
     input_id.value = id;        
@@ -1278,7 +1278,7 @@ function asosiar_riesgos(proyecto_id){
   };
 
   function abrir_modal_eliminar_respuesta(riesgo_id, respuesta_id, respuesta_nombre) {            
-    document.getElementById("contenido_modal_actividad").innerHTML = "¿Estas seguro que desea eliminar la siguiente accion del riesgo?";
+    document.getElementById("contenido_modal_eliminar_respuesta").innerHTML = "¿Estas seguro que desea eliminar la siguiente accion del riesgo?";
     document.getElementById("nombre_rta_me").innerHTML = " "+respuesta_nombre;
     document.getElementById("riesgo_id_eliminar").value = riesgo_id;        
     document.getElementById("respuesta_id_eliminar").value = respuesta_id;

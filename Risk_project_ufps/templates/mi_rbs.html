@@ -105,11 +105,11 @@
   <section class="content-header">
     <h1>
       Estructura Desglosada de Riesgos
-      <small>Panel de Control</small>
+      
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-      <li class="active">Mi EDR</li>
+      <li><a href="#"><i class="fa fa-dashboard"></i> Mi EDR</a></li>
+      <li class="active">Administrar</li>
     </ol>
   </section>
 
@@ -166,15 +166,15 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
-          <h4 class="modal-title">Editar categoria</h4>
+          <h4 class="modal-title">Editar categoría</h4>
         </div>
         <div class="modal-body">
           <form>
             <div class="form-group has-feedback">
-              <input type="text" class="form-control" maxlength="44" placeholder="Nombre Categoría" name="caegoria_gerente_editar" id="categoria_nombre_editar">
+              <input type="text" class="form-control" maxlength="44" placeholder="Nombre Categoría" name="caegoria_gerente_editar" id="categoria_nombre_editar" required>
             </div>
             <div class="form-group has-feedback">
-              <textarea class="form-control" rows="3" maxlength="3000" placeholder="Descripción" name="categoria_descripcion_editar" id="categoria_descripcion_editar"></textarea>
+              <textarea class="form-control" rows="3" maxlength="3000" placeholder="Descripción" name="categoria_descripcion_editar" id="categoria_descripcion_editar" required></textarea>
             </div>
             <input type="text" name="caegoria_id" id="categoria_id_editar" hidden="true" />
 
@@ -196,15 +196,15 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span></button>
-          <h4 class="modal-title">Editar subcategoria</h4>
+          <h4 class="modal-title">Editar subcategoría</h4>
         </div>
         <div class="modal-body">
           <form>
             <div class="form-group has-feedback">
-              <input type="text" class="form-control" maxlength="44" placeholder="Nombre Subcategoría" name="sub_categoria_gerente" id="sub_categoria_nombre_editar">
+              <input type="text" class="form-control" maxlength="44" placeholder="Nombre Subcategoría" name="sub_categoria_gerente" id="sub_categoria_nombre_editar" required>
             </div>
             <div class="form-group has-feedback">
-              <textarea class="form-control" rows="3" maxlength="3000" placeholder="Descripción" name="sub_categoria_descripcion" id="sub_categoria_descripcion_editar"></textarea>
+              <textarea class="form-control" rows="3" maxlength="3000" placeholder="Descripción" name="sub_categoria_descripcion" id="sub_categoria_descripcion_editar" required></textarea>
             </div>
             <input type="text" name="sub_categoria_id" id="sub_categoria_id_editar" hidden="true" />
           </form>
@@ -260,10 +260,10 @@
       <div class="modal-body">
         <form>
           <div class="form-group has-feedback">
-            <input type="text" class="form-control" id="nombre_agregar" maxlength="44" />
+            <input type="text" class="form-control" id="nombre_agregar" required maxlength="44" / >
           </div>
           <div class="form-group has-feedback">
-            <textarea class="form-control" rows="3" id="descripcion_agregar" maxlength="3000"></textarea>
+            <textarea class="form-control" rows="3" id="descripcion_agregar" required maxlength="3000"></textarea>
           </div>
           <input type="text" name="sub_categoria_id" id="id_agregar" hidden="true" />
         </form>
@@ -423,15 +423,15 @@
   */
   function abrir_modal_agregar(mi_tipo, mi_id) {
     if (mi_tipo == 0) {
-      $('#titulo_registrar').text("Registar Categoria");
-      document.getElementById("nombre_agregar").placeholder = "Nombre Categoria";
-      document.getElementById("descripcion_agregar").placeholder= "Descripción Categoria"
+      $('#titulo_registrar').text("Registar Categoría");
+      document.getElementById("nombre_agregar").placeholder = "Nombre Categoría";
+      document.getElementById("descripcion_agregar").placeholder= "Descripción Categoría"
       document.getElementById("id_agregar").value = "RBS";
     } else {
       let categoria = obtener_categoria_datos(mi_id);
-      $('#titulo_registrar').text("Registar SubCategoria");
-      document.getElementById("nombre_agregar").placeholder = "Nombre SubCategoria";
-      document.getElementById("descripcion_agregar").placeholder= "Descripción SubCategoria"
+      $('#titulo_registrar').text("Registar SubCategoría");
+      document.getElementById("nombre_agregar").placeholder = "Nombre SubCategoría";
+      document.getElementById("descripcion_agregar").placeholder= "Descripción SubCategoría"
       document.getElementById("id_agregar").value = categoria["categoria_id"];
     }
     $('#modal-registrar').modal('toggle');
@@ -484,14 +484,14 @@
   function abrir_modal_eliminar(mi_tipo, mi_id) {
     if (mi_tipo == 1) {
       let categoria = obtener_categoria_datos(mi_id);
-      $('#titulo_eliminar').text("¿Está seguro de eliminar esta categoria?");
+      $('#titulo_eliminar').text("¿Está seguro de eliminar esta categoría?");
       document.getElementById("nombre_eliminar").value = categoria["categoria_nombre"] ;
       document.getElementById("descripcion_eliminar").value = categoria["categoria_descripcion"];
       document.getElementById("id_eliminar").value = categoria["categoria_id"];
       document.getElementById("tipo_eliminar").value = "categoria";
     } else if(mi_tipo == 2) {
       let sub_categoria = obtener_sub_categoria_datos(mi_id);
-      $('#titulo_registrar').text("¿Está seguro de eliminar esta subcategoria?");
+      $('#titulo_registrar').text("¿Está seguro de eliminar esta subcategoría?");
       document.getElementById("nombre_eliminar").value = sub_categoria["sub_categoria_nombre"] ;
       document.getElementById("descripcion_eliminar").value = sub_categoria["sub_categoria_descripcion"];
       document.getElementById("id_eliminar").value = sub_categoria["sub_categoria_id"];

@@ -34,6 +34,16 @@ class ProyectoDao:
             return proyecto
 
 
+    def obtener_proyecto_linea_base(self, proyecto_id):
+        proyecto = None
+        try:
+            proyecto = Proyecto.objects.using('base').get(proyecto_id=proyecto_id)
+        except Proyecto.DoesNotExist as e:
+            print(e)
+        finally:
+            return proyecto
+
+
 
     def validar_proyecto(self, nombre, gerente_id):
         proyecto = None

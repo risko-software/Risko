@@ -248,6 +248,7 @@ class ReporteController:
                                 self.get_estado(aux_3['tarea_estado']),
                                 aux_3['tarea_observacion'],
                             ])
+                            contador = contador+1
                     else:
                         array_final.append([
                             aux['riesgo_nombre'],
@@ -261,8 +262,7 @@ class ReporteController:
                             '',
                             '',
                             '',
-                        ])
-                contador = contador+1
+                        ])                
             else:
                 array_final.append([
                     aux['riesgo_nombre'],
@@ -333,11 +333,11 @@ class ReporteController:
     def calcular_porcentaje_avance(self, estado:int, fecha_inicio_planeada:str, fecha_fin_planeada:str, duracion_planeada:int):
         fecha_inicio = datetime.strptime(fecha_inicio_planeada, '%Y-%m-%d')
         fecha_fin = datetime.strptime(fecha_fin_planeada, '%Y-%m-%d')
-        if estado == 1:
-            return 0.0
-        elif estado == 3:
-            return 100
         fecha_actual = datetime.now()
+        if fecha_inicio >= fecha_actual:
+            return 0.0
+        elif fecha_actual >= fecha_fin:
+            return 100
         dife = (fecha_actual - fecha_inicio).days
         return round((dife*100)/duracion_planeada,2)
 

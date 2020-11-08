@@ -6,7 +6,11 @@ COPY . /code
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+# Permite correr en modo debug para ver las trazas de error
 ENV MODE_DEBUG=False
+
+#Permite establecer el contexo donde estara corriendo la app, ejemplo: <>/<>/<>/
+ENV CONTEXT_RISKO_APP="risko/"
 
 ENV DEFAULT_NAME=""
 ENV DEFAULT_USER=""

@@ -17,11 +17,11 @@
         {% if proyecto %}
         {{ proyecto.proyecto_nombre }}
         {% endif %}
-        <small>Planificar Respuestas</small>
+        <small>Controlar Riesgos</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-folder-open"></i> Proyecto</a></li>
-        <li class="active">Planificar Respuestas</li>
+        <li class="active">Controlar Riesgos</li>
       </ol>
       {% if mensaje %}
       <div class="callout callout-info">
@@ -50,7 +50,7 @@
                 <div class="box-header with-border">
                   	<h4 class="box-title">
                     	<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" style="color:#444444";>
-                      		<label data-toggle="tooltip" data-placement="top" title="Presione aqui para ver mas información del proceso y generar su informe."><strong>Controlar riesgos proyecto: {{ proyecto.proyecto_nombre }}  
+                      		<label ><strong> Informe controlar riesgos - Proyecto: {{ proyecto.proyecto_nombre }}  
                       			<i class="fa fa-sort-desc"></i>
                       		</strong></label>
                     </a>
@@ -69,7 +69,7 @@
           <div class="box">
              <div class="box-header">
               <h3 class="box-title">
-                <strong>Cronograma de la gestion de riesgos - Proyecto: {{ proyecto.proyecto_nombre }}</strong> 
+                <strong>Cronograma de la gestión de riesgos - Proyecto: {{ proyecto.proyecto_nombre }}</strong> 
               </h3>         
               {% if proyecto.proyecto_fin_status %}
               <button class="btn btn-primary pull-right" onclick="confirmar_cambios();" disabled="true">Confirmar cambios</button>

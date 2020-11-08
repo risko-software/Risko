@@ -83,7 +83,7 @@
                 <div class="form-group has-feedback">
                   {% if lista_paises %}
                   <select class="form-control select2" style="width: 100%;" name="gerente_pais" required>
-                    <option value="" disabled selected>Pais de origen</option>
+                    <option value="" disabled selected>País de origen</option>
                     {% for pais in lista_paises %}
                     <option value="{{ pais.pais_id }}">{{ pais.pais_nombre }}</option>
                     {% endfor %} 
@@ -92,21 +92,21 @@
                 </div>
                 <div class="form-group has-feedback">        
                   <select class="form-control select2" style="width: 100%;" name="certificacion" required>
-                    <option value="" disabled selected>Certificacion obtenida</option>
-                    <option value="PMP">PMP: Project Management Professional</option>
-                    <option value="CAPM">CAPM: Certified Associate in Project Management</option>
-                    <option value="CSM">CSM: Certified ScrumMaster</option>
-                    <option value="PRINCE2">PRINCE2 Foundation/PRINCE2 Practitioner</option>
-                    <option value="CPMP">CPMP: Certified Project Management Practitioner</option>
-                    <option value="MPM">MPM: Master Project Manager</option>
-                    <option value="PPM">PPM: Professional in Project Management</option>
-                    <option value="PMITS">PMITS: Project Management in IT Security</option>
+                    <option value="" disabled selected>Certificación obtenida</option>
+                    <option value="PMP: Project Management Professional">PMP: Project Management Professional</option>
+                    <option value="CAPM: Certified Associate in Project Management">CAPM: Certified Associate in Project Management</option>
+                    <option value="CSM: Certified ScrumMaster">CSM: Certified ScrumMaster</option>
+                    <option value="PRINCE2 Foundation/PRINCE2 Practitioner">PRINCE2 Foundation/PRINCE2 Practitioner</option>
+                    <option value="CPMP: Certified Project Management Practitioner">CPMP: Certified Project Management Practitioner</option>
+                    <option value="MPM: Master Project Manager">MPM: Master Project Manager</option>
+                    <option value="PPM: Professional in Project Management">PPM: Professional in Project Management</option>
+                    <option value="PMITS: Project Management in IT Security">PMITS: Project Management in IT Security</option>
                     <option value="Ninguna">Ninguna</option>
                   </select>
                 </div>
                 <div class="form-group has-feedback">        
                   <select class="form-control select2" style="width: 100%;" name="metodologia" required>
-                    <option value="" disabled selected>Metodologia usada</option>
+                    <option value="" disabled selected>Metodología usada</option>
                     <option value="PMBOK®">PMBOK®</option>
                     <option value="AMPBOK®">AMPBOK®</option>
                     <option value="ICB®">ICB®</option>
@@ -130,7 +130,7 @@
           <div class="checkbox" style="text-align: center;" >
             <label>
               <input type="checkbox" required>
-              &nbsp Acepto los <a data-toggle="modal" data-target="#modal-default">terminos y condiciones.</a>
+              &nbsp Acepto los <a data-toggle="modal" data-target="#modal-default">términos y condiciones.</a>
             </label>
           </div>       
           <!-- /.col -->

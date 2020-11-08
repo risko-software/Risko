@@ -167,8 +167,11 @@ STATICFILES_DIRS = [
     # '/static'
 ]
 
-STATIC_ROOT = '/risko/static' #os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/risko/static/'
+context_risko_app = os.environ['CONTEXT_RISKO_APP'] 
+#context_risko_app = 'risko/' 
+
+STATIC_ROOT = '/{}static'.format(context_risko_app) #os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/{}static/'.format(context_risko_app)
 
 """STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -178,8 +181,8 @@ STATICFILES_DIRS = [
 ]"""
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_REDIRECT_URL = '/risko/inicio/'
-LOGOUT_REDIRECT_URL = '/risko/accounts/login/'
+LOGIN_REDIRECT_URL = '/{}inicio/'.format(context_risko_app)
+LOGOUT_REDIRECT_URL = '/{}accounts/login/'.format(context_risko_app)
 
 EMAIL_USE_TLS=True
 EMAIL_HOST=os.environ['EMAIL_HOST'] 
