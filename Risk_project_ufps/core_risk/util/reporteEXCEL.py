@@ -76,7 +76,7 @@ class reporteEXCEL(object):
         celdaFechaDescarga.font = fontInformacionExtra
 
         celdaCantidadDescarga = hoja.cell(row=8, column=2)
-        celdaCantidadDescarga.value = "Registros descargados: {}".format(len(self.registros))
+        celdaCantidadDescarga.value = "Archivos descargados: {}".format(len(self.registros))
         celdaCantidadDescarga.font = fontInformacionExtra
 
       # ================== BORDES - COLOR (CELDAS) =================
@@ -177,7 +177,7 @@ class reporteEXCEL(object):
 
         celdaFinal = ascii_uppercase[len(self.cabecera)]
         rangoTitulo = "B2:{}3".format(celdaFinal)
-        rangoCabecera = "B16:{}16".format(celdaFinal)
+        rangoCabecera = "B10:{}10".format(celdaFinal)
 
         centrarTexto = Alignment(horizontal="center", vertical="center")
 
@@ -202,26 +202,26 @@ class reporteEXCEL(object):
         celdaFechaDescarga.font = fontInformacionExtra
 
         celdaCantidadDescarga = hoja.cell(row=8, column=2)
-        celdaCantidadDescarga.value = "Registros descargados: {}".format(len(self.registros))
+        celdaCantidadDescarga.value = "Archivos descargados: {}".format(len(self.registros))
         celdaCantidadDescarga.font = fontInformacionExtra
 
-        celdaObjetivoTitulo = hoja.cell(row=10, column=2)
-        celdaObjetivoTitulo.value = "Objetivo: "
-        celdaObjetivoTitulo.font = fontInformacionExtra
+       # celdaObjetivoTitulo = hoja.cell(row=10, column=2)
+       # celdaObjetivoTitulo.value = "Objetivo: "
+       # celdaObjetivoTitulo.font = fontInformacionExtra
 
-        celdaObjetivo = hoja.cell(row=11, column=2)
-        celdaObjetivo.value = objetivo
-        celdaObjetivo.font = fontInformacionExtra
+       # celdaObjetivo = hoja.cell(row=11, column=2)
+       # celdaObjetivo.value = objetivo
+       # celdaObjetivo.font = fontInformacionExtra
 
 
-        celdaAlcanceTitulo = hoja.cell(row=13, column=2)
-        celdaAlcanceTitulo.value = "Alcance: "
-        celdaAlcanceTitulo.font = fontInformacionExtra
+       # celdaAlcanceTitulo = hoja.cell(row=13, column=2)
+       # celdaAlcanceTitulo.value = "Alcance: "
+       # celdaAlcanceTitulo.font = fontInformacionExtra
 
-        celdaAlcance = hoja.cell(row=14, column=2)
-        celdaAlcance.value = alcance
-        celdaAlcance.font = fontInformacionExtra
-        mi_row = 14
+       # celdaAlcance = hoja.cell(row=14, column=2)
+       # celdaAlcance.value = alcance
+       # celdaAlcance.font = fontInformacionExtra
+        mi_row = 8
 
       # ================== BORDES - COLOR (CELDAS) =================
 
@@ -320,7 +320,7 @@ class reporteEXCEL(object):
 
         celdaFinal = ascii_uppercase[len(self.cabecera)]
         rangoTitulo = "B2:{}3".format(celdaFinal)
-        rangoCabecera = "B16:{}16".format(celdaFinal)
+        rangoCabecera = "B10:{}10".format(celdaFinal)
 
         centrarTexto = Alignment(horizontal="center", vertical="center")
 
@@ -345,26 +345,26 @@ class reporteEXCEL(object):
         celdaFechaDescarga.font = fontInformacionExtra
 
         celdaCantidadDescarga = hoja.cell(row=8, column=2)
-        celdaCantidadDescarga.value = "Registros descargados: {}".format(len(self.registros))
+        celdaCantidadDescarga.value = "Archivos descargados: {}".format(len(self.registros))
         celdaCantidadDescarga.font = fontInformacionExtra
 
-        celdaObjetivoTitulo = hoja.cell(row=10, column=2)
-        celdaObjetivoTitulo.value = "Objetivo: "
-        celdaObjetivoTitulo.font = fontInformacionExtra
+        #celdaObjetivoTitulo = hoja.cell(row=10, column=2)
+        #celdaObjetivoTitulo.value = "Objetivo: "
+        #celdaObjetivoTitulo.font = fontInformacionExtra
 
-        celdaObjetivo = hoja.cell(row=11, column=2)
-        celdaObjetivo.value = objetivo
-        celdaObjetivo.font = fontInformacionExtra
+        #celdaObjetivo = hoja.cell(row=11, column=2)
+        #celdaObjetivo.value = objetivo
+        #celdaObjetivo.font = fontInformacionExtra
 
 
-        celdaAlcanceTitulo = hoja.cell(row=13, column=2)
-        celdaAlcanceTitulo.value = "Alcance: "
-        celdaAlcanceTitulo.font = fontInformacionExtra
+        #celdaAlcanceTitulo = hoja.cell(row=13, column=2)
+        #celdaAlcanceTitulo.value = "Alcance: "
+        #celdaAlcanceTitulo.font = fontInformacionExtra
 
-        celdaAlcance = hoja.cell(row=14, column=2)
-        celdaAlcance.value = alcance
-        celdaAlcance.font = fontInformacionExtra
-        mi_row = 14
+        #celdaAlcance = hoja.cell(row=14, column=2)
+        #celdaAlcance.value = alcance
+        #celdaAlcance.font = fontInformacionExtra
+        mi_row = 8
 
       # ================== BORDES - COLOR (CELDAS) =================
 
@@ -480,7 +480,7 @@ class reporteEXCEL(object):
 
         celdaFinal = ascii_uppercase[len(self.cabecera)]
         rangoTitulo = "B2:{}3".format(celdaFinal)
-        rangoCabecera = "B16:{}16".format(celdaFinal)
+        rangoCabecera = "B10:{}10".format(celdaFinal)
 
         centrarTexto = Alignment(horizontal="center", vertical="center")
 
@@ -505,26 +505,26 @@ class reporteEXCEL(object):
         celdaFechaDescarga.font = fontInformacionExtra
 
         celdaCantidadDescarga = hoja.cell(row=8, column=2)
-        celdaCantidadDescarga.value = "Registros descargados: {}".format(len(self.registros))
+        celdaCantidadDescarga.value = "Archivos descargados: {}".format(len(self.registros))
         celdaCantidadDescarga.font = fontInformacionExtra
 
-        celdaObjetivoTitulo = hoja.cell(row=10, column=2)
-        celdaObjetivoTitulo.value = "Objetivo: "
-        celdaObjetivoTitulo.font = fontInformacionExtra
+        #celdaObjetivoTitulo = hoja.cell(row=10, column=2)
+        #celdaObjetivoTitulo.value = "Objetivo: "
+        #celdaObjetivoTitulo.font = fontInformacionExtra
 
-        celdaObjetivo = hoja.cell(row=11, column=2)
-        celdaObjetivo.value = objetivo
-        celdaObjetivo.font = fontInformacionExtra
+        #celdaObjetivo = hoja.cell(row=11, column=2)
+        #celdaObjetivo.value = objetivo
+        #celdaObjetivo.font = fontInformacionExtra
 
 
-        celdaAlcanceTitulo = hoja.cell(row=13, column=2)
-        celdaAlcanceTitulo.value = "Alcance: "
-        celdaAlcanceTitulo.font = fontInformacionExtra
+        #celdaAlcanceTitulo = hoja.cell(row=13, column=2)
+        #celdaAlcanceTitulo.value = "Alcance: "
+        #celdaAlcanceTitulo.font = fontInformacionExtra
 
-        celdaAlcance = hoja.cell(row=14, column=2)
-        celdaAlcance.value = alcance
-        celdaAlcance.font = fontInformacionExtra
-        mi_row = 14
+        #celdaAlcance = hoja.cell(row=14, column=2)
+        #celdaAlcance.value = alcance
+        #celdaAlcance.font = fontInformacionExtra
+        mi_row = 8
 
       # ================== BORDES - COLOR (CELDAS) =================
 
@@ -622,7 +622,7 @@ class reporteEXCEL(object):
 
         celdaFinal = ascii_uppercase[len(self.cabecera)]
         rangoTitulo = "B2:{}3".format(celdaFinal)
-        rangoCabecera = "B16:{}16".format(celdaFinal)
+        rangoCabecera = "B10:{}10".format(celdaFinal)
 
         centrarTexto = Alignment(horizontal="center", vertical="center")
 
@@ -647,25 +647,25 @@ class reporteEXCEL(object):
         celdaFechaDescarga.font = fontInformacionExtra
 
         celdaCantidadDescarga = hoja.cell(row=8, column=2)
-        celdaCantidadDescarga.value = "Registros descargados: {}".format(len(self.registros))
+        celdaCantidadDescarga.value = "Archivos descargados: {}".format(len(self.registros))
         celdaCantidadDescarga.font = fontInformacionExtra
 
-        celdaObjetivoTitulo = hoja.cell(row=10, column=2)
-        celdaObjetivoTitulo.value = "Objetivo: "
-        celdaObjetivoTitulo.font = fontInformacionExtra
+        #celdaObjetivoTitulo = hoja.cell(row=10, column=2)
+        #celdaObjetivoTitulo.value = "Objetivo: "
+        #celdaObjetivoTitulo.font = fontInformacionExtra
 
-        celdaObjetivo = hoja.cell(row=11, column=2)
-        celdaObjetivo.value = objetivo
-        celdaObjetivo.font = fontInformacionExtra
+        #celdaObjetivo = hoja.cell(row=11, column=2)
+        #celdaObjetivo.value = objetivo
+        #celdaObjetivo.font = fontInformacionExtra
 
-        celdaAlcanceTitulo = hoja.cell(row=13, column=2)
-        celdaAlcanceTitulo.value = "Alcance: "
-        celdaAlcanceTitulo.font = fontInformacionExtra
+        #celdaAlcanceTitulo = hoja.cell(row=13, column=2)
+        #celdaAlcanceTitulo.value = "Alcance: "
+        #celdaAlcanceTitulo.font = fontInformacionExtra
 
-        celdaAlcance = hoja.cell(row=14, column=2)
-        celdaAlcance.value = alcance
-        celdaAlcance.font = fontInformacionExtra
-        mi_row = 14
+        #celdaAlcance = hoja.cell(row=14, column=2)
+        #celdaAlcance.value = alcance
+        #celdaAlcance.font = fontInformacionExtra
+        mi_row = 8
 
         # ================== BORDES - COLOR (CELDAS) =================
 
