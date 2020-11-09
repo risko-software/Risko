@@ -15,7 +15,8 @@
      
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Acciones</a></li>
+      <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
+      <li class="active">Acciones</li>
       <li class="active">Histórico de acciones</li>
     </ol>
     {% if mensaje_eliminar %}
@@ -37,11 +38,9 @@
   <!-- Main content -->
   <section class="content">
     <div class="row">
-
       <!-- /.Tabla -->
       <div class="col-md-12">
         <div class="box box-primary">
-
           <div class="box-header with-border">
             <h3 class="box-title">Acciones</h3>
           </div>
@@ -59,37 +58,37 @@
                   </tr>
                 </thead>
                 <tbody>
-                 {% if lista_riesgos_respuesta %}
-                 {% for respuesta in lista_riesgos_respuesta %}
-                 <tr> 
-                  <td></td>                 
-                  <td>{{ respuesta.respuesta.respuesta_nombre }}</td>
-                  <td>{{ respuesta.respuesta.respuesta_descripcion }}</td>
-                  <td>{{ respuesta.riesgo.riesgo_nombre }}</td>
-                                  
-                  <td>
-                    <button type="button" class="btn btn-default" data-toggle="#modal-editar" onclick="abrir_modal_editar('{{ respuesta.respuesta.respuesta_nombre }}', '{{ respuesta.respuesta.respuesta_id }}', '{{ respuesta.respuesta.respuesta_descripcion }}' )" data-target="#modal-editar"><i   class="fa fa-edit"></i>
-                    </button>
+                  {% if lista_riesgos_respuesta %}
+                  {% for respuesta in lista_riesgos_respuesta %}
+                  <tr> 
+                    <td></td>                 
+                    <td>{{ respuesta.respuesta.respuesta_nombre }}</td>
+                    <td>{{ respuesta.respuesta.respuesta_descripcion }}</td>
+                    <td>{{ respuesta.riesgo.riesgo_nombre }}</td>
+                                    
+                      <td>
+                        <button type="button" class="btn btn-default" data-toggle="#modal-editar" onclick="abrir_modal_editar('{{ respuesta.respuesta.respuesta_nombre }}', '{{ respuesta.respuesta.respuesta_id }}', '{{ respuesta.respuesta.respuesta_descripcion }}' )" data-target="#modal-editar"><i   class="fa fa-edit"></i>
+                        </button>
 
 
-                    <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ respuesta.respuesta.respuesta_nombre }}', '{{ respuesta.respuesta.respuesta_id }}', '{{ respuesta.riesgo.riesgo_id }}')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i>
-                    </button>
-                    &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                  </td>
-                </tr>
-                {% endfor %}
-                {% else %}
-                <tr>
-                  <td></td>
-                  <td>No cuentas con respuestas registradas.</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                {% endif %} 
-              </tbody>
+                        <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ respuesta.respuesta.respuesta_nombre }}', '{{ respuesta.respuesta.respuesta_id }}', '{{ respuesta.riesgo.riesgo_id }}')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i>
+                        </button>
+                        &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td></td>
+                    <td>No cuentas con respuestas registradas.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  {% endif %} 
+                </tbody>
               <tfoot>
                 <tr>      
                   <th></th>           
@@ -102,13 +101,11 @@
             </table>
           </div>
           <!-- /.box-body -->
-
         </div>
       </div>
       <!-- /. box -->
     </div>
     <!-- /.col -->
-  </div>
   <!-- /.row -->
 </section>
 

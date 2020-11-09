@@ -9,21 +9,16 @@
 
 
 <div class="content-wrapper">
- 
-
   <!-- Content Header (Page header) -->
   <section class="content-header">
-
     <h1>
       Roles del equipo de trabajo
-     
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Equipo de trabajo</a></li>
-      <li class="active">Roles del equipo de trabajo
-     </li>
+      <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
+      <li class="active">Equipo de trabajo</li>
+      <li class="active">Roles del equipo de trabajo</li>
     </ol>
-
     {% if mensaje %}
     <div class="callout callout-info">
       <h4>Registro Exitoso</h4>
@@ -36,7 +31,6 @@
       {{mensaje_eliminar}}      
     </div>
     {% endif %}
-
     {% if mensaje_editar %}
     <div class="callout callout-warning">
       <h4>Actualización Exitosa</h4>
@@ -45,92 +39,78 @@
     {% endif %}
   </section>
 
-
-
   <section class="content">
     <!-- SELECT2 EXAMPLE -->
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h3 class="box-title">Registrar Nuevo Rol</h3>        
+        <h3 class="box-title">Registrar nuevo rol</h3>        
       </div>
-
       <!-- /.box-header -->
-
       <div class="box-body">
         <form role="form" action="{% url 'nuevo_rol' %}" method="post" autocomplete="Nope">
-        {% csrf_token %}
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-
+         {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6">
               <div class="form-group">
-                <label >Nombre Rol*</label>
-                <input type="text" class="form-control" maxlength="59" placeholder="Ingrese Nombre del rol a registrar" name="rol_nombre" required>
+                <div class="form-group">
+                  <label >Nombre rol*</label>
+                  <input type="text" class="form-control" maxlength="59" placeholder="Ingrese Nombre del rol a registrar" name="rol_nombre" required>
+                </div>
               </div>
-
             </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Descripción*</label>
+                <textarea id="descripcion_nuevo" class="form-control" rows="3" maxlength="3000" placeholder="Descripción del rol a registrar..." name="rol_descripcion" required></textarea>
+              </div>
+              <div class="box-footer">             
+                <button type="submit" class="btn btn-primary pull-right">Registrar</button>
+              </div>
+            </div>
+            <!-- /.col -->
           </div>
-          <!-- /.col -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Descripción*</label>
-              <textarea id="descripcion_nuevo" class="form-control" rows="3" maxlength="3000" placeholder="Descripción del rol a registrar..." name="rol_descripcion" required></textarea>
-            </div>
-            <div class="box-footer">             
-              <button type="submit" class="btn btn-primary pull-right">Registrar</button>
-            </div>
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </form>
-    </div><!-- /.box-body -->
-
-  </div>   
+          <!-- /.row -->
+        </form>
+      </div><!-- /.box-body -->
+    </div>   
 
     <!-- /.box-header -->
   </section>
+
   <section class="content">
     <div class="row">
-
       <!-- /.Tabla -->
       <div class="col-md-12">
         <div class="box box-primary">
-
           <div class="box-header with-border">
-            <h3 class="box-title">Mis Roles</h3>
+            <h3 class="box-title">Mis roles</h3>
           </div>
-
           <!-- /.box-header -->
           <div class="box-body">
-               <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>   
-                    <th></th>                  
-                    <th>Nombre <i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>
-                    <th>Descripción <i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>
-                    <th>Opciones </th>                                       
-                  </tr>
-                </thead>
-                <tbody>
-                 {% if lista_roles %}
-                 {% for rol in lista_roles %}
-                 <tr>
-                 <td></td>                 
-                  <td>{{ rol.rol_nombre }}</td>
-                  <td>{{ rol.rol_descripcion }}</td>
-                  
-                                  
-                  <td>
-                    <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ rol.rol_nombre }}', '{{ rol.rol_descripcion }}', '{{ rol.rol_id }}')"><i   class="fa fa-edit"></i>
-                    </button>
-
-
-                    <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ rol.rol_nombre }}', '{{ rol.rol_id }}')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i>
-                    </button>
-                    &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    
-                  </td>
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                <tr>   
+                  <th></th>                  
+                  <th>Nombre <i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>
+                  <th>Descripción <i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>
+                  <th>Opciones </th>                                       
+                </tr>
+              </thead>
+              <tbody>
+               {% if lista_roles %}
+               {% for rol in lista_roles %}
+               <tr>
+               <td></td>                 
+                <td>{{ rol.rol_nombre }}</td>
+                <td>{{ rol.rol_descripcion }}</td>               
+                <td>
+                  <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ rol.rol_nombre }}', '{{ rol.rol_descripcion }}', '{{ rol.rol_id }}')"><i   class="fa fa-edit"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ rol.rol_nombre }}', '{{ rol.rol_id }}')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i>
+                  </button>
+                  &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                </td>
                 </tr>
                 {% endfor %}
                 {% else %}
@@ -143,29 +123,27 @@
                 {% endif %} 
               </tbody>
               <tfoot>
-                <tr>
-                  <th></th>                 
-                  <th>Nombre</th>
-                  <th>Descripción</th>                 
-                  <th>Opciones</th>
-                </tr>
+              <tr>
+                <th></th>                 
+                <th>Nombre</th>
+                <th>Descripción</th>                 
+                <th>Opciones</th>
+              </tr>
               </tfoot>
             </table>
           </div>
           <!-- /.box-body -->
-
         </div>
       </div>
       <!-- /. box -->
     </div>
     <!-- /.col -->
-  </div>
   <!-- /.row -->
-</section>
+  </section>
 <!-- /.box -->
 <!-- /.modal-editar -->
 
- <div class="modal fade" id="modal-editar">
+  <div class="modal fade" id="modal-editar">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -232,12 +210,7 @@
         <!-- /.modal-content -->
       </div>
       <!-- /.modal-dialog -->
-    </div>
-
-
-
-
-
+  </div>
 
 </div>
 {% endblock %}

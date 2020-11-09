@@ -76,7 +76,7 @@ class reporteEXCEL(object):
         celdaFechaDescarga.font = fontInformacionExtra
 
         celdaCantidadDescarga = hoja.cell(row=8, column=2)
-        celdaCantidadDescarga.value = "Archivos descargados: {}".format(len(self.registros))
+        celdaCantidadDescarga.value = "Total de filas: {}".format(len(self.registros))
         celdaCantidadDescarga.font = fontInformacionExtra
 
       # ================== BORDES - COLOR (CELDAS) =================
@@ -202,7 +202,7 @@ class reporteEXCEL(object):
         celdaFechaDescarga.font = fontInformacionExtra
 
         celdaCantidadDescarga = hoja.cell(row=8, column=2)
-        celdaCantidadDescarga.value = "Archivos descargados: {}".format(len(self.registros))
+        celdaCantidadDescarga.value = "Total de registros: {}".format(len(self.registros))
         celdaCantidadDescarga.font = fontInformacionExtra
 
        # celdaObjetivoTitulo = hoja.cell(row=10, column=2)
@@ -345,7 +345,7 @@ class reporteEXCEL(object):
         celdaFechaDescarga.font = fontInformacionExtra
 
         celdaCantidadDescarga = hoja.cell(row=8, column=2)
-        celdaCantidadDescarga.value = "Archivos descargados: {}".format(len(self.registros))
+        celdaCantidadDescarga.value = "Total de registros: {}".format(len(self.registros))
         celdaCantidadDescarga.font = fontInformacionExtra
 
         #celdaObjetivoTitulo = hoja.cell(row=10, column=2)
@@ -505,7 +505,7 @@ class reporteEXCEL(object):
         celdaFechaDescarga.font = fontInformacionExtra
 
         celdaCantidadDescarga = hoja.cell(row=8, column=2)
-        celdaCantidadDescarga.value = "Archivos descargados: {}".format(len(self.registros))
+        celdaCantidadDescarga.value = "Total de registros: {}".format(len(self.registros))
         celdaCantidadDescarga.font = fontInformacionExtra
 
         #celdaObjetivoTitulo = hoja.cell(row=10, column=2)
@@ -647,7 +647,7 @@ class reporteEXCEL(object):
         celdaFechaDescarga.font = fontInformacionExtra
 
         celdaCantidadDescarga = hoja.cell(row=8, column=2)
-        celdaCantidadDescarga.value = "Archivos descargados: {}".format(len(self.registros))
+        celdaCantidadDescarga.value = "Total de registros: {}".format(len(self.registros))
         celdaCantidadDescarga.font = fontInformacionExtra
 
         #celdaObjetivoTitulo = hoja.cell(row=10, column=2)

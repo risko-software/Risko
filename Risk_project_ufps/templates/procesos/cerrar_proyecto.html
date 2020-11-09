@@ -20,7 +20,7 @@
         <small>Cierre del proyecto</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-folder-open"></i> Proyecto</a></li>
+        <li><a href="#"><i class="fa fa-folder-open"></i>Procesos</a></li>
         <li class="active">Cierre del Proyecto</li>
       </ol>
       {% if mensaje %}
@@ -37,7 +37,7 @@
       {% endif %}
       {% if mensaje_editar %}
       <div class="callout callout-warning">
-        <h4>Cuidado</h4>
+        <h4>Notificación</h4>
         {{mensaje_editar}}      
       </div>
       {% endif %}
@@ -50,7 +50,7 @@
             <div class="box-header with-border">
              <h4 class="box-title">
                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" style="color:#444444";>
-                <label ><strong>Cierre del proyecto: {{ proyecto.proyecto_nombre }}  
+                <label ><strong>Cierre del proyecto - Proyecto: {{ proyecto.proyecto_nombre }}  
                  <i class="fa fa-sort-desc"></i>
                </strong></label>
              </a>
@@ -181,7 +181,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Agregar Lección Aprendida al Proyecto</h4>
+          <h4 class="modal-title">Agregar lección aprendida al proyecto</h4>
         </div>
         <div class="box-body">
          <form  action="{% url 'registrar_leccion' proyecto.proyecto_id %}" method="post">
@@ -255,7 +255,7 @@
           {% csrf_token %}
           <div class="modal-body" style="overflow-y: scroll; width:100%; height:50vh;">
 
-            <p id="contenido_modal"><strong>Esta seguro que desea finalizar la gestión de riesgos de este proyecto? Esta acción no se podra reversar, y deshailitara por completo la administración de riesgos del proyecto  {{ proyecto.proyecto_nombre }}. </strong></p>
+            <p id="contenido_modal"><strong>¿Está seguro de finalizar la gestión de riesgos para este proyecto? Esta acción no se podra reversar y deshabilitará por completo la administración de riesgos del proyecto:  {{ proyecto.proyecto_nombre }}. </strong></p>
 
             {% if tareas_no_iniciadas %}
             <p><strong>Atención: Aun no se han marcado como completadas las siguientes tareas:</strong></p><br>

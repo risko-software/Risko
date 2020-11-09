@@ -20,8 +20,8 @@
         {% endif %}       
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-folder-open"></i> Proyecto</a></li>
-        <li class="active">Histórico Línea Base</li>
+        <li><a href="#"><i class="fa fa-folder-open"></i> Procesos</a></li>
+        <li class="active">Histórico línea base</li>
       </ol>      
     </section>
     <section class="content">
@@ -117,7 +117,7 @@
 
 <!-- /.modal tareas -->
 <div class="modal fade" id="modal_tareas">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -455,7 +455,7 @@
         probabilidad_escala = get_escala_by_probabilidad_id(probabilidad_id);
         evaluacion = impacto_escala * probabilidad_escala;
         rango = get_rango(evaluacion);        
-        let temp = '<small class="label" style="background-color:'+rango[0]+';"></i>'+rango[1]+'</small>';
+        let temp = '<small class="label" style="background-color:'+rango[0]+';">'+rango[1]+'</small>';
         let gg = $.parseHTML(temp) 
         $("#riesgo_rango_"+riesgo_id).append(gg);
       }

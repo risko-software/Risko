@@ -112,19 +112,19 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputSkills" class="col-sm-2 control-label">Metodologia</label>
-
-                    <div class="col-sm-10">
-                      <h5>{{ gerente.gerente_metodologias }}</h5>
-                    </div>
-                  </div>
-                  <div class="form-group">
                     <label for="inputSkills" class="col-sm-2 control-label">Certificación</label>
 
                     <div class="col-sm-10">
                       <h5>{{ gerente.gerente_certificaciones }}</h5>
                     </div>
-                  </div>                  
+                  </div>    
+                  <div class="form-group">
+                    <label for="inputSkills" class="col-sm-2 control-label">Metodologia</label>
+
+                    <div class="col-sm-10">
+                      <h5>{{ gerente.gerente_metodologias }}</h5>
+                    </div>
+                  </div>                                
                 </form>
 
 
@@ -136,7 +136,7 @@
                     <label for="inputName" class="col-sm-2 control-label">Nombre*</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" maxlength="99" id="gerente_nombre" name="gerente_nombre" value="{{ gerente.gerente_nombre }}" required>
+                      <input type="text" class="form-control" maxlength="30" id="gerente_nombre" name="gerente_nombre" value="{{ gerente.gerente_nombre }}" required>
                     </div>
                   </div>
                   <div class="form-group">
