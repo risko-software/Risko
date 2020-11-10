@@ -2,7 +2,7 @@
 
 {% block title %} RISKO | {{ proyecto.proyecto_nombre }} {% endblock %}
  
-
+{% load risko_filter %}
 {% block content %}
 
 
@@ -130,18 +130,18 @@
                   <tr>
                     <td></td>
                     <td>{{ recurso.recurso_nombre }}</td>
-                    <td>{{ recurso.recurso_costo }}</td>  
+                    <td>{{ recurso.recurso_costo|formato_dinero }}</td>  
                     <td>{{ recurso.tipo_recurso.tipo_recurso_nombre }}</td>                    
                     <td>
                      {% if proyecto.proyecto_fin_status %}
-                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}')" data-target="#modal-editar" disabled="true"><i   class="fa fa-edit"></i>
+                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}', '{{ recurso.recurso_costo }}')" data-target="#modal-editar" disabled="true"><i   class="fa fa-edit"></i>
                      </button>
 
 
                      <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}')" data-target="#modal_eliminar" disabled="true"><i class="fa fa-trash-o danger"></i>
                      </button>
                      {% else %}
-                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}')" data-target="#modal-editar"><i   class="fa fa-edit"></i>
+                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}', '{{ recurso.recurso_costo }}')" data-target="#modal-editar"><i   class="fa fa-edit"></i>
                      </button>
 
 
@@ -185,7 +185,7 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Editar Tipo de Recurso</h4>
+            <h4 class="modal-title">Editar tipo de recurso</h4>
           </div>
           <div class="box-body">
            <form  action="{% url 'editar_recurso' proyecto.proyecto_id %}" method="post">
@@ -201,7 +201,7 @@
               <div class="col-md-6">             
                 <div class="form-group">
                 <label >Costo </label>
-                <input type="number" class="form-control" id="recurso_costo" name="recurso_costo" required>
+                <input type="number" class="form-control" id="recurso_costo_editar" name="recurso_costo" required>
                 </div>
                 <input type="text" class="form-control" id="recurso_id" name="recurso_id" style="visibility:hidden">
               </div>
@@ -310,16 +310,15 @@ function actualizar_label(){
 
 }
 
-function abrir_modal_editar(nombre, id) {
-            
-        $("#modal-editar").modal('show');
-        var input_id = document.getElementById("recurso_id");
-        var input_nombre = document.getElementById("recurso_nombre");        
-        input_id.value = id;
-        input_nombre.value = nombre;
-        
-        return false;
-    };
+  function abrir_modal_editar(nombre, id, costo) {          
+    $("#modal-editar").modal('show');
+    var input_id = document.getElementById("recurso_id");
+    var input_nombre = document.getElementById("recurso_nombre");        
+    var input_costo = document.getElementById("recurso_costo_editar");
+    input_id.value = id;
+    input_nombre.value = nombre;
+    input_costo.value = parseInt(costo);
+  };
 
 function trasnformar_tabla(id_tabla) {
   t = $("#"+id_tabla).DataTable({    
