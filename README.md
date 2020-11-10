@@ -129,7 +129,7 @@ Ahora puede hacerlo correr:
 ```sh
 docker run -d -p 8080:8080 <docker_id>/risko:<tag> 
 ```
-Verifique el despliegue de la aplicación buscabdo en el navegados
+Verifique el despliegue de la aplicación buscando en el navegador
 
 ```sh
 127.0.0.1:8080
