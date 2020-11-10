@@ -7,7 +7,7 @@
 
 {% load static %}
 {% block organigrama_up %}
-
+<script src="{% static 'risk_project/dist/js/moment.min.js' %}"></script>
 {% endblock %}
 {% block content %}
 <div class="content-wrapper">
@@ -418,12 +418,12 @@
    *  junto con sus respuestas asociadas  
    */
   var respuestas_riesgo = JSON.parse("{{respuestas_riesgo|escapejs}}");  
-  console.log(respuestas_riesgo);
+  //console.log(respuestas_riesgo);
 
   
 
   var lista_tareas = JSON.parse("{{lista_tareas|escapejs}}");  
-  console.log(lista_tareas);
+  //console.log(lista_tareas);
 
 
   //Contiene la cantidad de recursos que tiene el proyecto.
@@ -434,13 +434,13 @@
   
   //Son los colores de la evaluacion
   var rangos_riesgos = JSON.parse("{{rangos|escapejs}}");  
-  console.log(rangos_riesgos);
+ // console.log(rangos_riesgos);
 
   var riesgos_evaluados = JSON.parse("{{riesgos_evaluados|escapejs}}");  
-  console.log("riesgos_evaluados", riesgos_evaluados);
+  //console.log("riesgos_evaluados", riesgos_evaluados);
 
   var valores = JSON.parse("{{valores|escapejs}}");
-  console.log(valores);
+  //console.log(valores);
 
   function pintar_rangos_riesgos() {
     let riesgos = document.getElementsByClassName("riesgo_rango");
@@ -697,7 +697,7 @@
       let tareas = lista_tareas[key];
       for (var i = 0; i < tareas.length; i++) {
         let tarea = tareas[i];
-        let temp = '<tr><td>'+tarea["tarea_nombre"]+'</td><td>'+tarea["tarea_descripcion"]+'</td><td>'+tarea["fecha_inicio"]+'</td><td>'+tarea["fecha_fin"]+'</td></tr>';       
+        let temp = '<tr><td>'+tarea["tarea_nombre"]+'</td><td>'+tarea["tarea_descripcion"]+'</td><td>'+parsear_fecha(tarea["fecha_inicio"])+'</td><td>'+parsear_fecha(tarea["fecha_fin"])+'</td></tr>';       
         let gg = $.parseHTML(temp) 
         $(tareas_riesgo).append(gg);
       }
@@ -785,6 +785,10 @@ function getCookie(name) {
   return cookieValue;
 }
 const csrftoken = getCookie('csrftoken');
+
+function parsear_fecha(now){    
+ return moment(now).format('DD/MM/YYYY');
+}
 
 </script>
 

@@ -1922,8 +1922,10 @@ def linea_base(request, proyecto_id, numero_linea, fecha_linea):
     # Recursos generales del proyecto
     lista_recursos = recurso_controller.listar_recursos_linea(proyecto_id, numero_linea)  # En teoria ya
     tarea_controller = TareaController()
+    #El proyecto trae la ultima linea base, por esa razon se le debe indicar la que es
+    proyecto.proyecto_linea_base = numero_linea
     # Tareas por acciones por riesgo del proyecto
-    lista_tareas = dumps(tarea_controller.listar_tareas_group_by_riesgo_base(proyecto))
+    lista_tareas = dumps(tarea_controller.listar_tareas_group_by_riesgo_base(proyecto)) 
     #lista_tareas = dumps(tarea_controller.listar_tareas_group_by_riesgo_linea(proyecto, numero_linea))  # En teoria ya
     # Este metodo me lo invente para no tener que volver a consultar los los riesgos de un proyecto
     # Entre menos llamados a los metodos que hacen innerjoin mucho mejor
