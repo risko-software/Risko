@@ -987,7 +987,7 @@
 
   var data = JSON.parse("{{rbs|escapejs}}"); 
 
-  console.log(data);  
+  //console.log(data);  
 
   var respuestas_riesgo = JSON.parse("{{respuestas_riesgo|escapejs}}");   
 
@@ -995,15 +995,15 @@
 
   var actividades_riesgo = JSON.parse("{{actividades_riesgo|escapejs}}");
 
-  console.log(respuestas_riesgo);
+  //console.log(respuestas_riesgo);
 
-  console.log(actividades_riesgo);
+  //console.log(actividades_riesgo);
 
   var diccionario = {};
 
   var responsables_riesgo = JSON.parse("{{responsables_riesgo|escapejs}}");
 
-  console.log('responsables_riesgo',responsables_riesgo);
+  //console.log('responsables_riesgo',responsables_riesgo);
 
 function formatear_data(){  
   data.forEach(function(element){
@@ -1088,7 +1088,7 @@ function get_riesgos_by_sub_categoria_id(sub_categoria_id) {
 function asosiar_riesgos(proyecto_id){
   let riesgos_seleccionados = $("input[type = 'checkbox'][name = 'riesgo_propio']:checked");
   let riesgos_sugeridos = $("input[type = 'checkbox'][name = 'riesgo_sugerido']:checked");
-  console.log(riesgos_sugeridos);
+  //console.log(riesgos_sugeridos);
   let aux = [];
   let aux_sugeridos = [];
   if( riesgos_seleccionados.length > 0 || riesgos_sugeridos.length > 0){
@@ -1236,7 +1236,7 @@ function asosiar_riesgos(proyecto_id){
 
 
   function abrir_modal_editar_riesgo(riesgo_id, riesgo_nombre, riesgo_causa, riesgo_evento, riesgo_efecto, riesgo_tipo, fecha_manifestacion){
-    console.log("MUCHA FECHA", parsear_fecha(new Date(fecha_manifestacion)));
+    //console.log("MUCHA FECHA", parsear_fecha(new Date(fecha_manifestacion)));
     $("#riesgo_id_editar").val(riesgo_id);
      $("#riesgo_nombre").val(riesgo_nombre);
       $("#riesgo_causa").val(riesgo_causa);
@@ -1249,8 +1249,8 @@ function asosiar_riesgos(proyecto_id){
   }
 
   function abrir_modal_eliminar(id, nombre) {        
-    console.log("id", id);
-    console.log("nombre", nombre);
+    //console.log("id", id);
+    //console.log("nombre", nombre);
     $("#modal_eliminar").modal('show');
     document.getElementById("contenido_modal").innerHTML = "Estas seguro que desea eliminar el riesgo del proyecto?";
     document.getElementById("nombre_riesgo_me").innerHTML = " "+nombre;
@@ -1295,7 +1295,7 @@ function asosiar_riesgos(proyecto_id){
     $('#nuevo_riesgo').on('submit', function(e) { //use on if jQuery 1.7+
         e.preventDefault();  //prevent form from submitting
         var riesgo_content = $("#nuevo_riesgo :input").serializeArray();
-        console.log(riesgo_content);
+        //console.log(riesgo_content);
        $.ajax({
           type: 'POST',
           url: "{% url 'insertar_riesgo_proyecto' %}",    

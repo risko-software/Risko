@@ -86,19 +86,19 @@
      *
      */
     var lista_riesgos = JSON.parse("{{lista_riesgos|escapejs}}");  
-      console.log(lista_riesgos)
+    //console.log(lista_riesgos)
     /*
      *  Corresponde a todo el conjunto de riesgos del proyecto 
      *  junto con sus respuestas asociadas  
      */
     var respuestas_riesgo = JSON.parse("{{respuestas_riesgo|escapejs}}");  
-    console.log(respuestas_riesgo);
+    //console.log(respuestas_riesgo);
 
     /*
      * Es todo el conjunto de tareas asociadas a un riesgo determinado
      */
     var lista_tareas = JSON.parse("{{lista_tareas|escapejs}}");  
-    console.log(lista_tareas);
+    //console.log(lista_tareas);
 
     /*
      * Es el conjunto de id de filas que serán bloqueadas.
@@ -393,10 +393,10 @@
 
     $(document).ready(function () {
       let entrada = formatear_datos(); 
-      console.log(entrada);      
+      //console.log(entrada);      
       //var employees = JSON.stringify(ajustar_columnas(entrada));
       data_riesgo = ajustar_columnas(entrada);
-      console.log(data_riesgo);
+      //console.log(data_riesgo);
       
       var source = {
         dataType: "json",
@@ -435,7 +435,7 @@
     }
     var dataAdapter = new jqx.dataAdapter(source);
 
-    console.log(dataAdapter);
+    //console.log(dataAdapter);
     $("#treeGrid").jqxTreeGrid({
       width: '100%',
       height:500,
@@ -626,7 +626,7 @@
       var row = args.row;
       //var records = row.records;
       let contenido = row.data;
-      console.log(row); 
+      //console.log(row); 
       if (contenido.is_tarea) {
         update_columnas(data_riesgo);
         var parent = $("#treeGrid").jqxTreeGrid('getRows')[0];
@@ -679,7 +679,7 @@
           let mi_data = get_data_json()[0];
           //console.log(parsear_data_json(mi_data));
           let dd = parsear_data_json(mi_data);
-          console.log(dd);
+          //console.log(dd);
           let xml2 = json2xml(eval(dd));
           xml2 = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+xml2;
           var blob = new Blob([xml2], {type: "text/xml;charset=utf-8"});

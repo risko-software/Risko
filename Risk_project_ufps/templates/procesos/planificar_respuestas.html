@@ -916,18 +916,18 @@
    *  junto con sus respuestas asociadas  
    */
   var respuestas_riesgo = JSON.parse("{{respuestas_riesgo|escapejs}}");  
-  console.log(respuestas_riesgo);
+  //console.log(respuestas_riesgo);
 
   var lista_tareas = JSON.parse("{{lista_tareas|escapejs}}");  
-  console.log(lista_tareas);
+  //console.log(lista_tareas);
 
   //Contiene los riesgos junto con sus respuestas sugeridas
   var respuestas_sugeridas = JSON.parse("{{respuestas_sugeridas|escapejs}}");
-  console.log("respuestas");
-  console.log(respuestas_sugeridas);
+  //console.log("respuestas");
+  //console.log(respuestas_sugeridas);
 
   var actividades_by_riesgos = JSON.parse("{{actividades_by_riesgos|escapejs}}");
-  console.log("actividades_by_riesgos", actividades_by_riesgos);
+  //console.log("actividades_by_riesgos", actividades_by_riesgos);
   //Contiene la cantidad de recursos que tiene el proyecto.
   //Con esta variable puedo controlar el tipo de mensaje
   //en el modal de nuevo recursos
@@ -936,13 +936,13 @@
   
   //Son los colores de la evaluacion
   var rangos_riesgos = JSON.parse("{{rangos|escapejs}}");  
-  console.log(rangos_riesgos);
+  //console.log(rangos_riesgos);
 
   var riesgos_evaluados = JSON.parse("{{riesgos_evaluados|escapejs}}");  
-  console.log("riesgos_evaluados", riesgos_evaluados);
+  //console.log("riesgos_evaluados", riesgos_evaluados);
 
   var valores = JSON.parse("{{valores|escapejs}}");
-  console.log(valores);
+  //console.log(valores);
 
   function pintar_rangos_riesgos() {
     let riesgos = document.getElementsByClassName("riesgo_rango");
@@ -1318,7 +1318,7 @@
       let fechas_noti = document.getElementById("fechas_noti");
       var ul = document.createElement('ul');
       let riesgo = actividades_by_riesgos["riesgo_"+riesgo_id];
-      console.log(riesgo);
+      //console.log(riesgo);
       for (var i = 0; i < riesgo.length; i++) {
         var li_2 = document.createElement('li');
         li_2.append(document.createTextNode("Fecha de planeada de la actividad: " +riesgo[i]['actividad_nombre']));
@@ -1424,7 +1424,7 @@ function abrir_modal_editar_tarea(id_tarea, nombre_tarea, descripcion, fecha_ini
     let fecha_fin_ed = document.getElementById("tarea_fecha_fin_ed");
     input_id.value = id_tarea;
     input_nombre.value = nombre_tarea;
-    console.log(fecha_inicio);
+    //console.log(fecha_inicio);
     fecha_inicio_ed.value = parsear_fecha(new Date(fecha_inicio));
     fecha_fin_ed.value = parsear_fecha(new Date(fecha_fin));
     document.getElementById("descripcion_tarea_e").innerHTML = " "+descripcion;
@@ -1458,7 +1458,7 @@ function abrir_modal_editar_tarea(id_tarea, nombre_tarea, descripcion, fecha_ini
     recurso_letrero_uno.setAttribute("hidden", "true");
     recurso_letrero_dos.setAttribute("hidden", "true");
     //Primero valido si el proyecto tiene recursos
-    console.log(cantidad_recursos);
+    //console.log(cantidad_recursos);
     if(cantidad_recursos <= 0){
       recurso_form_nuevo.setAttribute("hidden", "true");
       recurso_letrero_uno.removeAttribute("hidden");

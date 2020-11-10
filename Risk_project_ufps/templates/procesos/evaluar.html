@@ -266,7 +266,7 @@
   //  Variables globales
   /////////////////////////////////////////
   var riesgos = JSON.parse("{{lista_riesgos|escapejs}}");   
-  console.log(riesgos);
+  //console.log(riesgos);
  
   var rangos_riesgos = JSON.parse("{{rangos|escapejs}}");  
 
@@ -278,8 +278,8 @@
 
   const csrftoken = getCookie('csrftoken');
 
-  console.log(rangos_riesgos);
-  console.log(valores);
+  //console.log(rangos_riesgos);
+  //console.log(valores);
 
   function clasificar_riesgos(){
     for(let r = 0; r<riesgos.length; r++){
@@ -315,7 +315,7 @@
     probabilidades = ordenarMayoraMenor(probabilidades);
 
     let filas = matriz_calor.getElementsByTagName("tr");    
-    console.log(filas);
+    //console.log(filas);
     for (let i = 1; i < filas.length; i++) {
       let columnas = filas[i].getElementsByTagName("td");
       for (let j = 1; j < columnas.length; j++) {
@@ -460,7 +460,7 @@
     
     for(var i = 0; i<rangos_riesgos.length; i++){      
         if(evaluacion>=rangos_riesgos[i]["rango"][0] && evaluacion<=rangos_riesgos[i]["rango"][1]){
-          console.log(rangos_riesgos[i]["nombre"])
+          //console.log(rangos_riesgos[i]["nombre"])
           return rangos_riesgos[i]["nombre"];
         }
       }
@@ -472,7 +472,7 @@
   function llenar_encabezado(impactos, probabilidades){
     let matriz_calor = document.getElementById('matriz_calor');
     let filas = matriz_calor.getElementsByTagName("tr");    
-    console.log(filas);
+    //console.log(filas);
     let columnas = filas[0].getElementsByTagName("td");
     columnas[0].appendChild(document.createTextNode("Impacto / Probabilidad"));
     columnas[0].setAttribute("style", "background-color:#F6F4F3 ; font-weight:bold;"); 
@@ -633,7 +633,7 @@
       set_cambios_riesgos(tipo, riesgo_id, c, mi_probabilidad);
     }
    
-    console.log(cambios_riesgos);
+    //console.log(cambios_riesgos);
   }
 
   function set_cambios_riesgos(tipo, riesgo_id, valor_nuevo, id) {
