@@ -1,6 +1,6 @@
 ![N|Solid](https://1.bp.blogspot.com/-CMtGQekT8IA/X4d2RH-NtOI/AAAAAAAABJo/Y256t7u0-gs_DxRAmdmxugjgFVWU3vX6QCLcBGAsYHQ/s0/logo_size.jpg)
 
-Risko es una aplicación web que permite gestionar riesgos en proyectos. Está construido basado en las mejores practicas para gestionar riesgo de los principales estandares para la gestion de proyectos BOK (PMBOK®, ISO21500®, APMBOK®, ICB®, y PRINCE2®)
+Risko es una aplicación web que permite gestionar riesgos en proyectos. Está construido según las mejores practicas para gestionar riesgo de los principales estandares para la gestion de proyectos BOK (PMBOK®, ISO21500®, APMBOK®, ICB®, y PRINCE2®)
  
 
 # Características
