@@ -1,28 +1,26 @@
 from contextlib import closing
 from django.db import connections
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import Leccion
 from Risk_project_ufps.core_risk.util.cadena import limpiar_descripcion
 
 
-class LeccionDao():
+class LeccionDao:
 
 	def listar_lecciones(self, proyecto):
 		lecciones = None
 		try:
-			lecciones = Leccion.objects.using('base').filter(proyecto_id = proyecto.proyecto_id)
-		except Error as e:
+			lecciones = Leccion.objects.using('base').filter(proyecto_id=proyecto.proyecto_id)
+		except Exception as e:
 			print(e)
-		finally:      
-			return lecciones
+		return lecciones
 
 	def get_leccion_by_id(self, id):
 		leccion = None
 		try:
 			leccion = Leccion.objects.using('base').get(leccion_id = id)
-		except Error as e:
+		except Exception as e:
 			print(e)
-		finally:      
-			return leccion
+		return leccion
 
 	def eliminar_leccion(self, leccion):
 		with closing(connections['base'].cursor()) as cursor:
@@ -48,10 +46,7 @@ class LeccionDao():
 
 		
 	def registrar_leccion(self, proyecto, descripcion):
-
-
 		flag = False
-
 		try:
 			with closing(connections['base'].cursor()) as cursor:
 				cursor.execute(
@@ -60,9 +55,8 @@ class LeccionDao():
 				(limpiar_descripcion(descripcion), proyecto.proyecto_id , proyecto.proyecto_linea_base))
 				flag = True
 		except Exception as e:
-			raise e
-		finally:
-			return flag
+			print(e)
+		return flag
 				
 			
 

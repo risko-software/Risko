@@ -1,4 +1,4 @@
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import TareaHasRecurso
 from contextlib import closing
 from django.db import connections
 
@@ -21,17 +21,16 @@ class TareaHasRecursoDao():
             tarea_recurso = TareaHasRecurso.objects.get(tarea_id=tarea.tarea_id, recurso_id=recurso.recurso_id)
         except Exception as e:
             print(e)
-        finally:
-            return tarea_recurso
+        return tarea_recurso
 
     def eliminar_recurso_tarea(self, tarea_recurso):
-        tarea_recurso = tarea_recurso
+        msg = "No se pudo desvincular el recurso"
         try:
             tarea_recurso.delete()
+            msg = "Recurso desvinculado exitosamente"
         except Exception as e:
             print(e)
-        finally:
-            return "Recurso desvinculado exitosamente"
+        return msg
 
     def eliminar_recurso_tarea_2(self, recurso_id, tarea_id):
         try:

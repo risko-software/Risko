@@ -6,23 +6,18 @@ class ProbabilidadDao():
     def listar_probabilidades_by_proyecto(self, proyecto):
         probabilidades = {}
         try:      
-            probabilidades = Propabilidad.objects.filter(proyecto = proyecto).order_by("propabilidad_valor")
+            probabilidades = Propabilidad.objects.filter(proyecto=proyecto).order_by("propabilidad_valor")
         except Exception as e:
-            raise e
-        finally:      
-            return probabilidades
+            print(e)
+        return probabilidades
 
     def listar_probabilidades_by_proyecto_linea(self, proyecto, linea_base):
         probabilidades = {}
         try:      
-            probabilidades = Propabilidad.objects.using('base').filter(proyecto = proyecto, proyecto_linea_base=linea_base).order_by("propabilidad_valor")
+            probabilidades = Propabilidad.objects.using('base').filter(proyecto=proyecto, proyecto_linea_base=linea_base).order_by("propabilidad_valor")
         except Exception as e:
-            raise e
-        finally:      
-            return probabilidades
-
-
-
+            print(e)
+        return probabilidades
 
     def crear_probabilidad(self, propabilidad_categoria, propabilidad_valor, proyecto):
         probabilidad = None
@@ -33,9 +28,8 @@ class ProbabilidadDao():
                 proyecto = proyecto
             )
         except Exception as e:
-            raise e
-        finally:
-            return probabilidad
+            print(e)
+        return probabilidad
 
     def actualizar_probabilidad(self,probabilidad, propabilidad_categoria, propabilidad_valor):        
         try:
@@ -43,9 +37,8 @@ class ProbabilidadDao():
             probabilidad.propabilidad_valor = propabilidad_valor                
             probabilidad.save()
         except Exception as e:
-            raise e
-        finally:
-            return probabilidad
+            print(e)
+        return probabilidad
 
     def eliminar_probabilidades_by_proyecto(self, proyecto):
         result = None
@@ -53,8 +46,7 @@ class ProbabilidadDao():
             result = Propabilidad.objects.filter(proyecto=proyecto).delete()
         except Exception as e:
             print(e)
-        finally:
-            return result
+        return result
 
     def obtener_probabilidad_by_id(self, probabilidad_id) -> Propabilidad:
         """

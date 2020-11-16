@@ -1,0 +1,4 @@
+.idea/
+.scannerwork/
+venv/
+sonar-project.properties

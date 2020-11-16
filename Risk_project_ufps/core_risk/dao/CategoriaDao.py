@@ -1,7 +1,7 @@
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import Categoria
 
 
-class CategoriaDao():
+class CategoriaDao:
 
     def duplicar_categoria(self, categoria, rbs):
         """Aqui llega es una lista categoria"""
@@ -15,9 +15,8 @@ class CategoriaDao():
                 rbs=rbs
             )
         except Exception as e:
-            raise e
-        finally:
-            return categ
+            print(e)
+        return categ
 
     def duplicar_categoria_2(self, categoria, rbs):
         """ Aqui llega un model"""
@@ -32,8 +31,7 @@ class CategoriaDao():
                 categoria_uid=categoria.categoria_uid,
                 rbs=rbs
             )
-        finally:
-            return aux_categoria
+        return aux_categoria
 
     def get_categorias_by_gerente(self, gerente):
         categorias = None
@@ -41,27 +39,24 @@ class CategoriaDao():
             categorias = Categoria.objects.raw(
                 "SELECT c.categoria_id, c.categoria_nombre FROM categoria c INNER JOIN rbs r ON c.rbs_id = r.rbs_id WHERE r.gerente_id = %s",
                 [gerente.gerente_id])
-        except Error as e:
+        except Exception as e:
             print(e)
-        finally:
-            return categorias
+        return categorias
 
     def get_categorias_by_sector(self, sector):
         categorias = []
         try:
             sql = "SELECT DISTINCT c.categoria_id, c.categoria_nombre, c.categoria_descripcion, c.categoria_uid FROM categoria c INNER JOIN sub_categoria sc ON c.categoria_id = sc.categoria_id INNER JOIN riesgo r ON sc.sub_categoria_id = r.sub_categoria_id INNER JOIN proyecto_has_riesgo p_h_r ON r.riesgo_id = p_h_r.riesgo_id INNER JOIN proyecto p ON p_h_r.proyecto_id = p.proyecto_id WHERE p.sector_id = %s"
             categorias = Categoria.objects.raw(sql, [sector.sector_id, ])
-        except Error as e:
+        except Exception as e:
             print(e)
-        finally:
-            return categorias
+        return categorias
 
     def get_categorias_by_proyecto(self, proyecto):
         categorias = []
         try:
             sql = "SELECT DISTINCT c.categoria_id, c.categoria_nombre, c.categoria_descripcion, c.categoria_uid FROM categoria c INNER JOIN sub_categoria sc ON c.categoria_id = sc.categoria_id INNER JOIN riesgo r ON sc.sub_categoria_id = r.sub_categoria_id INNER JOIN proyecto_has_riesgo p_h_r ON r.riesgo_id = p_h_r.riesgo_id INNER JOIN proyecto p ON p_h_r.proyecto_id = p.proyecto_id WHERE p.proyecto_id = %s"
             categorias = Categoria.objects.raw(sql, [proyecto.proyecto_id])
-        except Error as e:
+        except Exception as e:
             print(e)
-        finally:
-            return categorias
+        return categorias

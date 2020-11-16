@@ -18,7 +18,7 @@
         <small>Identificar riesgos</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-folder-open"></i>Procesos</a></li>
+        <li><a href="#"><em class="fa fa-folder-open"></em>Procesos</a></li>
         <li class="active">Identificar Riesgos</li>
       </ol>
       {% if mensaje %}
@@ -50,7 +50,7 @@
                 <div class="box-header with-border">
                   <h4 class="box-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" style="color:#444444";>
-                      <label ><strong>Informe identificar riesgos - Proyecto: {{ proyecto.proyecto_nombre }}  <i class="fa fa-sort-desc"></i></strong></label>
+                      <label ><strong>Informe identificar riesgos - Proyecto: {{ proyecto.proyecto_nombre }}  <em class="fa fa-sort-desc"></em></strong></label>
                       
                       
                     </a>
@@ -92,9 +92,9 @@
                 </div>           
               </div>
               {% if proyecto.proyecto_fin_status %}
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" disabled="true"><i class="fa fa-plus"></i> Nuevo Riesgo</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" disabled="true"><em class="fa fa-plus"></em> Nuevo Riesgo</button>
               {% else %}
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuevo-riesgo"><i class="fa fa-plus"></i> Nuevo Riesgo</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuevo-riesgo"><em class="fa fa-plus"></em> Nuevo Riesgo</button>
               {% endif %}        
 
 
@@ -102,13 +102,14 @@
                 <div class="box-body">
 
                   <table id="example1" class="table table-bordered table-striped">
+                      <caption></caption>
                     <thead>
                       <tr>
-                        <th></th>
-                        <th>Nombre</th>
-                        <th>Causa</th>
-                        <th>Evento</th>
-                        <th>Efecto</th>
+                        <th scope="col"></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Causa</th>
+                        <th scope="col">Evento</th>
+                        <th scope="col">Efecto</th>
                         
                         
                       </tr>
@@ -124,11 +125,11 @@
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th></th>
-                        <th>Nombre</th>
-                        <th>Causa</th>
-                        <th>Evento</th>
-                        <th>Efecto</th>
+                        <th scope="col"></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Causa</th>
+                        <th scope="col">Evento</th>
+                        <th scope="col">Efecto</th>
                         
                         
                       </tr>
@@ -138,39 +139,28 @@
               </div>          
             </div>
             <div class="chart tab-pane " id="sales-chart" style="position: relative; height: 300px; overflow:auto;">
-
-              <!--<div class="box-body">-->
                 <div class="box-body">
-                  {% if lista_riesgos_sugeridos %}            
-
+                  {% if lista_riesgos_sugeridos %}
                     <table class="table table-bordered table-striped">
+                        <caption></caption>
                     <thead>
                       <tr>
-                        <th></th>
-                        <th>Nombre</th>
-                        <!--<th>Causa</th>
-                        <th>Evento</th>
-                        <th>Efecto</th>-->
+                        <th scope="col"></th>
+                        <th scope="col">Nombre</th>
                       </tr>
                     </thead>
                     <tbody>
                       {% for riesgo in lista_riesgos_sugeridos %}
                       <tr>
                         <td><input type="checkbox" value="{{riesgo.riesgo_id}}" name="riesgo_sugerido"></td>
-                        <td>{{riesgo.riesgo_nombre}}</td> 
-                        <!--<td>{{riesgo.riesgo_causa}}</td>
-                        <td>{{riesgo.riesgo_evento}}</td>
-                        <td>{{riesgo.riesgo_efecto}}</td>-->
+                        <td>{{riesgo.riesgo_nombre}}</td>
                       </tr>
                       {% endfor %}
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th></th>
-                        <th>Nombre</th>
-                        <!--<th>Causa</th>
-                        <th>Evento</th>
-                        <th>Efecto</th>-->
+                        <th scope="col"></th>
+                        <th scope="col">Nombre</th>
                       </tr>
                     </tfoot>
                   </table>
@@ -183,13 +173,14 @@
                     </div>
                   </div>
                   <table class="table table-bordered table-striped">
+                      <caption></caption>
                     <thead>
                       <tr>
-                        <th></th>
-                        <th>Nombre</th>
-                        <th>Causa</th>
-                        <th>Evento</th>
-                        <th>Efecto</th>         
+                        <th scope="col"></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Causa</th>
+                        <th scope="col">Evento</th>
+                        <th scope="col">Efecto</th>
                         
                       </tr>
                     </thead>
@@ -204,27 +195,25 @@
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th></th>
-                        <th>Nombre</th>
-                        <th>Causa</th> 
-                        <th>Evento</th>
-                        <th>Efecto</th>
-                                               
+                        <th scope="col"></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Causa</th>
+                        <th scope="col">Evento</th>
+                        <th scope="col">Efecto</th>
                       </tr>
                     </tfoot>
                   </table>
                   {% endif %}
                 </div>
-              <!--</div> -->
             </div>
             <div class="form-group">
               <div class="row no-print">
                 <div class="col-md-11">
                   {% if proyecto.proyecto_fin_status %}
-                  <button type="button" onclick="asosiar_riesgos('{{ proyecto.proyecto_id }}');" class="btn btn-success pull-right" disabled="true"><i class="fa fa-plus"></i> Agregar
+                  <button type="button" onclick="asosiar_riesgos('{{ proyecto.proyecto_id }}');" class="btn btn-success pull-right" disabled="true"><em class="fa fa-plus"></em> Agregar
                   </button>  
                   {% else %}
-                 <button type="button" onclick="asosiar_riesgos('{{ proyecto.proyecto_id }}');" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Agregar
+                 <button type="button" onclick="asosiar_riesgos('{{ proyecto.proyecto_id }}');" class="btn btn-success pull-right"><em class="fa fa-plus"></em> Agregar
                   </button>  
                   {% endif %}                   
                 </div>
@@ -248,14 +237,15 @@
         <div class="box-body">
 
           <table id="tabla_riesgos" class="table table-bordered table-striped">
+              <caption></caption>
             <thead>
               <tr>
-                <th></th>
-                <th>Riesgo &nbsp<i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>
-                <th><label data-toggle="tooltip" data-placement="top" title="Actividades del cronograma del proyecto afectadas por el riesgo.">Actividades</label></th>
-                <th><label data-toggle="tooltip" data-placement="top" title="Responsable asignado al riesgo.">Responsable</label></th>
-                <th><label data-toggle="tooltip" data-placement="top" title="Acciones de respuesta preliminares asociadas al riesgo.">Acciones de respuesta</label></th>
-                <th><label data-toggle="tooltip" data-placement="top" title="Acciones e información relacionada al riesgo.">Opciones</label></th>                    
+                <th scope="col"></th>
+                  <th scope="col">Riesgo &nbsp<em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Actividades del cronograma del proyecto afectadas por el riesgo.">Actividades</label></th>
+                <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Responsable asignado al riesgo.">Responsable</label></th>
+                <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Acciones de respuesta preliminares asociadas al riesgo.">Acciones de respuesta</label></th>
+                <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Acciones e información relacionada al riesgo.">Opciones</label></th>
               </tr>
             </thead>
             <tbody>
@@ -266,32 +256,32 @@
               <td>{{ riesgo.riesgo_nombre }}</td>
 
               <td>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-actividades"  onclick="abrir_modal_actividades('{{ riesgo.riesgo_id }}')"><i   class="fa fa-edit"></i></button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-actividades"  onclick="abrir_modal_actividades('{{ riesgo.riesgo_id }}')"><em class="fa fa-edit"></em></button>
 
               </td>
               <td>
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-responsables" onclick="abrir_modal_responsables('{{ riesgo.riesgo_id }}')"><i   class="fa fa-edit"></i></button>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-responsables" onclick="abrir_modal_responsables('{{ riesgo.riesgo_id }}')"><em class="fa fa-edit"></em></button>
               </td>
               <td> 
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-respuestas" onclick="abrir_modal_respuestas('{{ riesgo.riesgo_id }}')"><i   class="fa fa-edit"></i></button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-respuestas" onclick="abrir_modal_respuestas('{{ riesgo.riesgo_id }}')"><em   class="fa fa-edit"></em></button>
               </td>
               <td>
-                <button type="button" class="btn btn-info" data-toggle="modal" onclick="abrir_modal_informacion_riesgo(' {{ riesgo.riesgo_nombre }}', '{{ riesgo.riesgo_causa }}',' {{ riesgo.riesgo_evento }}', ' {{ riesgo.riesgo_efecto }}', '{{ riesgo.riesgo_tipo }}', '{{ riesgo.fecha_manifestacion }}')">&nbsp<i   class="fa fa-info">&nbsp</i>
+                <button type="button" class="btn btn-info" data-toggle="modal" onclick="abrir_modal_informacion_riesgo(' {{ riesgo.riesgo_nombre }}', '{{ riesgo.riesgo_causa }}',' {{ riesgo.riesgo_evento }}', ' {{ riesgo.riesgo_efecto }}', '{{ riesgo.riesgo_tipo }}', '{{ riesgo.fecha_manifestacion }}')">&nbsp<em   class="fa fa-info">&nbsp</em>
                 </button>
 
                 {% if proyecto.proyecto_fin_status %}
-                 <button type="button" class="btn btn-default" data-toggle="modal" onclick="abrir_modal_editar_riesgo('{{ riesgo.riesgo_id }}','{{ riesgo.riesgo_nombre }}', '{{ riesgo.riesgo_causa }}','{{ riesgo.riesgo_evento }}', '{{ riesgo.riesgo_efecto }}',   '{{ riesgo.riesgo_tipo }}', '{{riesgo.fecha_manifestacion}}')" disabled="true"><i   class="fa fa-edit"></i>
+                 <button type="button" class="btn btn-default" data-toggle="modal" onclick="abrir_modal_editar_riesgo('{{ riesgo.riesgo_id }}','{{ riesgo.riesgo_nombre }}', '{{ riesgo.riesgo_causa }}','{{ riesgo.riesgo_evento }}', '{{ riesgo.riesgo_efecto }}',   '{{ riesgo.riesgo_tipo }}', '{{riesgo.fecha_manifestacion}}')" disabled="true"><em   class="fa fa-edit"></em>
                 </button>
 
 
-                <button type="button" class="btn btn-danger" data-toggle="#modal" onclick="abrir_modal_eliminar('{{ riesgo.riesgo_id }}',' {{ riesgo.riesgo_nombre }}')" data-target="#modal_eliminar" disabled="true"><i class="fa fa-trash-o danger"></i>
+                <button type="button" class="btn btn-danger" data-toggle="#modal" onclick="abrir_modal_eliminar('{{ riesgo.riesgo_id }}',' {{ riesgo.riesgo_nombre }}')" data-target="#modal_eliminar" disabled="true"><em class="fa fa-trash-o danger"></em>
                 </button>
                 {% else %}
-                 <button type="button" class="btn btn-default" data-toggle="modal" onclick="abrir_modal_editar_riesgo('{{ riesgo.riesgo_id }}','{{ riesgo.riesgo_nombre }}', '{{ riesgo.riesgo_causa }}','{{ riesgo.riesgo_evento }}', '{{ riesgo.riesgo_efecto }}',   '{{ riesgo.riesgo_tipo }}', '{{riesgo.fecha_manifestacion}}')"><i   class="fa fa-edit"></i>
+                 <button type="button" class="btn btn-default" data-toggle="modal" onclick="abrir_modal_editar_riesgo('{{ riesgo.riesgo_id }}','{{ riesgo.riesgo_nombre }}', '{{ riesgo.riesgo_causa }}','{{ riesgo.riesgo_evento }}', '{{ riesgo.riesgo_efecto }}',   '{{ riesgo.riesgo_tipo }}', '{{riesgo.fecha_manifestacion}}')"><em   class="fa fa-edit"></em>
                 </button>
 
 
-                <button type="button" class="btn btn-danger" data-toggle="#modal" onclick="abrir_modal_eliminar('{{ riesgo.riesgo_id }}',' {{ riesgo.riesgo_nombre }}')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i>
+                <button type="button" class="btn btn-danger" data-toggle="#modal" onclick="abrir_modal_eliminar('{{ riesgo.riesgo_id }}',' {{ riesgo.riesgo_nombre }}')" data-target="#modal_eliminar"><em class="fa fa-trash-o danger"></em>
                 </button>
                 {% endif %}  
 
@@ -314,12 +304,12 @@
           </tbody>
           <tfoot>
             <tr>
-              <th></th>
-              <th>Riesgo</th>                
-              <th>Actividades</th>
-              <th>Responsables</th>
-              <th>Acciones de Respuesta</th>
-              <th>Opciones</th>    
+              <th scope="col"></th>
+              <th scope="col">Riesgo</th>
+              <th scope="col">Actividades</th>
+              <th scope="col">Responsables</th>
+              <th scope="col">Acciones de Respuesta</th>
+              <th scope="col">Opciones</th>
             </tr>
           </tfoot>
         </table>
@@ -408,7 +398,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title"><i class="fa fa-edit"></i> Acciones de respuesta preliminares</h4>
+          <h4 class="modal-title"><em class="fa fa-edit"></em> Acciones de respuesta preliminares</h4>
         </div>
         <div class="modal-body">
 
@@ -426,11 +416,12 @@
              <div class="box-body">
 
               <table id="tabla2" class="table table-bordered table-striped">
+                  <caption></caption>
                 <thead>
                   <tr>
-                    <th>Accion de respuesta</th>
-                    <th>Descripción</th>                  
-                    <th>Acciones</th>                    
+                    <th scope="col">Accion de respuesta</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody id="respuestas_body">                 
@@ -442,9 +433,9 @@
                 </tbody>
               <tfoot>
                 <tr>
-                  <th>Accion de respuesta</th>
-                  <th>Descripción</th>                  
-                  <th>Acciones</th>      
+                  <th scope="col">Accion de respuesta</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </tfoot>
             </table>
@@ -540,7 +531,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title"><i class="fa fa-edit"></i> Actividades</h4>
+          <h4 class="modal-title"><em class="fa fa-edit"></em> Actividades</h4>
         </div>
         <div class="modal-body">
 
@@ -558,10 +549,11 @@
              <div class="box-body">
 
               <table id="tabla2" class="table table-bordered table-striped">
+                  <caption></caption>
                 <thead>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Acciones</th>                                      
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody id="cuerpo_actividades_riesgos">
@@ -569,8 +561,8 @@
               </tbody>
               <tfoot>
                 <tr>
-                  <th>Nombre</th>
-                  <th>Acciones</th>      
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </tfoot>
             </table>
@@ -620,7 +612,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title"><i class="fa fa-edit"></i> Responsables</h4>
+          <h4 class="modal-title"><em class="fa fa-edit"></em> Responsables</h4>
         </div>
         <div class="modal-body">
 
@@ -637,10 +629,11 @@
 
              <div class="box-body">
                <table id="tabla_responsables" class="table table-bordered table-striped">
+                   <caption></caption>
                 <thead>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Acciones</th>                                      
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody id="responsables_by_riesgo">         
@@ -648,8 +641,8 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Acciones</th>      
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acciones</th>
                   </tr>
                 </tfoot>
               </table>
@@ -673,7 +666,7 @@
                      </option>
                      {% endfor %}
                      {% else %}
-                     <div class="alert alert-info alert-dismissible"><h4><i class="icon fa fa-info"></i>  Atencion</h4> Hasta el momento este proyecto no cuenta con un equipo de gestion de riesgos para poder asignar reponsables<br/></br> Si usted lo desea, puede definir su equipo de gestion de riesgos dando clic 
+                     <div class="alert alert-info alert-dismissible"><h4><em class="icon fa fa-info"></em>  Atencion</h4> Hasta el momento este proyecto no cuenta con un equipo de gestion de riesgos para poder asignar reponsables<br/></br> Si usted lo desea, puede definir su equipo de gestion de riesgos dando clic
                   <a href="{% url 'mi_proyecto_planificar' proyecto.proyecto_id %}">aqui</a></div>
                      {% endif %} 
                    </select>
@@ -741,11 +734,6 @@
                   <label>Efecto</label>
                   <p id="efecto_riesgo_info"></p>
                 </div>
-                <!--
-                <div class="form-group">
-                  <label>Fecha manifestación</label>
-                  <p id="fecha_riesgo_info"></p>
-                </div> -->
               </div>
             </div>
             <div class="modal-footer">
@@ -809,15 +797,6 @@
                   <label>Efecto</label>
                   <textarea class="form-control" rows="3" maxlength="3000" id="riesgo_efecto" name="riesgo_efecto"></textarea>
                 </div>
-                <!--<div class="form-group">
-                  <label>Fecha de Manifestación</label>
-                  <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="date" class="form-control pull-right" id="riesgo_fecha_manifestacion_id" name="riesgo_fecha_manifestacion">
-                </div>
-                </div>-->
                 <input type="text" class="form-control" id="riesgo_id_editar" name="riesgo_id_editar" style="visibility: hidden;">
 
               </div>

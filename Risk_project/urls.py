@@ -32,7 +32,7 @@ def _static_butler(request, path, **kwargs):
     """
     return serve_static(request, path, insecure=True, **kwargs)
 
-context_risko_app = os.environ['CONTEXT_RISKO_APP'] 
+context_risko_app = os.environ['CONTEXT_RISKO_APP']
 #context_risko_app = 'risko/'
 
 my_url_admin = '{}admin/'.format(context_risko_app) 

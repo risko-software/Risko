@@ -1,4 +1,5 @@
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import Proyecto
+from Risk_project_ufps.core_risk.dto.models import Actividad
 from Risk_project_ufps.core_risk.util.cadena import limpiar_descripcion
 from contextlib import closing
 from django.db import connections
@@ -21,17 +22,15 @@ class ProyectoDao:
                 proyecto_linea_base=0)
         except Exception as e:
             print(e)
-        finally:
-            return proyecto
+        return proyecto
 
     def obtener_proyecto(self, id):
         proyecto = None
         try:
             proyecto = Proyecto.objects.get(proyecto_id=id)
-        except Error as e:
+        except Exception as e:
             print(e)
-        finally:
-            return proyecto
+        return proyecto
 
 
     def obtener_proyecto_linea_base(self, proyecto_id):
@@ -40,8 +39,7 @@ class ProyectoDao:
             proyecto = Proyecto.objects.using('base').get(proyecto_id=proyecto_id)
         except Proyecto.DoesNotExist as e:
             print(e)
-        finally:
-            return proyecto
+        return proyecto
 
 
 
@@ -49,24 +47,22 @@ class ProyectoDao:
         proyecto = None
         try:
             proyecto = Proyecto.objects.get(proyecto_nombre=nombre, gerente_id=gerente_id)
-        except Error as e:
+        except Exception as e:
             print(e)
-        finally:
-            return proyecto
+        return proyecto
 
     def eliminar_proyecto(self, proyecto):
-        proyecto = proyecto
-
+        flag = False
         try:
             proyecto.gerente_id = None
-            proyecto.save()            
-        except Error as e:
+            proyecto.save()
+            flag = True
+        except Exception as e:
             print(e)
-        finally:
-            return True
+        return flag
 
     def editar_proyecto(self, proyecto, nombre, objetivo, alcance, descripcion, presupuesto, fecha_inicio, sector):
-        proyecto = proyecto
+        msg = "No se actualizo la información del proyecto."
         try:
             proyecto.proyecto_nombre = nombre
             proyecto.proyecto_objetivo = limpiar_descripcion(objetivo)
@@ -76,55 +72,48 @@ class ProyectoDao:
             proyecto.proyecto_fecha_inicio = fecha_inicio
             proyecto.sector = sector
             proyecto.save()
-        except Error as e:
+            msg = "Se actualizo la información del proyecto de forma exitosamente."
+        except Exception as e:
             print(e)
-        finally:
-            return "Se actualizo la información del proyecto de forma exitosamente."
+        return msg
 
     def cerrar_proyecto(self, proyecto, fecha):
-        proyecto = proyecto
         try:
             proyecto.proyecto_fin_status = 1
             proyecto.proyecto_fecha_finl = fecha          
             proyecto.save()
-        except Error as e:
+        except Exception as e:
             print(e)
-        finally:
-            return proyecto
+        return proyecto
 
     def listar_proyectos(self, id):
         proyectos = {}
         try:
             proyectos = Proyecto.objects.filter(gerente_id=id).order_by('-proyecto_fecha_inicio')
-        except Error as e:
+        except Exception as e:
             print(e)
-        finally:
-            return proyectos
+        return proyectos
 
     def get_lineas_base(self, proyecto_id):
         proyectos = {}
         try:
           sql = "SELECT * FROM proyecto p " \
                 "WHERE p.proyecto_id = %s ORDER BY p.proyecto_linea_base "
-
           proyectos = Proyecto.objects.using('base').raw(sql, [proyecto_id])
-          
         except Exception as e:
           print(e)
-        finally:
-            return proyectos
+        return proyectos
 
     def has_actividades(self, proyecto):
         flag = False
         try:
             sql = "SELECT * FROM `actividad` WHERE `proyecto_id` = %s LIMIT 1"
             actividad = Actividad.objects.raw(sql, [proyecto.proyecto_id, ])
-            if (actividad):
+            if actividad:
                 flag = True
         except Exception as e:
-            raise e
-        finally:
-            return flag
+            print(e)
+        return flag
 
     def crear_linea_base(self, gerente_id: int, proyecto):
         try:
@@ -136,3 +125,6 @@ class ProyectoDao:
             print(e)
             flag = False
         return flag
+
+    def get_cantidad_proyectos(self):
+        return Proyecto.objects.count()

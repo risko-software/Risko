@@ -1,4 +1,4 @@
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import Rol
 from Risk_project_ufps.core_risk.util.cadena import limpiar_descripcion
 
 
@@ -13,8 +13,7 @@ class RolDao:
             rol.save()
         except Exception as e:
             print(e)
-        finally:
-            return rol
+        return rol
 
     def listar_roles(self, gerente):
         lista_roles = None
@@ -22,19 +21,16 @@ class RolDao:
             lista_roles = Rol.objects.filter(gerente_id=gerente.gerente_id)
         except Exception as e:
             print(e)
-        finally:
-            return lista_roles
+        return lista_roles
 
     def editar_rol(self, rol, nombre, descripcion):
-        rol = rol
         try:
             rol.rol_nombre = limpiar_descripcion(nombre)
             rol.rol_descripcion = limpiar_descripcion(descripcion)
             rol.save()
         except Exception as e:
             print(e)
-        finally:
-            return rol 
+        return rol
 
     def get_rol_by_id(self, rol_id):
         rol = None
@@ -42,14 +38,13 @@ class RolDao:
             rol = Rol.objects.get(rol_id=rol_id)
         except Exception as e:
             print(e)
-        finally:
-            return rol
+        return rol
 
     def eliminar_rol(self, rol):
-        rol = rol
+        flag = False
         try:
             rol.delete()
+            flag = True
         except Exception as e:
-            return False
-        finally:
-            return True
+            print(e)
+        return flag

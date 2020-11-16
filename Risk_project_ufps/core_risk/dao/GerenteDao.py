@@ -1,7 +1,7 @@
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import Gerente
 import datetime
 
-class GerenteDao():
+class GerenteDao:
 
 	def get_by_id(self, gerente_id):
 		gerente = None
@@ -9,8 +9,7 @@ class GerenteDao():
 			gerente = Gerente.objects.get(gerente_id = gerente_id)
 		except Exception as e:
 			print(e)
-		finally:      
-			return gerente
+		return gerente
 
 	def validar_gerente(self, usuario):
 		gerente = None
@@ -18,8 +17,7 @@ class GerenteDao():
 			gerente = Gerente.objects.get(gerente_usuario = usuario)
 		except Exception as e:
 			print(e)
-		finally:      
-			return gerente
+		return gerente
 
 		
 	def registrar_gerente(self, id, usuario, correo, nombre, sector, profesion, empresa, pais, metodologia, certificacion, fecha_creacion):
@@ -41,23 +39,19 @@ class GerenteDao():
 			gerente.save()      
 		except Exception as e:
 			print(e)
-		finally:      
-			return "Se registro el gerente exitosamente."
+		return "Se registro el gerente exitosamente."
 
 
 
 	def obtener_gerente(self, id):
 		gerente = {}
-
 		try:
 			gerente = Gerente.objects.get(gerente_id=id)
 		except Exception as e:
 			print(e)
-		finally:
-			return gerente
+		return gerente
 
 	def actualizar_gerente(self, gerente, nombre, correo, profesion, empresa, sector, certificacion, metodologia):
-		gerente = gerente
 		gerente.gerente_nombre = nombre
 		gerente.gerente_correo = correo
 		gerente.gerente_profesion = profesion
@@ -69,6 +63,7 @@ class GerenteDao():
 			gerente.save()
 		except Exception as e:
 			print(e)
-		finally:
-			
-				return "Se actualizó la información del gerente exitosamente."
+		return "Se actualizó la información del gerente exitosamente."
+
+	def get_cantidad_gerente(self):
+		return Gerente.objects.count()

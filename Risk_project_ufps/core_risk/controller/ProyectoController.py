@@ -280,6 +280,9 @@ class ProyectoController:
                     probabilidad.has_riesgo += 1
         return probabilidades
 
+    def get_cantidad_proyectos(self):
+        proyecto_dao = ProyectoDao()
+        return proyecto_dao.get_cantidad_proyectos()
 
 
 

@@ -2,10 +2,11 @@ from contextlib import closing
 
 from django.db import connections
 
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import ProyectoHasRiesgoActividad
+from Risk_project_ufps.core_risk.dto.models import Actividad
 
 
-class ProyectoHasRiesgo_ActividadDao():
+class ProyectoHasRiesgo_ActividadDao:
 
     def registrar_actividad_riesgo(self, proyecto_riesgo, actividad):
         with closing(connections['riesgos'].cursor()) as cursor:
@@ -28,12 +29,9 @@ class ProyectoHasRiesgo_ActividadDao():
                 "ON pr.proyecto_has_riesgo_id=tr.proyecto_has_riesgo_id "
                 "WHERE tr.proyecto_id = %s",
                 [proyecto_id])
-
         except Exception as e:
             print(e)
-
-        finally:
-            return actividades
+        return actividades
 
     def validar_actividad(self, proyecto_riesgo_id, actividad_id):
         actividad = None
@@ -42,9 +40,7 @@ class ProyectoHasRiesgo_ActividadDao():
                                                                actividad_id=actividad_id)
         except Exception as e:
             print(e)
-
-        finally:
-            return actividad
+        return actividad
 
     def desasociar_actividad_riesgo(self, proyecto_has_riesgo, actividad):
         actividad_riesgo = None
@@ -53,6 +49,5 @@ class ProyectoHasRiesgo_ActividadDao():
                                                                       actividad=actividad)
             actividad_riesgo.delete()
         except Exception as e:
-            raise e
-        finally:
-            return actividad_riesgo
+            print(e)
+        return actividad_riesgo

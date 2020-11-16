@@ -18,3 +18,7 @@ class GerenteController:
 	def actualizar_gerente(self, gerente, nombre, correo, profesion, empresa, sector, certificacion, metodologia):
 		gerente_dao = GerenteDao()
 		return gerente_dao.actualizar_gerente(gerente, nombre, correo, profesion, empresa, sector, certificacion, metodologia)
+
+	def get_cantidad_gerente(self):
+		gerente_dao = GerenteDao()
+		return gerente_dao.get_cantidad_gerente()

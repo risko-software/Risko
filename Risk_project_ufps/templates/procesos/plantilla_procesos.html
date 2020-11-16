@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 {% if user.is_authenticated %}
 <head>
   {% load static %}
@@ -50,9 +50,9 @@
     <nav class="navbar navbar-static-top" style="width: 100%; left: 0; top: 0; margin-bottom: 100px; position: fixed;">
       <div class="container">
         <div class="navbar-header">
-          <a href="" class="navbar-brand"><b>RISKO</b></a>
+          <a href="" class="navbar-brand"><strong>RISKO</strong></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-            <i class="fa fa-bars"></i>
+            <em class="fa fa-bars"></em>
           </button>
         </div>
 
@@ -107,8 +107,6 @@
             <li class="dropdown user user-menu">
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <!-- The user image in the navbar
-                <img src="{% static 'risk_project/dist/img/user2-160x160.jpg' %}" class="user-image" alt="User Image">-->
                 <svg data-jdenticon-value="{{ user.first_name }}" width="39" height="39" class="user-image">
                   {{ user.first_name }}
                 </svg> 
@@ -118,7 +116,6 @@
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
-                 <!--<img src="{% static 'risk_project/dist/img/user2-160x160.jpg' %}" class="img-circle" alt="User Image">-->
                  <svg data-jdenticon-value="{{ user.first_name }}" width="80" height="80" class="img-circle">
                   {{ user.first_name }}
                 </svg> 
@@ -162,7 +159,7 @@
   <footer class="main-footer">
     <div class="container">
       <div class="pull-right hidden-xs">
-        <b>Versión</b> 1.0
+        <strong>Versión</strong> 1.0
       </div>
       <strong>RISKO</strong>
     </div>
@@ -183,8 +180,6 @@
 <script src="{% static 'risk_project/dist/js/adminlte.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'risk_project/dist/js/demo.js' %}"></script>
-<!--
-<script src="{% static 'risk_project/dist/js/risk_ufps/nuevo_riesgo.js' %}"></script>-->
 
 <!-- Inicia el contenido de las librerias del orgchart -->
 {% block organigrama_down %}
@@ -206,7 +201,7 @@
         <h2 class="headline text-yellow"> 404</h2>
 
         <div class="error-content">
-          <h3><i class="fa fa-warning text-yellow"></i> Oops! Pagina no dispobile, por favor inicia sesión para acceder a nuestros servicios.</h3>
+          <h3><em class="fa fa-warning text-yellow"></em> Oops! Pagina no dispobile, por favor inicia sesión para acceder a nuestros servicios.</h3>
 
           
 

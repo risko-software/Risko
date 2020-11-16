@@ -12,7 +12,7 @@
         Mis Proyectos
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="#"><em class="fa fa-dashboard"></em> Inicio</a></li>
         <li class="active">Proyectos</li>
         <li class="active">Mis proyectos</li>
       </ol>
@@ -47,7 +47,7 @@
             <h2 class="info-box-text">{{ proyecto.proyecto_nombre}}</h2>
           </div>
           <div class="icon">
-            <i class="ion ion-document"></i>
+            <em class="ion ion-document"></em>
           </div>
           <br>
             {% if proyecto.proyecto_fin_status %}
@@ -56,7 +56,7 @@
             <button type="button"  class="btn btn-block btn-info btn-xs">
             {% endif %}  
             <a href="{% url 'mi_proyecto' proyecto.proyecto_id %}" style="color:#FEFEFE">Gestionar Proyecto
-              <i class="fa fa-arrow-circle-right"></i>
+              <em class="fa fa-arrow-circle-right"></em>
             </a>
           </button>
         </div>

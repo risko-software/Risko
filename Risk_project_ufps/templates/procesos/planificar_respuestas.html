@@ -20,7 +20,7 @@
         {% endif %}       
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-folder-open"></i> Procesos</a></li>
+        <li><a href="#"><em class="fa fa-folder-open"></em> Procesos</a></li>
         <li class="active">Planificar respuestas</li>
       </ol>
       {% if mensaje %}
@@ -51,7 +51,7 @@
                   <h4 class="box-title">
                     
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" style="color:#444444";>
-                      <label ><strong>Informe plan de respuestas - Proyecto: {{ proyecto.proyecto_nombre }}  <i class="fa fa-sort-desc"></i></strong></label>
+                      <label ><strong>Informe plan de respuestas - Proyecto: {{ proyecto.proyecto_nombre }}  <em class="fa fa-sort-desc"></em></strong></label>
                       
                       
                     </a>
@@ -76,15 +76,16 @@
         </div>
         <div class="box-body">
         	<table id="tabla_riesgos" class="table table-bordered table-striped">
+                <caption></caption>
 	            <thead>
 	              <tr>
-	              	<th></th>
-	                <th>Riesgo &nbsp<i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>                  
-                  <th><label data-toggle="tooltip" data-placement="top" title="Evaluación asignada al riesgo.">Categorización &nbsp<i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></label></th>       
-	                <th><label data-toggle="tooltip" data-placement="top" title="Acciones de respuesta asociadas al riesgo.">Acciones </label></th>
-                  <th><label data-toggle="tooltip" data-placement="top" title="Tareas o actividades asociadas a las acciones.">Tareas </label></th>
-                  <th><label data-toggle="tooltip" data-placement="top" title="Recursos del proyecto asociados a las tareas.">Recursos</label></th>      
-                  <th><label data-toggle="tooltip" data-placement="top" title="Suma de los recursos asignados a las tareas">Costos</label></th>           
+	              	<th scope="col"></th>
+                      <th scope="col">Riesgo &nbsp<em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                      <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Evaluación asignada al riesgo.">Categorización &nbsp<em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></label></th>
+	                <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Acciones de respuesta asociadas al riesgo.">Acciones </label></th>
+                    <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Tareas o actividades asociadas a las acciones.">Tareas </label></th>
+                    <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Recursos del proyecto asociados a las tareas.">Recursos</label></th>
+                    <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Suma de los recursos asignados a las tareas">Costos</label></th>
 	              </tr>
 	            </thead>
 	            <tbody>
@@ -95,16 +96,16 @@
 	              <td>{{ riesgo.riesgo_nombre }}</td>
                 <td class="riesgo_rango" id="riesgo_rango_{{ riesgo.riesgo_id }}" value="{{ riesgo.riesgo_id }}">{{ riesgo.riesgo_id }}</td>
 	              <td> 
-	                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-respuestas" onclick="abrir_modal_respuestas('{{ riesgo.riesgo_id }}')"><i   class="fa fa-edit"></i></button>
+	                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-respuestas" onclick="abrir_modal_respuestas('{{ riesgo.riesgo_id }}')"><em   class="fa fa-edit"></em></button>
 	              </td>	             
                 <td>
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-tareas" onclick="abrir_modal_tareas('{{ riesgo.riesgo_id }}')"><i   class="fa fa-edit"></i></button>
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-tareas" onclick="abrir_modal_tareas('{{ riesgo.riesgo_id }}')"><em   class="fa fa-edit"></em></button>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-recursos" onclick="abrir_modal_recursos('{{ riesgo.riesgo_id }}')"><i   class="fa fa-edit"></i></button>
+                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-recursos" onclick="abrir_modal_recursos('{{ riesgo.riesgo_id }}')"><em   class="fa fa-edit"></em></button>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-recursos" onclick="abrir_modal_costos('{{ riesgo.riesgo_id }}')"><i   class="fa fa-edit"></i></button>
+                  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-recursos" onclick="abrir_modal_costos('{{ riesgo.riesgo_id }}')"><em   class="fa fa-edit"></em></button>
                 </td>                  
 	            </tr>
 	            {% endfor %}
@@ -119,14 +120,13 @@
 	          </tbody>
 	          <tfoot>
 	            <tr>
-	              <th></th>
-	              
-                  <th>Riesgo</th>
-                  <th>Categorización</th>
-                  <th>Acciones</th>                  
-                  <th>Tareas</th>
-                  <th><label data-toggle="tooltip" data-placement="top" title="Corresponde a los recursos definidos dentro de este proyecto">Recursos</label></th> 
-                  <th><label data-toggle="tooltip" data-placement="top" title="Suma de los recursos asignados a las tareas">Costos</label></th>   
+	              <th scope="col"></th>
+                  <th scope="col">Riesgo</th>
+                  <th scope="col">Categorización</th>
+                  <th scope="col">Acciones</th>
+                  <th scope="col">Tareas</th>
+                  <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Corresponde a los recursos definidos dentro de este proyecto">Recursos</label></th>
+                  <th scope="col"><label data-toggle="tooltip" data-placement="top" title="Suma de los recursos asignados a las tareas">Costos</label></th>
 	            </tr>
 	          </tfoot>
 	        </table>
@@ -162,7 +162,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title"><i class="fa fa-edit"></i> Tareas</h4>
+          <h4 class="modal-title"><em class="fa fa-edit"></em> Tareas</h4>
         </div>
         <div class="modal-body">
 
@@ -180,24 +180,25 @@
              <div class="box-body">
 
                <table id="tabla_responsables" class="table table-bordered table-striped">
+                   <caption></caption>
                 <thead>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Fecha inicio</th>
-                    <th>Fecha fin</th>
-                    <th>Opciones</th>                                      
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Fecha inicio</th>
+                    <th scope="col">Fecha fin</th>
+                    <th scope="col">Opciones</th>
                   </tr>
                 </thead>
                 <tbody id="tareas_riesgo">          
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Fecha inicio</th>
-                    <th>Fecha fin</th>
-                    <th>Opciones</th>      
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Fecha inicio</th>
+                    <th scope="col">Fecha fin</th>
+                    <th scope="col">Opciones</th>
                   </tr>
                 </tfoot>
               </table>
@@ -229,7 +230,7 @@
                   <label>Fecha de Inicio</label>                                        
                   <div class="input-group date">
                     <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
+                      <em class="fa fa-calendar"></em>
                     </div>
                     <input type="date" class="form-control pull-right" name="tarea_fecha_inicio" required>
                   </div>
@@ -242,7 +243,7 @@
                 <label>Fecha Fin</label>
                 <div class="input-group date">
                   <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+                    <em class="fa fa-calendar"></em>
                   </div>
                   <input type="date" class="form-control pull-right" name="tarea_fecha_fin" required>
                 </div>                  
@@ -285,7 +286,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title"><i class="fa fa-edit"></i> Recursos</h4>
+          <h4 class="modal-title"><em class="fa fa-edit"></em> Recursos</h4>
         </div>
         <div class="modal-body">
 
@@ -303,12 +304,13 @@
              <div class="box-body">
 
                <table id="tabla_responsables" class="table table-bordered table-striped">
+                   <caption></caption>
                 <thead>
                   <tr>
-                    <th>Tarea</th>
-                    <th>Recursos</th>
-                    <th>Cantidad</th>
-                    <th>Opciones</th>                                      
+                    <th scope="col">Tarea</th>
+                    <th scope="col">Recursos</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Opciones</th>
                   </tr>
                 </thead>
                 <tbody id="listado_recursos">         
@@ -319,10 +321,10 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Tarea</th>
-                    <th>Recursos</th>
-                    <th>Cantidad</th>
-                    <th>Opciones</th>         
+                    <th scope="col">Tarea</th>
+                    <th scope="col">Recursos</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Opciones</th>
                   </tr>
                 </tfoot>
               </table>
@@ -387,7 +389,7 @@
        </div><!-- /.box-body -->
        <div class="callout callout-warning" id="recurso_letrero_uno" >
         <h4>Notificación</h4>
-        Este proyecto no cuenta con recursos para poder asignar. <b>Registre sus recursos <a href="{% url 'recursos' proyecto.proyecto_id %}">aqui</a></b>      
+        Este proyecto no cuenta con recursos para poder asignar. <strong>Registre sus recursos <a href="{% url 'recursos' proyecto.proyecto_id %}">aqui</a></strong>
       </div>
       <div class="callout callout-warning" id="recurso_letrero_dos" hidden="true">
         <h4>Notificación</h4>
@@ -412,7 +414,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title"><i class="fa fa-edit"></i> Acciones de respuesta</h4>
+          <h4 class="modal-title"><em class="fa fa-edit"></em> Acciones de respuesta</h4>
         </div>
         <div class="modal-body">
 
@@ -431,12 +433,13 @@
              <div class="box-body">
 
               <table id="tabla2" class="table table-bordered table-striped">
+                  <caption></caption>
                 <thead>
                   <tr>
-                    <th>Respuesta</th>
-                    <th>Descripción</th>
-                    <th>Tipo Respuesta</th>                  
-                    <th>Opciones</th>                    
+                    <th scope="col">Respuesta</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Tipo Respuesta</th>
+                    <th scope="col">Opciones</th>
                   </tr>
                 </thead>
                 <tbody id="respuestas_body">                 
@@ -449,10 +452,10 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Respuesta</th>
-                    <th>Descripción</th>
-                    <th>Tipo Respuesta</th>                  
-                    <th>Opciones</th>      
+                    <th scope="col">Respuesta</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Tipo Respuesta</th>
+                    <th scope="col">Opciones</th>
                   </tr>
                 </tfoot>
               </table>
@@ -465,11 +468,12 @@
             <form action="{% url 'asociar_respuesta_sugeridas' proyecto.proyecto_id %}" method="post">
               {% csrf_token %}
               <table id="tabla2" class="table table-bordered table-striped">
+                  <caption></caption>
               <thead>
                 <tr>
-                  <th></th>
-                  <th>Respuesta</th>
-                  <th>Descripción</th>                                  
+                  <th scope="col"></th>
+                  <th scope="col">Respuesta</th>
+                  <th scope="col">Descripción</th>
                 </tr>
               </thead>
               <tbody id="respuestas_sugeridas_body">                 
@@ -481,9 +485,9 @@
               </tbody>
               <tfoot>
                 <tr>
-                  <th></th>
-                  <th>Respuesta</th>
-                  <th>Descripción</th>                                    
+                  <th scope="col"></th>
+                  <th scope="col">Respuesta</th>
+                  <th scope="col">Descripción</th>
                 </tr>
               </tfoot>
               </table>
@@ -492,9 +496,9 @@
                 <div class="row no-print">
                   <div class="col-md-11">
                     {% if proyecto.proyecto_fin_status %}                    
-                    <button type="submit" class="btn btn-success pull-right" disabled="true"><i class="fa fa-plus"></i>Agregar</button>
+                    <button type="submit" class="btn btn-success pull-right" disabled="true"><em class="fa fa-plus"></em>Agregar</button>
                     {% else %}                    
-                    <button type="submit" class="btn btn-success pull-right"><i class="fa fa-plus"></i>Agregar</button>
+                    <button type="submit" class="btn btn-success pull-right"><em class="fa fa-plus"></em>Agregar</button>
                     {% endif %}  
    
                   </div>
@@ -752,7 +756,7 @@
                     <label>Fecha Inicio</label>
                     <div class="input-group date">
                       <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
+                        <em class="fa fa-calendar"></em>
                       </div>
                       <input type="date" class="form-control pull-right" name="tarea_fecha_inicio" id="tarea_fecha_inicio_ed">
                     </div>                  
@@ -766,7 +770,7 @@
                   <label>Fecha Fin</label>
                   <div class="input-group date">
                     <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
+                      <em class="fa fa-calendar"></em>
                     </div>
                     <input type="date" class="form-control pull-right" name="tarea_fecha_fin" id="tarea_fecha_fin_ed">
                   </div>                  
@@ -837,34 +841,35 @@
           <div class="col col-lg-1"></div>
           <div class="col-md-10">
             <table class="table table-striped">
+                <caption></caption>
               <thead>
               <tr>
-                <th></th>
-                <th>Accion</th>
-                <th>Tarea</th>
-                <th>Recurso</th>
-                <th>Cantidad</th>
-                <th>Costo</th>
+                <th scope="col"></th>
+                <th scope="col">Accion</th>
+                <th scope="col">Tarea</th>
+                <th scope="col">Recurso</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Costo</th>
               </tr>
               </thead>
               <tbody id="costos_body">
               </tbody>
               <tfoot>
               <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>Costo del riesgo</th>
-                <th id="costo_riesgo"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Costo del riesgo</th>
+                <th scope="col" id="costo_riesgo"></th>
               </tr>
               <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>Total del proyecto</th>
-                <th id="costo_proyecto"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Total del proyecto</th>
+                <th scope="col" id="costo_proyecto"></th>
               </tr>
               </tfoot>
             </table>

@@ -1,7 +1,7 @@
 from contextlib import closing
 
 from django.db import connections
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import RiesgoHasRespuesta
 
 
 class RiesgoHasRespuestaDao():
@@ -25,9 +25,7 @@ class RiesgoHasRespuestaDao():
             riesgo_respuesta = RiesgoHasRespuesta.objects.get(riesgo_id=riesgo, respuesta_id=respuesta)
         except Exception as e:
             print(e)
-
-        finally:
-            return riesgo_respuesta
+        return riesgo_respuesta
 
     def listar_respuesta_riesgo(self, id):
         riesgos = {}
@@ -36,5 +34,4 @@ class RiesgoHasRespuestaDao():
             riesgos = RiesgoHasRespuesta.objects.raw(sql,[id])
         except Exception as e:
             print(e)
-        finally:
-            return riesgos
+        return riesgos

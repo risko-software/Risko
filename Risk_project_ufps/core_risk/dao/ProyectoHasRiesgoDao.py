@@ -3,22 +3,9 @@ from contextlib import closing
 from django.db import connection
 from django.db import connections
 
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import ProyectoHasRiesgo, Responsble
 
-class ProyectoHasRiesgoDao():
-
-    """def registrar_proyecto_riesgo(self, proyecto, riesgo):
-        proyecto_riesgo = None
-        try:
-            proyecto_riesgo = ProyectoHasRiesgo(
-                proyecto = proyecto,
-                riesgo = riesgo             
-            )
-            proyecto_riesgo.save()      
-        except Error as e:
-            print(e)
-        finally:
-            return proyecto_riesgo"""
+class ProyectoHasRiesgoDao:
 
     def registrar_proyecto_riesgo(self, proyecto, riesgo):
         with closing(connections['riesgos'].cursor()) as cursor:
@@ -47,28 +34,24 @@ class ProyectoHasRiesgoDao():
                 [fecha, proyecto_riesgo.proyecto_has_riesgo_id],
             )
 
-    def agregar_responsable_riesgo(self, proyecto_riesgo, responsable):         
-
-        proyecto_riesgo = proyecto_riesgo
+    def agregar_responsable_riesgo(self, proyecto_riesgo, responsable):
+        msg = "No se actualizo al responsable."
         try:
             proyecto_riesgo.responsable = responsable
             proyecto_riesgo.save()
+            msg = "Se actualizo responsable al riesgo exitosamente."
         except ProyectoHasRiesgo.DoesNotExist:
             proyecto_riesgo = None
-        finally:
-            return "Se actualizo responsable al riesgo exitosamente."
+        return msg
 
     def listar_responsables_riesgo(self, proyecto_id):
         responsables_riesgo = {}
         try:
             #Revisar esta consulta
             responsables_riesgo = Responsble.objects.raw("SELECT * FROM responsble re INNER JOIN proyecto_has_riesgo pr ON re.responsable_id=pr.responsable_id WHERE pr.proyecto_id = %s", [proyecto_id])
-
         except Exception as e:
             print(e)
-
-        finally:
-            return responsables_riesgo
+        return responsables_riesgo
 
     def listar_proyecto_has_riesgo_by_proyecto(self, proyecto):
         """
@@ -95,6 +78,7 @@ class ProyectoHasRiesgoDao():
             return ProyectoHasRiesgo.objects.raw(sql, [proyecto.proyecto_id])
 
         except Exception as e:
+            print(e)
             return None
 
 
@@ -104,8 +88,7 @@ class ProyectoHasRiesgoDao():
             proyecto_riesgo = ProyectoHasRiesgo.objects.get(proyecto_id=proyecto, riesgo_id=riesgo)
         except ProyectoHasRiesgo.DoesNotExist:
             proyecto_riesgo = None
-        finally:
-            return proyecto_riesgo
+        return proyecto_riesgo
 
     def get_by_riesgo_and_proyecto_2(self, riesgo, proyecto):
         proyecto_riesgo = None
@@ -113,27 +96,24 @@ class ProyectoHasRiesgoDao():
             proyecto_riesgo = ProyectoHasRiesgo.objects.get(riesgo=riesgo, proyecto=proyecto )
         except Exception as e:
             print(e)
-        finally:
-            return proyecto_riesgo
+        return proyecto_riesgo
 
     def get_by_riesgo_and_proyecto_2_linea(self, riesgo, proyecto, linea_base):
-        
         proyecto_riesgo = None
         try:
             proyecto_riesgo = ProyectoHasRiesgo.objects.using('base').get(riesgo=riesgo, proyecto=proyecto, proyecto_linea_base=linea_base)
         except Exception as e:
             print(e)
-        finally:
-            return proyecto_riesgo
+        return proyecto_riesgo
 
     def eliminar_by_riesgo_and_proyecto(self, proyecto_riesgo):
-        proyecto_riesgo = proyecto_riesgo
+        msg = "No se elimino el riesgo del proyecto"
         try:
             proyecto_riesgo.delete()
+            msg = "Se eliminó riesgo del proyecto de forma exitosa."
         except ProyectoHasRiesgo.DoesNotExist:
             proyecto_riesgo = None
-        finally:
-            return "Se eliminó riesgo del proyecto de forma exitosa."
+        return msg
 
 
     def set_responsable_null(self, responsable_id, riesgo_id, proyecto_id):
@@ -152,12 +132,12 @@ class ProyectoHasRiesgoDao():
                 print(e)
 
     def get_all_by_proyecto_id(self, proyecto_id):
+        proyecto_riesgo = {}
         try:
             proyecto_riesgo = ProyectoHasRiesgo.objects.filter(proyecto_id=proyecto_id)
         except ProyectoHasRiesgo.DoesNotExist:
             proyecto_riesgo = {}
-        finally:
-            return proyecto_riesgo
+        return proyecto_riesgo
 
 
 

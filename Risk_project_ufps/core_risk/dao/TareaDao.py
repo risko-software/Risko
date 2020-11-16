@@ -1,4 +1,4 @@
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import Tarea
 from datetime import date
 from datetime import datetime
 from contextlib import closing
@@ -26,8 +26,7 @@ class TareaDao:
             tarea.save()
         except Exception as e:
             print(e)
-        finally:
-            return tarea
+        return tarea
 
     def get_tarea_by_id(self, id):
         tarea = None
@@ -35,8 +34,7 @@ class TareaDao:
             tarea = Tarea.objects.get(tarea_id=id)
         except Exception as e:
             print(e)
-        finally:
-            return tarea
+        return tarea
 
     def listar_tareas(self, proyecto):
         tareas = {}
@@ -50,10 +48,9 @@ class TareaDao:
             tareas = Tarea.objects.raw(sql, [proyecto.proyecto_id])
         except Exception as e:
             print(e)
-        finally:
-            return tareas
+        return tareas
 
-    def validar_tarea(self, nombre, respuesta_id):
+    def validar_tarea(self, nombre, respuesta_id, proyecto):
         tarea = None
         try:
             sql = "SELECT t.tarea_id, t.tarea_nombre, t.tarea_descripcion, rp.riesgo_id FROM tarea t " \
@@ -66,8 +63,7 @@ class TareaDao:
             tarea = Tarea.objects.raw(sql, [proyecto.proyecto_id, nombre, respuesta_id])
         except Exception as e:
             print(e)
-        finally:
-            return tarea
+        return tarea
 
     def listar_tareas_linea(self, proyecto, linea_base):
         tareas = {}
@@ -81,8 +77,7 @@ class TareaDao:
             tareas = Tarea.objects.using('base').raw(sql, [proyecto.proyecto_id, linea_base, linea_base, linea_base])
         except Exception as e:
             print(e)
-        finally:
-            return tareas
+        return tareas
 
     def listar_tareas_no_iniciadas(self, proyecto):
         tareas = {}
@@ -94,8 +89,7 @@ class TareaDao:
 
         except Exception as e:
             print(e)
-        finally:
-            return tareas
+        return tareas
 
     def listar_tareas_base(self, proyecto):
         tareas = {}
@@ -131,8 +125,7 @@ class TareaDao:
                                                            proyecto.proyecto_linea_base, ])
         except Tarea.DoesNotExist as e:
             print(e)
-        finally:
-            return tareas
+        return tareas
 
     def listar_tareas_with_recursos(self, proyecto):
         tareas = {}
@@ -146,17 +139,18 @@ class TareaDao:
             tareas = Tarea.objects.raw(sql, [proyecto.proyecto_id])
         except Exception as e:
             print(e)
-        finally:
-            return tareas
+            print("tareas")
+        return tareas
 
     def eliminar_tarea(self, tarea):
+        msg = "No se elimino la tarea"
         tarea_eliminar = tarea
         try:
             tarea_eliminar.delete()
+            msg = "Tarea eliminada de forma exitosa."
         except Exception as e:
             print(e)
-        finally:
-            return "Tarea eliminada de forma exitosa."
+        return msg
 
     def editar_tarea(self, tarea, nombre, descripcion, fecha_inicio, fecha_fin):
         tarea_editar = tarea
@@ -170,8 +164,7 @@ class TareaDao:
             tarea_editar.save()
         except Exception as e:
             print(e)
-        finally:
-            return tarea_editar
+        return tarea_editar
 
     def actualizar_tarea_base(self, tarea_aux, proyecto):
         flag = False
@@ -201,9 +194,8 @@ class TareaDao:
                 #print("WWWWWWw",cursor._last_executed)
                 flag = True
         except Exception as e:
-            raise e
-        finally:
-            return flag
+            print(e)
+        return flag
 
     def actualizar_tarea_bd(self, tarea):
         """
@@ -223,8 +215,7 @@ class TareaDao:
             tarea_editar.save()
         except Tarea.DoesNotExist:
             tarea_editar = None
-        finally:
-            return tarea_editar
+        return tarea_editar
 
 
 

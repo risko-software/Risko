@@ -15,7 +15,7 @@
       Roles del equipo de trabajo
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
+      <li><a href="#"><em class="fa fa-dashboard"></em>Inicio</a></li>
       <li class="active">Equipo de trabajo</li>
       <li class="active">Roles del equipo de trabajo</li>
     </ol>
@@ -89,12 +89,13 @@
           <!-- /.box-header -->
           <div class="box-body">
             <table id="example1" class="table table-bordered table-striped">
+              <caption></caption>
               <thead>
                 <tr>   
-                  <th></th>                  
-                  <th>Nombre <i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>
-                  <th>Descripción <i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>
-                  <th>Opciones </th>                                       
+                  <th scope="col"></th>
+                  <th scope="col">Nombre <em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                  <th scope="col">Descripción <em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                  <th scope="col">Opciones </th>
                 </tr>
               </thead>
               <tbody>
@@ -105,9 +106,9 @@
                 <td>{{ rol.rol_nombre }}</td>
                 <td>{{ rol.rol_descripcion }}</td>               
                 <td>
-                  <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ rol.rol_nombre }}', '{{ rol.rol_descripcion }}', '{{ rol.rol_id }}')"><i   class="fa fa-edit"></i>
+                  <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ rol.rol_nombre }}', '{{ rol.rol_descripcion }}', '{{ rol.rol_id }}')"><em class="fa fa-edit"></em>
                   </button>
-                  <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ rol.rol_nombre }}', '{{ rol.rol_id }}')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i>
+                  <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ rol.rol_nombre }}', '{{ rol.rol_id }}')" data-target="#modal_eliminar"><em class="fa fa-trash-o danger"></em>
                   </button>
                   &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                 </td>
@@ -124,10 +125,10 @@
               </tbody>
               <tfoot>
               <tr>
-                <th></th>                 
-                <th>Nombre</th>
-                <th>Descripción</th>                 
-                <th>Opciones</th>
+                <th scope="col"></th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Opciones</th>
               </tr>
               </tfoot>
             </table>

@@ -15,7 +15,7 @@
         <small>Recursos</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> {{ proyecto.proyecto_nombre }}</a></li>
+        <li><a href="#"><em class="fa fa-dashboard"></em> {{ proyecto.proyecto_nombre }}</a></li>
         <li class="active">Recursos</li> 
       </ol>
       {% if mensaje %}
@@ -114,13 +114,14 @@
 
 
               <table id="example1" class="table table-bordered table-striped">
+                <caption></caption>
                 <thead>
                   <tr>
-                    <th></th>
-                    <th>Nombre <i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>
-                    <th><label id="label_costo" data-toggle="tooltip" data-placement="top" title="Costo por unidad o por hora según el tipo de recurso."><strong>Costo</label><i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th> 
-                    <th><label id="label_costo" data-toggle="tooltip" data-placement="top" title="Categoría asociada al recurso."><strong>Tipo Recurso</label><i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>                   
-                    <th>Opciones</th>
+                    <th scope="col"></th>
+                    <th scope="col">Nombre <em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                    <th scope="col"><label id="label_costo" data-toggle="tooltip" data-placement="top" title="Costo por unidad o por hora según el tipo de recurso."><strong>Costo</label><em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                    <th scope="col"><label id="label_costo" data-toggle="tooltip" data-placement="top" title="Categoría asociada al recurso."><strong>Tipo Recurso</label><em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                    <th scope="col">Opciones</th>
 
                   </tr>
                 </thead>
@@ -134,18 +135,18 @@
                     <td>{{ recurso.tipo_recurso.tipo_recurso_nombre }}</td>                    
                     <td>
                      {% if proyecto.proyecto_fin_status %}
-                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}', '{{ recurso.recurso_costo }}')" data-target="#modal-editar" disabled="true"><i   class="fa fa-edit"></i>
+                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}', '{{ recurso.recurso_costo }}')" data-target="#modal-editar" disabled="true"><em   class="fa fa-edit"></em>
                      </button>
 
 
-                     <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}')" data-target="#modal_eliminar" disabled="true"><i class="fa fa-trash-o danger"></i>
+                     <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}')" data-target="#modal_eliminar" disabled="true"><em class="fa fa-trash-o danger"></em>
                      </button>
                      {% else %}
-                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}', '{{ recurso.recurso_costo }}')" data-target="#modal-editar"><i   class="fa fa-edit"></i>
+                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}', '{{ recurso.recurso_costo }}')" data-target="#modal-editar"><em   class="fa fa-edit"></em>
                      </button>
 
 
-                     <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i>
+                     <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}')" data-target="#modal_eliminar"><em class="fa fa-trash-o danger"></em>
                      </button>
                      {% endif %}                    
 
@@ -164,11 +165,11 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th></th>
-                  <th>Nombre</th>
-                  <th>Costo</th>
-                  <th>Tipo Recurso</th>                  
-                  <th>Opciones</th>
+                  <th scope="col"></th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Costo</th>
+                  <th scope="col">Tipo Recurso</th>
+                  <th scope="col">Opciones</th>
                 </tr>
               </tfoot>
               </table>

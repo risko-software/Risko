@@ -19,7 +19,7 @@
      
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li><a href="#"><em class="fa fa-dashboard"></em> Inicio</a></li>
       <li class="active">Histórico Categorías de Recursos
      </li>
     </ol>
@@ -54,8 +54,8 @@
         <h3 class="box-title">Registrar Tipo de Recurso</h3>
 
         <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><em class="fa fa-minus"></em></button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><em class="fa fa-remove"></em></button>
         </div>
       </div>
 
@@ -110,11 +110,12 @@
           <!-- /.box-header -->
           <div class="box-body">
                <table id="example1" class="table table-bordered table-striped">
+                 <caption></caption>
                 <thead>
                   <tr>                    
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Acciones </th>                                       
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Acciones </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -126,11 +127,11 @@
                   
                                   
                   <td>
-                    <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ tipo_recurso.tipo_recurso_id }}','{{ tipo_recurso.tipo_recurso_nombre }}', '{{ tipo_recurso.tipo_recurso_descripcion }}')" data-target="#modal-editar"><i   class="fa fa-edit"></i>
+                    <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ tipo_recurso.tipo_recurso_id }}','{{ tipo_recurso.tipo_recurso_nombre }}', '{{ tipo_recurso.tipo_recurso_descripcion }}')" data-target="#modal-editar"><em class="fa fa-edit"></em>
                     </button>
 
 
-                    <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ tipo_recurso.tipo_recurso_nombre }}', '{{ tipo_recurso.tipo_recurso_id }}')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i>
+                    <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ tipo_recurso.tipo_recurso_nombre }}', '{{ tipo_recurso.tipo_recurso_id }}')" data-target="#modal_eliminar"><em class="fa fa-trash-o danger"></em>
                     </button>
                     
                   </td>
@@ -146,9 +147,9 @@
               </tbody>
               <tfoot>
                 <tr>                 
-                  <th>Nombre</th>
-                  <th>Descripción</th>                 
-                  <th>Acciones</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </tfoot>
             </table>

@@ -161,7 +161,7 @@ class reporteEXCEL(object):
             # Cerrar el libro de trabajo (Workbook)
             libroTrabajo.close()
 
-            return retornar
+        return retornar
 
 
     def Exportar_planificar(self, objetivo, alcance):
@@ -304,7 +304,7 @@ class reporteEXCEL(object):
             # Cerrar el libro de trabajo (Workbook)
             libroTrabajo.close()
 
-            return retornar
+        return retornar
 
 
     def exportar_evaluar(self, objetivo, alcance, clasificaciones):
@@ -449,7 +449,7 @@ class reporteEXCEL(object):
             # Cerrar el libro de trabajo (Workbook)
             libroTrabajo.close()
 
-            return retornar
+        return retornar
 
     def get_color_evaluacion(self, evaluacion, clasificaciones):
         valor = int(evaluacion)
@@ -607,7 +607,7 @@ class reporteEXCEL(object):
             # Cerrar el libro de trabajo (Workbook)
             libroTrabajo.close()
 
-            return retornar
+        return retornar
 
     def exportar_controlar_riesgos(self, objetivo, alcance):
         # Workbook es el contenedor para todas las demás partes del documento.
@@ -748,7 +748,7 @@ class reporteEXCEL(object):
             # Cerrar el libro de trabajo (Workbook)
             libroTrabajo.close()
 
-            return retornar
+        return retornar
 # ===================== FUNCIÓN generarReporte =====================
 
 #def generarReporte():

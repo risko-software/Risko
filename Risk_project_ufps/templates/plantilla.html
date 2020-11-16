@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 {% if user.is_authenticated %}
 <head>
 
@@ -70,9 +70,9 @@
       <!-- Barra AdminLTE -->
       <a href="{% url 'inicio' %}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>RSK</b></span>
+        <span class="logo-mini"><strong>RSK</strong></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>RISKO</b></span>
+        <span class="logo-lg"><strong>RISKO</strong></span>
       </a>
 
 
@@ -92,7 +92,6 @@
           <ul class="nav navbar-nav">
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <!--<img src="{% static 'risk_project/dist/img/user2-160x160.jpg' %}"  alt="User Image">-->
                 <svg data-jdenticon-value="{{ user.first_name }}" width="160" height="160" class="user-image">
                   {{ user.first_name }}
                 </svg>
@@ -103,7 +102,6 @@
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
-                  <!-- <img src="{% static 'risk_project/dist/img/user2-160x160.jpg' %}" class="img-circle" alt="User Image"> -->
                   <svg data-jdenticon-value="{{ user.first_name }}" width="100" height="100" class="img-circle">
                   {{ user.first_name }}
                 </svg> 
@@ -145,7 +143,6 @@
       <div class="user-panel" style="display: table;">
         <div class="pull-left image" style=" display: table-cell;
    vertical-align: middle;">
-          <!-- <img src="{% static 'risk_project/dist/img/user2-160x160.jpg' %}" class="img-circle" alt="User Image">-->
           <svg data-jdenticon-value="{{ user.first_name }}" width="39" height="39" class="img-circle">
           {{ user.first_name }}
         </svg>      
@@ -158,7 +155,7 @@
           <p style="white-space: normal; ">
            {{ user.first_name}}
           </p> 
-          <a ><i ></i></a>
+          <a ><em ></em></a>
         </div>
       </div>
 
@@ -173,54 +170,54 @@
 
         <li class="treeview">
           <a href="">
-            <i class="fa fa-folder-o"></i> <span>Proyectos</span>
+            <em class="fa fa-folder-o"></em> <span>Proyectos</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <em class="fa fa-angle-left pull-right"></em>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{% url 'inicio' %}"><i class="fa fa-folder-open"></i> Mis Proyectos</a></li>
-            <li><a href="{% url 'nuevo_proyecto' %}"><i class="fa fa-plus-square-o"></i> Nuevo Proyecto</a></li>
+            <li><a href="{% url 'inicio' %}"><em class="fa fa-folder-open"></em> Mis Proyectos</a></li>
+            <li><a href="{% url 'nuevo_proyecto' %}"><em class="fa fa-plus-square-o"></em> Nuevo Proyecto</a></li>
           </ul>
         </li>
 
         <li class="treeview">
           <a href="">
-            <i class="fa fa-sitemap"></i><span>Mi EDR</span>
+            <em class="fa fa-sitemap"></em><span>Mi EDR</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <em class="fa fa-angle-left pull-right"></em>
             </span>
           </a>
           <ul class="treeview-menu">            
-            <li><a href="{% url 'mi_rbs' %}"><i class="fa fa-cogs"></i> Administrar</a></li>
-            <li><a href="{% url 'mis_riesgos' %}"><i class="fa fa-history"></i> Histórico de Riesgos</a></li>
-            <li><a href="{% url 'nuevoriesgo' %}"><i class="fa fa-plus-square-o"></i> Nuevo Riesgo</a></li>
+            <li><a href="{% url 'mi_rbs' %}"><em class="fa fa-cogs"></em> Administrar</a></li>
+            <li><a href="{% url 'mis_riesgos' %}"><em class="fa fa-history"></em> Histórico de Riesgos</a></li>
+            <li><a href="{% url 'nuevoriesgo' %}"><em class="fa fa-plus-square-o"></em> Nuevo Riesgo</a></li>
           </ul>
         </li>
 
         <li class="treeview">
           <a href="">
-            <i class="fa fa-list"></i><span>Acciones</span>
+            <em class="fa fa-list"></em><span>Acciones</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <em class="fa fa-angle-left pull-right"></em>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{% url 'mis_respuestas' %}"><i class="fa fa-history"></i>Histórico de acciones</a></li>  
-            <li><a href="{% url 'nueva_respuesta' %}"><i class="fa fa-plus-square-o"></i>Nueva acción</a></li>
+            <li><a href="{% url 'mis_respuestas' %}"><em class="fa fa-history"></em>Histórico de acciones</a></li>
+            <li><a href="{% url 'nueva_respuesta' %}"><em class="fa fa-plus-square-o"></em>Nueva acción</a></li>
 
           </ul>
           
         </li>       
         <li class="treeview">
           <a href="">
-            <i class="fa fa-users"></i><span>Equipo de trabajo</span>
+            <em class="fa fa-users"></em><span>Equipo de trabajo</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <em class="fa fa-angle-left pull-right"></em>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{% url 'roles_equipo' %}"><i class="fa fa-user"></i> Roles del equipo</a></li>
+            <li><a href="{% url 'roles_equipo' %}"><em class="fa fa-user"></em> Roles del equipo</a></li>
           </ul>          
         </li>
       </ul>
@@ -242,7 +239,7 @@
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Versión</b> 1.0
+      <strong>Versión</strong> 1.0
     </div>
     <strong>RISKO</strong>
   </footer>
@@ -311,11 +308,7 @@
         <h2 class="headline text-yellow"> 404</h2>
 
         <div class="error-content">
-          <h3><i class="fa fa-warning text-yellow"></i> Oops! Pagina no dispobile, por favor inicia sesión para acceder a nuestros servicios.</h3>
-
-          
-
-          
+          <h3><em class="fa fa-warning text-yellow"></em> Oops! Pagina no dispobile, por favor inicia sesión para acceder a nuestros servicios.</h3>
         </div>
         <!-- /.error-content -->
       </div>

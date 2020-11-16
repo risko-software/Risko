@@ -77,7 +77,10 @@ class RiesgoController():
 						aux.riesgo_nombre,
 						"Sin Causa definida",
 						"Sin Evento definido",
-						"Sin efecto definido", 0, 0, sub_aux)
+						"Sin efecto definido",
+						0,
+						sub_aux
+					)
 				else:
 					print("EEEEEEEEEEEE", sub_categoria_aux.categoria, rbs_model)
 					print("CATENOMBRE", sub_categoria_aux.categoria.categoria_nombre)
@@ -92,9 +95,6 @@ class RiesgoController():
 				p_h_r.registrar_proyecto_riesgo_editado(proyecto, riesgo_nuevo)
 			except Exception as e:
 				raise e
-			finally:
-				pass
-
 		return True
 
 	def buscar_sub_categoria_by_uid(self, rbs, sub_categoria):
@@ -120,10 +120,7 @@ class RiesgoController():
 		aa = []
 		for riesgo in riesgos:
 			riesgo_aux = model_to_dict(riesgo)
-			#print("RRRRR", riesgo_aux)
-			#riesgo_aux['fecha_manifestacion'] = riesgo.fecha_manifestacion.strftime("%Y-%m-%d")
 			aa.append(riesgo_aux)
-			#riesgo['fecha_manifestacion'] = riesgo['fecha_manifestacion'].strftime("%Y-%m-%d")
 		return aa
 
 
@@ -245,7 +242,6 @@ class RiesgoController():
 			aux['riesgo_' + str(aa.riesgo_id)] = dict(
 				impacto_id=proyecto_has_riesgo.impacto_id,
 				propabilidad_id=proyecto_has_riesgo.propabilidad_id,
-				#fecha_manifestacion=riesgo['fecha_manifestacion']
 			)
 		return aux
 

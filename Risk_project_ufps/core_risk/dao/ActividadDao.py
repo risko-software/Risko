@@ -1,4 +1,4 @@
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import Actividad
 
 
 class ActividadDao:
@@ -10,8 +10,7 @@ class ActividadDao:
             actividades = Actividad.objects.raw(sql, [proyecto_id, ])
         except Exception as e:
             print(e)
-        finally:
-            return actividades
+        return actividades
 
     def obtener_actividad(self, actividad_id):
         actividad = None
@@ -19,5 +18,4 @@ class ActividadDao:
             actividad = Actividad.objects.get(actividad_id=actividad_id)
         except Exception as e:
             print(e)
-        finally:
-            return actividad
+        return actividad

@@ -24,7 +24,7 @@
         <small>Panel de Control</small>
       </h1>       
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Proyecto</a></li>
+        <li><a href="#"><em class="fa fa-dashboard"></em>Proyecto</a></li>
         <li class="active">{{ proyecto.proyecto_nombre }}</li>
       </ol>
       {% if mensaje %}
@@ -184,7 +184,7 @@
                 <div class="col-sm-10">
                   <div class="input-group date">
                 <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
+                  <em class="fa fa-calendar"></em>
                 </div>
                 <input type="date" class="form-control pull-right" name="proyecto_fecha_inicio" 
                  value="{{proyecto.proyecto_fecha_inicio|date:'Y-m-d'}}" required>
@@ -210,7 +210,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Cronograma del proyecto</label>
               {% if proyecto.proyecto_fin_status %}
-              <!--<input type="file" id="fileForUpload" accept="text/xml" disabled="true" />-->
+
               {% else %}
               <input type="file" id="fileForUpload" accept="text/xml" />
               {% endif %}              
@@ -233,7 +233,7 @@
               <div class="form-group">
                 <div class="col-sm-12">
                   <div class="callout callout-danger">
-                    <h4><i class="fa fa-exclamation-triangle"></i> Atención</h4>
+                    <h4><em class="fa fa-exclamation-triangle"></em> Atención</h4>
                     En esta sección tendrá la opción de eliminar el presente proyecto de su lista personal, esta opción no se puede reversar.     
                   </div>
                 </div>

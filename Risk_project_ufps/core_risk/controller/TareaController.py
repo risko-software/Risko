@@ -12,9 +12,9 @@ class TareaController():
         tarea_dao = TareaDao()
         return tarea_dao.registrar_tarea(proyecto_riesgo_respuesta, nombre, descripcion, fecha_inicio, fecha_fin, fecha_inicio_real, fecha_fin_real)
 
-    def validar_tarea(self, nombre, respuesta_id):
+    def validar_tarea(self, nombre, respuesta_id, proyecto):
         tarea_dao = TareaDao()
-        return tarea_dao.validar_tarea(nombre, respuesta_id)
+        return tarea_dao.validar_tarea(nombre, respuesta_id, proyecto)
 
     def get_tarea_by_id(self, id):
         tarea_dao = TareaDao()

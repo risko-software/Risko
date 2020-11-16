@@ -2,10 +2,12 @@ from contextlib import closing
 
 from django.db import connections
 
-from Risk_project_ufps.core_risk.dto.models import *
+from Risk_project_ufps.core_risk.dto.models import ProyectoHasRiesgoRespuesta
+from Risk_project_ufps.core_risk.dto.models import Respuesta
 
 
-class ProyectoHasRiesgo_RespuestaDao():
+
+class ProyectoHasRiesgo_RespuestaDao:
 
     def registrar_respuesta_proyecto(self, proyecto_riesgo, riesgo_respuesta, tipo_respuesta):
         with closing(connections['riesgos'].cursor()) as cursor:
@@ -32,9 +34,7 @@ class ProyectoHasRiesgo_RespuestaDao():
 
         except Exception as e:
             print(e)
-
-        finally:
-            return respuestas
+        return respuestas
 
 
     def listar_riesgos_respuesta_base(self, proyecto):
@@ -62,8 +62,7 @@ class ProyectoHasRiesgo_RespuestaDao():
                                                                    proyecto.proyecto_linea_base])
         except Exception as e:
             print(e)
-        finally:
-            return respuestas
+        return respuestas
 
 
     def listar_riesgos_respuesta_linea(self, proyecto_id, linea_base):
@@ -81,8 +80,7 @@ class ProyectoHasRiesgo_RespuestaDao():
 
         except Exception as e:
             print(e)
-        finally:
-            return respuestas
+        return respuestas
 
     def get_riesgo_respuesta_by_id(self, proyecto_riesgo, riesgo_respuesta):
         respuesta = None
@@ -93,9 +91,7 @@ class ProyectoHasRiesgo_RespuestaDao():
 
         except Exception as e:
             print(e)
-
-        finally:
-            return respuesta
+        return respuesta
 
     def actualizar_tipo_respuesta(self, proyecto_respuesta, tipo_respuesta):
       with closing(connections['riesgos'].cursor()) as cursor:

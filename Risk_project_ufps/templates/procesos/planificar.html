@@ -48,7 +48,7 @@
         <small>Planificar la gestión de riesgos </small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-folder-open"></i>Procesos</a></li>
+        <li><a href="#"><em class="fa fa-folder-open"></em>Procesos</a></li>
         <li class="active">Planificar la Gestión de Riesgos</li>
       </ol>
     </br>
@@ -81,7 +81,7 @@
                 <div class="box-header with-border">
                   <h4 class="box-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" style="color:#444444";>
-                      <label ><strong>Informe plan de gestión de riesgos - Proyecto: {{ proyecto.proyecto_nombre }}  <i class="fa fa-sort-desc"></i></strong></label>
+                      <label ><strong>Informe plan de gestión de riesgos - Proyecto: {{ proyecto.proyecto_nombre }}  <em class="fa fa-sort-desc"></em></strong></label>
                       
                       
                     </a>
@@ -127,7 +127,7 @@
             <li class=""><a href="#sales-chart" data-toggle="tab" aria-expanded="true"><label data-toggle="tooltip" data-placement="top" title="EDR sugerida para el sector del proyecto.">Sugerida</label></a></li>
             <li class=""><a href="#sales" data-toggle="tab" aria-expanded="true"><label data-toggle="tooltip" data-placement="top" title="EDR sugerida por PMBOK® 6th.">PMBOK® 6th</label></a></li>               
             
-            <li class="pull-left header"><i class="fa fa-sitemap"></i>EDR</li>
+            <li class="pull-left header"><em class="fa fa-sitemap"></em>EDR</li>
         </ul>            
         <div class="tab-content no-padding">
           <!-- Morris chart - Sales -->
@@ -189,8 +189,7 @@
 
       <!-- this row will not appear when printing -->
       <div class="row no-print">
-        <div class="col-xs-12">    
-          <!--<button type="button" id="btnSave" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> imagen-->
+        <div class="col-xs-12">
           </button>        
         </div>
       </div>
@@ -218,13 +217,14 @@
       <!-- /.box-header -->
       <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
+          <caption></caption>
           <thead>
             <tr>
-              <th></th>              
-              <th>Miembro</th>
-              <th>Descripción</th>
-              <th>Rol</th>
-              <th>Opciones</th>                                       
+              <th scope="col"></th>
+              <th scope="col">Miembro</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Rol</th>
+              <th scope="col">Opciones</th>
             </tr>
           </thead>
           <tbody>
@@ -238,18 +238,19 @@
               <td>
 
                 {% if proyecto.proyecto_fin_status %}
-                <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ responsable.responsable_id }}','{{ responsable.responsble_nombre }}', '{{ responsable.responsble_descripcion }}','{{ responsable.rol.rol_id }}');" data-target="#modal-editar" disabled="true"><i class="fa fa-edit"></i>
+                <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ responsable.responsable_id }}','{{ responsable.responsble_nombre }}', '{{ responsable.responsble_descripcion }}','{{ responsable.rol.rol_id }}');" data-target="#modal-editar" disabled="true"><em class="fa fa-edit"></em>
                 </button>
 
 
-                <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ responsable.responsble_nombre }}', '{{ responsable.responsable_id }}')" data-target="#modal_eliminar" disabled="true"><i class="fa fa-trash-o danger"></i>
+                <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ responsable.responsble_nombre }}', '{{ responsable.responsable_id }}')" data-target="#modal_eliminar" disabled="true"><em class="fa fa-trash-o danger"></em
+                >
                 </button>
                 {% else %}
-                <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ responsable.responsable_id }}','{{ responsable.responsble_nombre }}', '{{ responsable.responsble_descripcion }}','{{ responsable.rol.rol_id }}');" data-target="#modal-editar"><i class="fa fa-edit"></i>
+                <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ responsable.responsable_id }}','{{ responsable.responsble_nombre }}', '{{ responsable.responsble_descripcion }}','{{ responsable.rol.rol_id }}');" data-target="#modal-editar"><em class="fa fa-edit"></em>
                 </button>
 
 
-                <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ responsable.responsble_nombre }}', '{{ responsable.responsable_id }}')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i>
+                <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ responsable.responsble_nombre }}', '{{ responsable.responsable_id }}')" data-target="#modal_eliminar"><em class="fa fa-trash-o danger"></em>
                 </button>
                 {% endif %} 
 
@@ -270,11 +271,11 @@
           </tbody>
           <tfoot>
             <tr> 
-              <th></th>               
-              <th>Miembro</th>
-              <th>Descripción</th>
-              <th>Rol</th>
-              <th>Opciones</th>    
+              <th scope="col"></th>
+              <th scope="col">Miembro</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Rol</th>
+              <th scope="col">Opciones</th>
             </tr>
           </tfoot>
         </table>
@@ -291,7 +292,7 @@
       {% csrf_token %}
       <div class="row">
         <div class="col-md-6">
-          <h5><b>Categorías de impacto:</b></h5>
+          <h5><strong>Categorías de impacto:</strong></h5>
               <div class="box-body" id="cont_impactos">
               {% if impactos %}
                 {% for impacto in impactos %}
@@ -314,7 +315,7 @@
             </div>
         </div>
         <div class="col-md-6">
-          <h5><b>Categorías de probabilidad:</b></h5>
+          <h5><strong>Categorías de probabilidad:</strong></h5>
               <div class="box-body" id="cont_probabilidad">
               {% if probabilidades %}
                 {% for propabilidad in probabilidades %}
@@ -369,7 +370,7 @@
               <div class="input-group my-colorpicker2 colorpicker-element">
               <input type="text" class="form-control" name="clasificacion_color_{{ forloop.counter }}" value="{{clasificacion.clasificacion_color}}" required />
               <div class="input-group-addon">
-                <i style="background-color: {{clasificacion.clasificacion_color}} "></i>
+                <em style="background-color: {{clasificacion.clasificacion_color}} "></em>
               </div>
               </div> 
             </div>                                            
@@ -458,7 +459,7 @@
         </form>      
         {% else %}
         <div class="alert alert-info alert-dismissible">                
-          <h4><i class="icon fa fa-info"></i>  Atencion</h4> Hasta el momento no has definido roles para los miembros de tu equipo<br/>Para definir los roles dale clic <a href="{% url 'roles_equipo' %}">aqui</a>
+          <h4><em class="icon fa fa-info"></em>  Atencion</h4> Hasta el momento no has definido roles para los miembros de tu equipo<br/>Para definir los roles dale clic <a href="{% url 'roles_equipo' %}">aqui</a>
       </div>
         {% endif %} 
         </div>       

@@ -9,20 +9,16 @@ class ImpactoDao:
         try:
             impactos = Impacto.objects.filter(proyecto=proyecto).order_by('impacto_valor')
         except Exception as e:
-            raise e
-        finally:
-            return impactos
+            print(e)
+        return impactos
 
     def listar_impactos_by_proyecto_linea(self, proyecto, linea_base):
         impactos = {}
         try:
             impactos = Impacto.objects.using('base').filter(proyecto=proyecto, proyecto_linea_base=linea_base).order_by('impacto_valor')
         except Exception as e:
-            raise e
-        finally:
-            return impactos
-
-
+            print(e)
+        return impactos
 
     def crear_impacto(self, impacto_categoria, impacto_valor, proyecto):
         impacto = None
@@ -33,9 +29,8 @@ class ImpactoDao:
                 proyecto=proyecto
             )
         except Exception as e:
-            raise e
-        finally:
-            return impacto
+            print(e)
+        return impacto
 
     def actualizar_impacto(self, impacto, impacto_categoria, impacto_valor):
         try:
@@ -43,9 +38,8 @@ class ImpactoDao:
             impacto.impacto_valor = impacto_valor
             impacto.save()
         except Exception as e:
-            raise e
-        finally:
-            return impacto
+            print(e)
+        return impacto
 
     def eliminar_impactos_by_proyecto(self, proyecto):
         result = None
@@ -53,8 +47,7 @@ class ImpactoDao:
             result = Impacto.objects.filter(proyecto=proyecto).delete()
         except Exception as e:
             print(e)
-        finally:
-            return result
+        return result
 
     def obtener_impacto_by_id_and_proyecto(self, impacto_id, proyecto) -> Impacto:
         """
@@ -66,7 +59,6 @@ class ImpactoDao:
         try:
             impacto = Impacto.objects.get(impacto_id=impacto_id, proyecto=proyecto)
         except Exception as e:
-            raise e
-        finally:
-            return impacto
+            print(e)
+        return impacto
 

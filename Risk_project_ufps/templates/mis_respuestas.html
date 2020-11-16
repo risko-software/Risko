@@ -15,7 +15,7 @@
      
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
+      <li><a href="#"><em class="fa fa-dashboard"></em>Inicio</a></li>
       <li class="active">Acciones</li>
       <li class="active">Histórico de acciones</li>
     </ol>
@@ -48,13 +48,14 @@
           <!-- /.box-header -->
           <div class="box-body">
                <table id="example1" class="table table-bordered table-striped">
+                 <caption></caption>
                 <thead>
                   <tr>  
-                    <th></th>                  
-                    <th>Nombre<i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>
-                    <th>Descripción <i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th>
-                    <th>Riesgo <i class="fa fa-long-arrow-down"><i class="fa fa-long-arrow-up"></th> 
-                    <th>Opciones </th>                                       
+                    <th scope="col"></th>
+                    <th scope="col">Nombre<em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                    <th scope="col">Descripción <em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                    <th scope="col">Riesgo <em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                    <th scope="col">Opciones </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -67,11 +68,11 @@
                     <td>{{ respuesta.riesgo.riesgo_nombre }}</td>
                                     
                       <td>
-                        <button type="button" class="btn btn-default" data-toggle="#modal-editar" onclick="abrir_modal_editar('{{ respuesta.respuesta.respuesta_nombre }}', '{{ respuesta.respuesta.respuesta_id }}', '{{ respuesta.respuesta.respuesta_descripcion }}' )" data-target="#modal-editar"><i   class="fa fa-edit"></i>
+                        <button type="button" class="btn btn-default" data-toggle="#modal-editar" onclick="abrir_modal_editar('{{ respuesta.respuesta.respuesta_nombre }}', '{{ respuesta.respuesta.respuesta_id }}', '{{ respuesta.respuesta.respuesta_descripcion }}' )" data-target="#modal-editar"><em class="fa fa-edit"></em>
                         </button>
 
 
-                        <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ respuesta.respuesta.respuesta_nombre }}', '{{ respuesta.respuesta.respuesta_id }}', '{{ respuesta.riesgo.riesgo_id }}')" data-target="#modal_eliminar"><i class="fa fa-trash-o danger"></i>
+                        <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ respuesta.respuesta.respuesta_nombre }}', '{{ respuesta.respuesta.respuesta_id }}', '{{ respuesta.riesgo.riesgo_id }}')" data-target="#modal_eliminar"><em class="fa fa-trash-o danger"></em>
                         </button>
                         &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                       </td>
@@ -91,11 +92,11 @@
                 </tbody>
               <tfoot>
                 <tr>      
-                  <th></th>           
-                  <th>Nombre</th>
-                  <th>Descripción</th> 
-                  <th>Riesgo Asociado</th>
-                  <th>Opciones</th>
+                  <th scope="col"></th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Riesgo Asociado</th>
+                  <th scope="col">Opciones</th>
                 </tr>
               </tfoot>
             </table>
