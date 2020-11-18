@@ -221,7 +221,7 @@ def nuevo_proyecto(request):
                     orden = 0
                     for actividad in actividades:
                         act = Actividad(
-                            actividad_id="p_" + str(proyecto.proyecto_id) + "_a_" + str(actividad["uid"]),
+                            actividad_id="p_" + str(proyecto.proyecto_id) + "_a_" + str(actividad["id"]),
                             actividad_orden=orden,
                             actividad_uuid=actividad["uid"],
                             actividad_nombre=actividad["name"],
@@ -606,6 +606,7 @@ def mi_proyecto(request, id):
 
     if (proyecto_controller.has_actividades(id)):
         data["actividades"] = True
+        data["fecha_ultimo_cronograma"] = proyecto_controller.get_fecha_ultimo_cronograma(id)
 
     if request.method == 'POST':
         sector = sector_controller.obtener_sector(request.POST["proyecto_sector"])
@@ -616,27 +617,14 @@ def mi_proyecto(request, id):
                                                       request.POST["proyecto_presupuesto"],
                                                       request.POST["proyecto_fecha_inicio"], sector)
         data["mensaje"] = mensaje
-        if (request.POST["actividades"] == '1'):
+        if request.POST["actividades"] == '1':
             actividades = json.loads(request.POST["actividades_data"])["tasks"]
-            orden = 0
-            for actividad in actividades:
-                act = Actividad(
-                    actividad_id="p_" + str(proyecto.proyecto_id) + "_a_" + str(actividad["uid"]),
-                    actividad_orden=orden,
-                    actividad_uuid=actividad["uid"],
-                    actividad_nombre=actividad["name"],
-                    actividad_level=actividad["level"],
-                    actividad_wbs=actividad["WBS"],
-                    proyecto=proyecto,
-                    actividad_fecha_inicio=actividad["start"],
-                    actividad_fecha_fin=actividad["end"],
-                    duracion=actividad["duration"],
-                )
-                act.save()
-                orden = orden + 1
+            actividad_controller = ActividadController()
+            actividad_controller.actualizar_actividades_proyecto(actividades, id)
         return render(request, "procesos/proyecto.html", data)
 
     return render(request, "procesos/proyecto.html", data)
+
 
 def eliminar_proyecto(request):
     proyecto_controller = ProyectoController()

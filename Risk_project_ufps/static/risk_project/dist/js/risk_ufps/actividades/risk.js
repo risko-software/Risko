@@ -6,13 +6,13 @@
 var my_json_mpp = {};
 var my_json_gex = {};
 ////////////////////////////////////////////////////
-
+ 
 /*
  * Manipula la variable global
  */
-function setJsonMpp(data, actionurl) {
+function setJsonMpp(data, proyecto_id, actionurl) {
 	my_json_mpp = data;	
-	adaptarJson(my_json_mpp, function(my_json_ge) {
+	adaptarJson(my_json_mpp, proyecto_id, function(my_json_ge) {
 		//console.log(my_json_ge);
 		$.ajax({
 	        	url: actionurl,
@@ -49,20 +49,22 @@ function getJsonMpp() {
 	return my_json_mpp;
 }
 
-function adaptarJson(myJson, callback) {
+function adaptarJson(myJson, proyecto_id, callback) {
 	var jsonGanttEditor = {
-		tasks : obtenerTasks(myJson)
+		tasks : obtenerTasks(myJson, proyecto_id)
 	};
 	callback(jsonGanttEditor);
 }
 
-function obtenerTasks(myJson){
+function obtenerTasks(myJson, proyecto_id){
 	var myTasks = myJson.Project.Tasks.Task;
 	var tasks = [];
+	let orden = 0;
 	for(let i in myTasks){
 		tasks.push({
 			"uid":myTasks[i].UID,
-			"id":myTasks[i].ID, 
+			"id":"p_"+proyecto_id+"_a_"+myTasks[i].ID,
+			"orden":orden,
 			"name":myTasks[i].Name,
 			"level":myTasks[i].OutlineLevel,
 			"WBS": myTasks[i].WBS,
@@ -71,6 +73,7 @@ function obtenerTasks(myJson){
 			"end":parsear_fecha(new Date(myTasks[i].Finish)),
 			"uid_predecessor":predecessor(myTasks[i].PredecessorLink)
 		});
+		orden++;
 	}
 	return tasks;
 }

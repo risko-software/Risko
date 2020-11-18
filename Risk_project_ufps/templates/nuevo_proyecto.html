@@ -82,7 +82,7 @@
               <div class="form-group">
                 <label for="exampleInputFile">Cronograma del proyecto</label>
                 <input type="file" id="fileForUpload" accept="text/xml" />
-                <p class="help-block">Carga las actividades de tu proyecto desde el cronograma generado por MS.Project de tipo XML.</p>
+                <p class="help-block">Carga un archivo de tipo XML con el cronograma del proyecto generado por MS.Project®</p>
               </div>
               <div class="form-group">
                 <label>Descripción</label>
@@ -191,7 +191,7 @@ $("#form_proyecto").submit(function(e) {
       willOpen: () => {
         Swal.showLoading();
         obtenerJson(file, function(myJson){
-          setJsonMpp(myJson);
+          setJsonMpp(myJson, -1);
         });  
        }
     });          

@@ -133,7 +133,17 @@
                 <div class="col-sm-10">
                   <h5>{{ duracion }}</h5>
                 </div>
-              </div>                  
+              </div>
+              <div class="form-group">
+                <label for="inputSkills" class="col-sm-2 control-label">Cronograma del proyecto</label>
+                <div class="col-sm-10">
+                  {% if actividades%}
+                  <h5>Fecha última versión: <strong>{{fecha_ultimo_cronograma}}</strong> </h5>
+                  {% else %}
+                  <h5>No existe un cronograma para este proyecto.</h5>
+                  {% endif %}
+                </div>
+              </div>
             </form>
 
 
@@ -203,19 +213,34 @@
                 </select>
                 {% endif %}
               </div>
-            </div>  
-            {% if actividades %}            
-
-            {% else %}
+            </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Cronograma del proyecto</label>
               {% if proyecto.proyecto_fin_status %}
-
+              <div class="col-sm-10">
+                <input type="file" accept="text/xml" disabled="true"/>
+              </div>
               {% else %}
-              <input type="file" id="fileForUpload" accept="text/xml" />
+              <div class="col-sm-10">
+                <input type="file" class="form-control pull-right" id="fileForUpload" accept="text/xml" />
+                </br>
+                {% if actividades %}
+                <p>* Antes de actualizar el cronograma del proyecto tenga en cuenta lo siguiente:
+                  <ul>
+                   <li>Los archivos XML deben ser generados a partir del MS.Project®</li>
+                    <li>Los archivos XML deben corresponder al proyecto actual.</li>
+                    <li>Todas las tareas no utilizadas del cronograma anterior se eliminarán.</li>
+                    <li>Las tareas utilizas se actualizarán si presentan algún cambio.</li>
+                    <li>Esta acción solo modificará el estado actual del proyecto.</li>
+                    <li>No se modificarán las tareas del cronograma utilizadas en otras líneas bases de la gestión de riesgos.</li>
+                  </ul>
+                </p>
+                {% else %}
+                <p>* Carga un archivo de tipo XML con el cronograma del proyecto generado por MS.Project®</p>
+                {% endif %}
+              </div>
               {% endif %}              
-            </div> 
-            {% endif %}
+            </div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
                 {% if proyecto.proyecto_fin_status %}
@@ -301,36 +326,28 @@
  
 <script type="text/javascript">
 
-  {% if actividades %}                                    
-  var flag_actividades = 1;
-  {% else %}
-  var flag_actividades = 0;
-  {% endif %}
+var mi_proyecto_id = {{ proyecto.proyecto_id }};
 
 $(function() {
-$("#form_proyecto").submit(function(e) {
+  $("#form_proyecto").submit(function(e) {
     e.preventDefault();
     var actionurl = "{% url 'mi_proyecto' proyecto.proyecto_id %}";
-    if(flag_actividades == 1){
-      actualizar_proyecto_normal(actionurl);
+    var file = document.getElementById("fileForUpload").files[0];
+    if(file){
+      Swal.fire({
+        title: 'Actualizando proyecto',
+        html: 'subiendo actividades',
+        timerProgressBar: true,
+        willOpen: () => {
+          Swal.showLoading();
+          obtenerJson(file, function(myJson){
+            setJsonMpp(myJson, mi_proyecto_id);
+          });  
+         }
+      });         
     }else{
-      var file = document.getElementById("fileForUpload").files[0];
-      if(file){
-        Swal.fire({
-          title: 'Creando proyecto',
-          html: 'subiendo actividades',
-          timerProgressBar: true,
-          willOpen: () => {
-            Swal.showLoading();
-            obtenerJson(file, function(myJson){
-              setJsonMpp(myJson);
-            });  
-           }
-        });         
-      }else{
-        actualizar_proyecto_normal(actionurl);
-      }
-    }    
+      actualizar_proyecto_normal(actionurl);
+    }
   });
 });
 

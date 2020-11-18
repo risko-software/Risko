@@ -284,5 +284,10 @@ class ProyectoController:
         proyecto_dao = ProyectoDao()
         return proyecto_dao.get_cantidad_proyectos()
 
+    def get_fecha_ultimo_cronograma(self, proyecto_id):
+        proyecto_dao = ProyectoDao()
+        proyecto = Proyecto(proyecto_id=proyecto_id)
+        return proyecto_dao.get_fecha_ultimo_cronograma(proyecto)
+
 
 

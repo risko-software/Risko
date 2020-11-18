@@ -6,7 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-import datetime
+from datetime import date
 
 
 class Actividad(models.Model):
@@ -21,7 +21,7 @@ class Actividad(models.Model):
     actividad_fecha_inicio = models.DateTimeField(blank=True, null=True)
     actividad_fecha_fin = models.DateTimeField(blank=True, null=True)
     duracion = models.IntegerField(blank=True, null=True)
-
+    actividad_ultima_version = models.DateField(default=date.today)
 
     class Meta:
         managed = False
@@ -253,7 +253,6 @@ class Riesgo(models.Model):
     impacto_id = int()
     propabilidad_id = int()
     responsable_id = int()
-    #fecha_manifestacion = str
     proyecto_linea_base = models.IntegerField(blank=True, null=True)
 
     class Meta:

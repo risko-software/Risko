@@ -128,3 +128,20 @@ class ProyectoDao:
 
     def get_cantidad_proyectos(self):
         return Proyecto.objects.count()
+
+    def get_fecha_ultimo_cronograma(self, proyecto):
+        """
+        Obtiene la fecha de la columna 'actividad_ultima_version' de la tabla 'actividad'
+        filtrado por la llave foranea 'proyecto_id'
+        @param proyecto: Proyecto
+        @return:
+        """
+        last_date = ""
+        try:
+            sql = "SELECT actividad_id, actividad_ultima_version FROM `actividad` WHERE `proyecto_id` = %s LIMIT 1"
+            actividad = Actividad.objects.raw(sql, [proyecto.proyecto_id, ])
+            if actividad:
+                last_date = actividad[0].actividad_ultima_version
+        except Exception as e:
+            print(e)
+        return last_date
