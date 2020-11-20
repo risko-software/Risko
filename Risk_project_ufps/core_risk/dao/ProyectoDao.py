@@ -145,3 +145,21 @@ class ProyectoDao:
         except Exception as e:
             print(e)
         return last_date
+
+    def is_owner(self, proyecto_id, gerente_id):
+        flag = False
+        try:
+            proyecto = Proyecto.objects.get(proyecto_id=proyecto_id, gerente_id=gerente_id)
+            if proyecto:
+                flag = True
+        except Proyecto.DoesNotExist as e:
+            print(e)
+        return flag
+
+    def obtener_proyecto_by_proyecto_id_and_linea_base(self, proyecto_id, linea_base):
+        proyecto = None
+        try:
+            proyecto = Proyecto.objects.using('base').get(proyecto_id=proyecto_id, proyecto_linea_base=linea_base)
+        except Exception as e:
+            print(e)
+        return proyecto

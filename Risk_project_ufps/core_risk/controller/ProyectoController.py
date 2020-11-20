@@ -289,5 +289,13 @@ class ProyectoController:
         proyecto = Proyecto(proyecto_id=proyecto_id)
         return proyecto_dao.get_fecha_ultimo_cronograma(proyecto)
 
+    def is_owner(self, proyecto_id, gerente_id):
+        proyecto_dao = ProyectoDao()
+        return proyecto_dao.is_owner(proyecto_id, gerente_id)
+
+    def obtener_proyecto_by_proyecto_id_and_linea_base(self, proyecto_id, linea_base):
+        proyecto_dao = ProyectoDao()
+        return proyecto_dao.obtener_proyecto_by_proyecto_id_and_linea_base(proyecto_id, linea_base)
+
 
 
