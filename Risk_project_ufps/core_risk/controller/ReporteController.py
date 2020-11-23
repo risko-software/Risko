@@ -111,8 +111,8 @@ class ReporteController:
         riesgo_controller = RiesgoController()
         respuesta_controller = RespuestaController()
         tarea_controller = TareaController()
-
-        riesgos = riesgo_controller.get_riesgos_by_proyecto_linea(proyecto, proyecto.proyecto_linea_base)
+        riesgos = riesgo_controller.get_riesgos_by_proyecto_base_with_tareas_2(proyecto)
+        #riesgo_controller.get_riesgos_by_proyecto_linea(proyecto, proyecto.proyecto_linea_base)
         respuestas_riesgo = respuesta_controller.listar_riesgos_respuesta_base(proyecto.proyecto_id)
         lista_tareas = tarea_controller.listar_tareas_group_by_riesgo_base(proyecto)
 
@@ -208,19 +208,31 @@ class ReporteController:
                 )
                 for respuesta in respuestas:
                     riesgo_has_respuesta = respuesta['riesgo_has_respuesta']
-                    tareas = lista_tareas[llave]
-                    for tarea in tareas:                        
-                        if tarea['riesgo_has_respuesta'] == riesgo_has_respuesta:
-                            if respuesta.get('tareas'):
-                                respuesta['tareas'].append(tarea)
-                            else:
-                                respuesta['tareas'] = []
-                                respuesta['tareas'].append(tarea)
-                    if riesgo_aux[llave].get('respuestas'):
-                        riesgo_aux[llave]['respuestas'].append(respuesta)
+                    tareas = lista_tareas.get(llave)
+                    if tareas:
+                        for tarea in tareas:                        
+                            if tarea['riesgo_has_respuesta'] == riesgo_has_respuesta:
+                                if respuesta.get('tareas'):
+                                    respuesta['tareas'].append(tarea)
+                                else:
+                                    respuesta['tareas'] = []
+                                    respuesta['tareas'].append(tarea)
+                        if riesgo_aux[llave].get('respuestas'):
+                            riesgo_aux[llave]['respuestas'].append(respuesta)
+                        else:
+                            riesgo_aux[llave]['respuestas'] = []
+                            riesgo_aux[llave]['respuestas'].append(respuesta)
                     else:
-                        riesgo_aux[llave]['respuestas'] = []
-                        riesgo_aux[llave]['respuestas'].append(respuesta)
+                        if riesgo_aux[llave].get('respuestas'):
+                            riesgo_aux[llave]['respuestas'].append(respuesta)
+                        else:
+                            riesgo_aux[llave]['respuestas'] = []
+                            riesgo_aux[llave]['respuestas'].append(respuesta)
+            else:
+                riesgo_aux[llave] = dict(
+                    riesgo_id=riesgo.riesgo_id,
+                    riesgo_nombre=riesgo.riesgo_nombre
+                )
         return riesgo_aux
 
     def convertir_array(self, mezcla):
@@ -282,12 +294,13 @@ class ReporteController:
     def convertir_array_2(self, mezcla):
         array_final = []
         for key, aux in mezcla.items():
-            respuestas = aux.get('respuestas')
+            respuestas = aux.get('respuestas')            
             if respuestas and len(respuestas) > 0:
+                print("HP", str(aux['riesgo_id']) + " larga")
                 for aux_2 in respuestas:
-                    # print("ARRAY", aux_2)
                     tareas = aux_2.get('tareas')
                     if tareas and len(tareas) > 0:
+                        print("HP", str(aux['riesgo_id']) + " HP")
                         for aux_3 in tareas:
                             array_final.append([
                                 "R"+str(aux['riesgo_id']),
@@ -298,18 +311,24 @@ class ReporteController:
                                 self.parsear_recursos(aux_3['recursos'])
                             ])
                     else:
+                        print("HP", str(aux['riesgo_id']) + " HP2")
                         array_final.append([
                             "R" + str(aux['riesgo_id']),
                             aux['riesgo_nombre'],
                             aux_2['respuesta_nombre'],
                             aux_2['tipo_respuesta'],
-                            'No hay tareas',
+                            'VACIO',
+                            'VACIO',
                         ])
             else:
+                print("HP", str(aux['riesgo_id']) + "Que ocurre")
                 array_final.append([
                     "R" + str(aux['riesgo_id']),
                     aux['riesgo_nombre'],
-                    'riesgo no posee acciones',
+                    'VACIO',
+                    'VACIO',
+                    'VACIO',
+                    'VACIO',
                 ])
         return array_final
 
@@ -325,7 +344,10 @@ class ReporteController:
 
     def calcular_porcentaje_atraso(self, duracion_planeada:int, duracion_real:int):
         dife = duracion_real-duracion_planeada
-        porc = (dife * 100) / duracion_planeada
+        if duracion_planeada > 0:
+            porc = (dife * 100) / duracion_planeada
+        else:
+            porc = 0.0
         if porc < 0:
             porc = 0.0
         return porc
@@ -349,9 +371,12 @@ class ReporteController:
 
     def parsear_recursos(self, recursos):
         aux = ""
-        for recurso in recursos:            
-            aux += "- "+recurso['recurso_nombre']
-            aux += " -- costo: $"+str(recurso['recurso_costo'])
-            aux += " -- cant: "+str(recurso['cantidad'])
-            aux += " -- total: "+str(int((recurso['cantidad']))*int((recurso['recurso_costo'])) )+"\n"
+        if len(recursos) > 0:
+            for recurso in recursos:            
+                aux += "- "+recurso['recurso_nombre']
+                aux += " -- costo: $"+str(recurso['recurso_costo'])
+                aux += " -- cant: "+str(recurso['cantidad'])
+                aux += " -- total: "+str(int((recurso['cantidad']))*int((recurso['recurso_costo'])) )+"\n"
+        else:
+            aux = "VACIO"
         return aux

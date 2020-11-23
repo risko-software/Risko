@@ -83,23 +83,23 @@
 <script type="text/javascript">
 
     /*
-     *  Corresponde a todos los riesgos del proyecto
+     *  Corresponde a todos los riesgos del proyecto que tienen asignadas tareas
      *
      */
     var lista_riesgos = JSON.parse("{{lista_riesgos|escapejs}}");  
-    //console.log(lista_riesgos)
+    console.log(lista_riesgos)
     /*
      *  Corresponde a todo el conjunto de riesgos del proyecto 
      *  junto con sus respuestas asociadas  
      */
     var respuestas_riesgo = JSON.parse("{{respuestas_riesgo|escapejs}}");  
-    //console.log(respuestas_riesgo);
+    console.log(respuestas_riesgo);
 
     /*
      * Es todo el conjunto de tareas asociadas a un riesgo determinado
      */
     var lista_tareas = JSON.parse("{{lista_tareas|escapejs}}");  
-    //console.log(lista_tareas);
+    console.log(lista_tareas);
 
     /*
      * Es el conjunto de id de filas que serán bloqueadas.
@@ -134,70 +134,72 @@
         ];        
         Object.keys(respuestas_riesgo).forEach(function(key) {
           let riesgo_id = key.split("_")[1];
-          let riesgo = get_riesgo_by_id(riesgo_id);    
-          cont++;   
-          no_tareas_id.push(cont);       
-          let riesgo_aux = {
-            "id":cont, 
-            "text":riesgo['riesgo_nombre'], 
-            "start_date":"",
-            "end_date":"",
-            "duration":"",
-            "start_date_real":"", 
-            "end_date_real":"", 
-            "duration_real":"", 
-            "estado":"",  
-            "estado_text": "",
-            "observacion":"",
-            "is_tarea":false,
-            "icon": "{% static 'risk_project/dist/img/riesgos.png' %}",
-            children:[]
-          };
-          let respuestas = respuestas_riesgo[key]
-          for(i in respuestas){
-            cont++;
-            no_tareas_id.push(cont);
-            let actividad_aux = {
-            "id":cont, 
-            "text":respuestas[i]['respuesta_nombre'], 
-            "start_date":"",
-            "end_date":"",
-            "duration":"",
-            "start_date_real":"", 
-            "end_date_real":"", 
-            "duration_real":"", 
-            "estado":"",  
-            "estado_text": "",
-            "observacion":"",
-            "is_tarea":false,
-            "icon": "{% static 'risk_project/dist/img/actividades.png' %}",
-            children:[]
+          let riesgo = get_riesgo_by_id(riesgo_id);
+          if(!jQuery.isEmptyObject(riesgo)){
+            cont++;   
+            no_tareas_id.push(cont);       
+            let riesgo_aux = {
+              "id":cont, 
+              "text":riesgo['riesgo_nombre'], 
+              "start_date":"",
+              "end_date":"",
+              "duration":"",
+              "start_date_real":"", 
+              "end_date_real":"", 
+              "duration_real":"", 
+              "estado":"",  
+              "estado_text": "",
+              "observacion":"",
+              "is_tarea":false,
+              "icon": "{% static 'risk_project/dist/img/riesgos.png' %}",
+              children:[]
             };
-            let tareas = get_tareas_by_riesgo_and_respuesta(key, respuestas[i]);
-            for(j in tareas){
-                cont++;
-                let tarea_aux = {        
-                    "id":cont, 
-                    "text":tareas[j]['tarea_nombre'], 
-                    "start_date":tareas[j]['fecha_inicio']+'T00:00:00.000000' ,
-                    "end_date":tareas[j]['fecha_fin']+'T00:00:00.000000',
-                    "duration":tareas[j]['duracion'],
-                    "start_date_real":tareas[j]['fecha_inicio_real'], 
-                    "end_date_real":tareas[j]['fecha_fin_real'], 
-                    "duration_real":tareas[j]['duracion_real'], 
-                    "estado_text":get_estado(tareas[j]['tarea_estado']),
-                    "estado":tareas[j]['tarea_estado'],
-                    "observacion":tareas[j]['tarea_observacion'],
-                    "tarea_id":tareas[j]['tarea_id'],
-                    "is_tarea":true,
-                    "icon": "{% static 'risk_project/dist/img/tarea.png' %}",
-                    "riesgo_id":parseInt(riesgo_id)    
-                  }                        
-              actividad_aux['children'].push(tarea_aux);
-            }
-            riesgo_aux['children'].push(actividad_aux);
-          } 
-          data[0]['children'].push(riesgo_aux);     
+            let respuestas = respuestas_riesgo[key]
+            for(i in respuestas){
+              cont++;
+              no_tareas_id.push(cont);
+              let actividad_aux = {
+              "id":cont, 
+              "text":respuestas[i]['respuesta_nombre'], 
+              "start_date":"",
+              "end_date":"",
+              "duration":"",
+              "start_date_real":"", 
+              "end_date_real":"", 
+              "duration_real":"", 
+              "estado":"",  
+              "estado_text": "",
+              "observacion":"",
+              "is_tarea":false,
+              "icon": "{% static 'risk_project/dist/img/actividades.png' %}",
+              children:[]
+              };
+              let tareas = get_tareas_by_riesgo_and_respuesta(key, respuestas[i]);
+              for(j in tareas){
+                  cont++;
+                  let tarea_aux = {        
+                      "id":cont, 
+                      "text":tareas[j]['tarea_nombre'], 
+                      "start_date":tareas[j]['fecha_inicio']+'T00:00:00.000000' ,
+                      "end_date":tareas[j]['fecha_fin']+'T00:00:00.000000',
+                      "duration":tareas[j]['duracion'],
+                      "start_date_real":tareas[j]['fecha_inicio_real'], 
+                      "end_date_real":tareas[j]['fecha_fin_real'], 
+                      "duration_real":tareas[j]['duracion_real'], 
+                      "estado_text":get_estado(tareas[j]['tarea_estado']),
+                      "estado":tareas[j]['tarea_estado'],
+                      "observacion":tareas[j]['tarea_observacion'],
+                      "tarea_id":tareas[j]['tarea_id'],
+                      "is_tarea":true,
+                      "icon": "{% static 'risk_project/dist/img/tarea.png' %}",
+                      "riesgo_id":parseInt(riesgo_id)    
+                    }                        
+                actividad_aux['children'].push(tarea_aux);
+              }
+              riesgo_aux['children'].push(actividad_aux);
+            } 
+            data[0]['children'].push(riesgo_aux);
+          }     
         });
         return data;
     }

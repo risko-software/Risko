@@ -199,7 +199,7 @@
           <div class="modal-body">
             
             <p id="contenido_modal">&hellip;</p>
-            <h2 id="rol"></h2>           
+            <h2 id="rol"></h2>                   
             <input type="text" class="form-control" id="rol_id_e" name="rol_id" style="visibility:hidden">
           </div>
           <div class="modal-footer">
@@ -213,6 +213,27 @@
       <!-- /.modal-dialog -->
   </div>
 
+   <div class="modal modal-info fade" id="modal-info">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Información</h4>
+              </div>
+              <div class="modal-body">
+                <p>Este rol esta siendo utilizado, por tanto, no puede eliminarlo.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
 </div>
 {% endblock %}
 {% block mis_scrtips_riesgos %}
@@ -223,9 +244,6 @@
 
 <script src="{% static 'risk_project/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
 
-
-
-
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'risk_project/dist/js/demo.js' %}"></script>
 
@@ -233,21 +251,34 @@
   $(function () {    
     trasnformar_tabla('example1');  
   });
-</script>
 
- <script>
-function abrir_modal_eliminar(nombre, id) {
+  {% if lista_roles_utilizados %}
+  var lista_roles_utilizados = JSON.parse("{{lista_roles_utilizados|escapejs}}");
+  {% endif %}
 
-        $("#modal_eliminar").modal('show');
+  function abrir_modal_eliminar(nombre, id) {
+    if(rol_is_used(id)){
+      $("#modal-info").modal('show');
+    }else{
+      $("#modal_eliminar").modal('show');
+      document.getElementById("contenido_modal").innerHTML = "Estas seguro que desea eliminar este rol del equipo de trabajo.";
+      document.getElementById("rol").innerHTML = " "+nombre;
+      var input_id = document.getElementById("rol_id_e");
+      input_id.value = id;
+      return false;
+    }        
+  };
 
-        document.getElementById("contenido_modal").innerHTML = "Estas seguro que desea eliminar este rol del equipo de trabajo, este podria estar asociado a un proyecto.";
-        document.getElementById("rol").innerHTML = " "+nombre;
-        var input_id = document.getElementById("rol_id_e");
-       
-        input_id.value = id;
-        
-        return false;
-    };
+  function rol_is_used(rol_id) {
+    let flag = false;
+    for (var i = lista_roles_utilizados.length - 1; i >= 0; i--) {
+      if(lista_roles_utilizados[i].rol_id == rol_id){
+        flag = true;
+        break;
+      }
+    }
+    return flag;
+  }
 
 function abrir_modal_editar(nombre, descripcion, id) {
             

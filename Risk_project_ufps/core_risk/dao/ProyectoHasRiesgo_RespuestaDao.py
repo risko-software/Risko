@@ -64,7 +64,6 @@ class ProyectoHasRiesgo_RespuestaDao:
             print(e)
         return respuestas
 
-
     def listar_riesgos_respuesta_linea(self, proyecto_id, linea_base):
         respuestas = {}
         try:

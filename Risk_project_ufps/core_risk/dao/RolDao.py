@@ -48,3 +48,16 @@ class RolDao:
         except Exception as e:
             print(e)
         return flag
+
+    def lista_roles_utilizados(self, gerente_id):
+        lista_roles = None
+        try:
+            sql = 'SELECT r.rol_id, r.rol_nombre, r.rol_descripcion, r.gerente_id, r.proyecto_linea_base '\
+                  'FROM rol r '\
+                  'INNER JOIN responsble res '\
+                  'ON r.rol_id = res.rol_id '\
+                  'WHERE r.gerente_id = %s'
+            lista_roles = Rol.objects.raw(sql, [gerente_id,])
+        except Exception as e:
+            print(e)
+        return lista_roles        

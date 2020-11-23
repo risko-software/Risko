@@ -58,7 +58,7 @@ class TareaDao:
                   "ON t.proyecto_has_riesgo_id=pr.proyecto_has_id " \
                   "AND t.riesgo_has_respuesta_id=pr.respuesta_has_id " \
                   "INNER JOIN proyecto_has_riesgo rp ON pr.proyecto_has_id = rp.proyecto_has_riesgo_id " \
-                  "INNER JOIN riesgo_has_respuesta rr ON pr.respuesta_has_id = rr.riesgo_has_respuesta_id" \
+                  "INNER JOIN riesgo_has_respuesta rr ON pr.respuesta_has_id = rr.riesgo_has_respuesta_id " \
                   "WHERE rp.proyecto_id = %s AND t.tarea_nombre = %s AND rr.respuesta_id = %s"
             tarea = Tarea.objects.raw(sql, [proyecto.proyecto_id, nombre, respuesta_id])
         except Exception as e:

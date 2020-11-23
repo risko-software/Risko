@@ -140,6 +140,18 @@ class RiesgoController():
 		riesgos = riesgo_dao.get_riesgos_by_proyecto_base(proyecto)
 		return self.raw_queryset_of_riesgos_as_values_list(riesgos)
 
+
+	def get_riesgos_by_proyecto_base_with_tareas(self, proyecto):
+		riesgo_dao = RiesgoDao()
+		riesgos = riesgo_dao.get_riesgos_by_proyecto_base_with_tareas(proyecto)
+		return self.raw_queryset_of_riesgos_as_values_list(riesgos)
+
+
+	def get_riesgos_by_proyecto_base_with_tareas_2(self, proyecto):
+		riesgo_dao = RiesgoDao()
+		return riesgo_dao.get_riesgos_by_proyecto_base_with_tareas(proyecto)
+
+
 	def get_riesgos_by_proyecto_2(self, proyecto):
 		"""Devuelve todos los riesgos que esten asociados a un proyecto,
 		como un array de diccionarios

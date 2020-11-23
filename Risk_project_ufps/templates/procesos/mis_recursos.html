@@ -50,7 +50,7 @@
     <!-- /.box-header -->
 
     <div class="box-body">
-      <form role="form" action="{% url 'recursos' proyecto.proyecto_id %}" method="post">
+      <form role="form" action="{% url 'insertar_recurso' proyecto.proyecto_id %}" method="post">
         {% csrf_token %}
         <div class="row">
           <div class="col-md-6">
@@ -58,7 +58,7 @@
 
               <div class="form-group">
                 <label >Nombre recurso</label>
-                <input type="text" class="form-control" id="sub_categoria_nombre" placeholder="Ingrese Nombre del recurso" maxlength="44" name="recurso_nombre">
+                <input type="text" class="form-control" id="sub_categoria_nombre" placeholder="Ingrese Nombre del recurso" maxlength="44" name="recurso_nombre" required>
               </div>
 
             </div>
@@ -81,7 +81,7 @@
             <div class="form-group">
               <label id="label_costo" data-toggle="tooltip" data-placement="top" title="Agregue el costo por unidad o por hora según el tipo de recurso."><strong>Costo Unidad/Hora</label>
               
-              <input type="number" class="form-control" id="recurso_costo" placeholder="Ingrese Costo del recurso" name="recurso_costo">
+              <input type="number" class="form-control" id="recurso_costo" placeholder="Ingrese Costo del recurso" name="recurso_costo" required>
             </div>
             <div class="box-footer">
               {% if proyecto.proyecto_fin_status %}
@@ -235,7 +235,13 @@
           <div class="modal-body">
             
             <p id="contenido_modal">&hellip;</p>
-            <h2 id="recurso"></h2>           
+            <h2 id="recurso"></h2>     
+            <p><strong>Tenga presente lo siguiente:</strong>
+              <ul>
+                <li>Al eliminar el recurso desde aquí tambien se eliminara de todas aquellas tareas asignadas.</li>
+                <li>Para eliminar los recursos asignados a una tarea especifica de clic <a href="{% url 'planificar_respuestas' proyecto.proyecto_id %}" target="_blank" rel="noopener noreferrer">aqui</a> </li>
+              </ul>
+            </p>      
             <input type="text" class="form-control" id="recurso_id_e" name="recurso_id" style="visibility:hidden" >
           </div>
           <div class="modal-footer">

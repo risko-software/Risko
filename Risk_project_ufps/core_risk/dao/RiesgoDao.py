@@ -176,5 +176,43 @@ class RiesgoDao:
         #finally:
         return riesgos
 
+    def get_riesgos_by_proyecto_base_with_tareas(self, proyecto):
+        riesgos = []
+        #try:
+        sql = "SELECT DISTINCT " \
+              "r.riesgo_id, " \
+              "r.proyecto_linea_base, " \
+              "r.riesgo_nombre, " \
+              "r.riesgo_causa, " \
+              "r.riesgo_evento, " \
+              "r.riesgo_efecto, " \
+              "r.riesgo_tipo, " \
+              "r.riesgo_prom_evaluacion, " \
+              "r.riesgo_uid, " \
+              "r.sub_categoria_id, " \
+              "r.proyecto_id " \
+              "FROM riesgo r " \
+              "INNER JOIN proyecto_has_riesgo p_h_r " \
+              "ON r.riesgo_id = p_h_r.riesgo_id " \
+              "INNER JOIN proyecto_has_riesgo_respuesta p_h_r_r " \
+              "ON p_h_r.proyecto_has_riesgo_id = p_h_r_r.proyecto_has_id " \
+              "INNER JOIN tarea t " \
+              "ON p_h_r_r.proyecto_has_id = t.proyecto_has_riesgo_id " \
+              "AND p_h_r_r.respuesta_has_id = t.riesgo_has_respuesta_id " \
+              "WHERE p_h_r.proyecto_id = %s " \
+              "AND p_h_r.proyecto_linea_base = %s " \
+              "AND p_h_r_r.proyecto_linea_base = %s " \
+              "AND t.proyecto_linea_base = %s " \
+              "AND r.proyecto_linea_base = %s "
+        riesgos = Riesgo.objects.using('base').raw(sql, [proyecto.proyecto_id, 
+            proyecto.proyecto_linea_base, 
+            proyecto.proyecto_linea_base,
+            proyecto.proyecto_linea_base,
+            proyecto.proyecto_linea_base])
+        #except Exception as e:
+         #   print(e)
+        #finally:
+        return riesgos
+
 
 

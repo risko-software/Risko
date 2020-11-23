@@ -45,6 +45,7 @@ urlpatterns = [
     # Recursos de proyecto
     #####################################################
     path('recursos/<int:proyecto_id>/', recursos, name='recursos'),
+    path('recursos/<int:proyecto_id>/insertar_recurso/', insertar_recurso, name='insertar_recurso'),    
     path('eliminar_recurso/<int:proyecto_id>/', eliminar_recurso, name='eliminar_recurso'),
     path('editar_recurso/<int:proyecto_id>/', editar_recurso, name='editar_recurso'),
     #####################################################

@@ -1,5 +1,6 @@
 from Risk_project_ufps.core_risk.dao.RolDao import *
 from Risk_project_ufps.core_risk.dto.models import *
+from django.forms.models import model_to_dict
 
 class RolController:
 
@@ -23,3 +24,14 @@ class RolController:
 		rol_dao = RolDao()
 		return rol_dao.eliminar_rol(rol)
 	
+	def lista_roles_utilizados(self, gerente_id):
+		rol_dao = RolDao()
+		return rol_dao.lista_roles_utilizados(gerente_id)
+
+	def convert_to_dict(self, roles):
+		aux = []
+		for rol in roles:
+			aux.append(model_to_dict(rol))
+		return aux
+		
+
