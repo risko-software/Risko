@@ -116,7 +116,7 @@ class ReporteController:
         respuestas_riesgo = respuesta_controller.listar_riesgos_respuesta_base(proyecto.proyecto_id)
         lista_tareas = tarea_controller.listar_tareas_group_by_riesgo_base(proyecto)
 
-        mezcla = self.mezclar_respuestas_with_tareas(riesgos, respuestas_riesgo, lista_tareas)
+        mezcla = self.mezclar_respuestas_with_tareas_2(riesgos, respuestas_riesgo, lista_tareas)
 
         #print('mezcla', mezcla)
         registros = self.convertir_array(mezcla)
@@ -235,14 +235,42 @@ class ReporteController:
                 )
         return riesgo_aux
 
+    def mezclar_respuestas_with_tareas_2(self, riesgos, respuestas_riesgo, lista_tareas):
+        riesgo_aux = {}
+        for riesgo in riesgos:
+            llave = 'riesgo_' + str(riesgo.riesgo_id)
+            respuestas = respuestas_riesgo.get(llave)
+            if respuestas:
+                riesgo_aux[llave] = dict(
+                    riesgo_id=riesgo.riesgo_id,
+                    riesgo_nombre=riesgo.riesgo_nombre
+                )
+                for respuesta in respuestas:
+                    riesgo_has_respuesta = respuesta['riesgo_has_respuesta']
+                    tareas = lista_tareas.get(llave)
+                    if tareas:
+                        for tarea in tareas:                        
+                            if tarea['riesgo_has_respuesta'] == riesgo_has_respuesta:
+                                if respuesta.get('tareas'):
+                                    respuesta['tareas'].append(tarea)
+                                else:
+                                    respuesta['tareas'] = []
+                                    respuesta['tareas'].append(tarea)
+                        if riesgo_aux[llave].get('respuestas'):
+                            riesgo_aux[llave]['respuestas'].append(respuesta)
+                        else:
+                            riesgo_aux[llave]['respuestas'] = []
+                            riesgo_aux[llave]['respuestas'].append(respuesta)
+        return riesgo_aux
+
+
     def convertir_array(self, mezcla):
         array_final = []
         contador = 1;
         for key, aux in mezcla.items():
             respuestas = aux.get('respuestas')
             if respuestas and len(respuestas) > 0:
-                for aux_2 in respuestas:
-                    #print("ARRAY", aux_2)
+                for aux_2 in respuestas:                    
                     tareas = aux_2.get('tareas')
                     if tareas and len(tareas) > 0:
                         for aux_3 in tareas:
@@ -260,47 +288,17 @@ class ReporteController:
                                 self.get_estado(aux_3['tarea_estado']),
                                 aux_3['tarea_observacion'],
                             ])
-                            contador = contador+1
-                    else:
-                        array_final.append([
-                            aux['riesgo_nombre'],
-                            aux_2['respuesta_nombre'],
-                            aux_2['tipo_respuesta'],
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                        ])                
-            else:
-                array_final.append([
-                    aux['riesgo_nombre'],
-                    'riesgo no posee acciones',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                ])
+                            contador = contador+1             
         return array_final
 
     def convertir_array_2(self, mezcla):
         array_final = []
         for key, aux in mezcla.items():
             respuestas = aux.get('respuestas')            
-            if respuestas and len(respuestas) > 0:
-                print("HP", str(aux['riesgo_id']) + " larga")
+            if respuestas and len(respuestas) > 0:                
                 for aux_2 in respuestas:
                     tareas = aux_2.get('tareas')
-                    if tareas and len(tareas) > 0:
-                        print("HP", str(aux['riesgo_id']) + " HP")
+                    if tareas and len(tareas) > 0:                        
                         for aux_3 in tareas:
                             array_final.append([
                                 "R"+str(aux['riesgo_id']),
@@ -310,8 +308,7 @@ class ReporteController:
                                 aux_3['tarea_nombre'],                            
                                 self.parsear_recursos(aux_3['recursos'])
                             ])
-                    else:
-                        print("HP", str(aux['riesgo_id']) + " HP2")
+                    else:                        
                         array_final.append([
                             "R" + str(aux['riesgo_id']),
                             aux['riesgo_nombre'],
@@ -320,8 +317,7 @@ class ReporteController:
                             'VACIO',
                             'VACIO',
                         ])
-            else:
-                print("HP", str(aux['riesgo_id']) + "Que ocurre")
+            else:                
                 array_final.append([
                     "R" + str(aux['riesgo_id']),
                     aux['riesgo_nombre'],
