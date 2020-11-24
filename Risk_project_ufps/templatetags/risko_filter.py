@@ -22,6 +22,8 @@ def formatear_dinero(num):
     n_decimales = abs(n_decimales)
     
     #se redondea a los decimales idicados.
+    if type(num) is str:
+        num = float(num)
     num = round(num, n_decimales)
 
     #se divide el entero del decimal y obtenemos los string
