@@ -93,6 +93,18 @@ $ #Permite establecer el contexo donde estara corriendo la app, ejemplo: <>/<>/<
 $ CONTEXT_RISKO_APP="risko/"
 ```
 
+Variables de configuración para el uso de recaptcha
+```sh
+$ #Configuración del recaptcha de google, indica si se quiere o no activar esta función
+$ MODE_RECAPTCHA=False
+
+$ #Usa esta clave de sitio web en el código HTML que tu sitio web sirve a los usuarios
+$ KEY_RECAPTCHA_FRONT=""
+
+# Usa esta clave secreta para la comunicación entre tu sitio web y el servicio reCAPTCHA
+$ KEY_RECAPTCHA_BACK=""
+```
+
 Hacer la migración de la bd default de django:
 
 ```sh

@@ -27,6 +27,8 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="hold-transition register-page">
    {% if mensaje_editar %}
@@ -42,49 +44,29 @@
   </label>
 
   <div class="content" style="aling-items:center; justify-content: center;">
-    <div class="col-md-4"></div>
-    <div class="register col-md-4" style="aling-items: center; justify-content: center;">
+    <div class="col-md-2"></div>
+    <div class="register col-md-8" style="aling-items: center; justify-content: center; ">
       <div class="register-logo">
         <a><strong>RISKO</strong></a>
       </div>
-      <div class="register-box-body "> 
+      <div class="register-box-body">
 
         <form action="{% url 'nuevo_gerente' %}" method="post">
           {% csrf_token %}
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="form-group">
                 <div class="form-group has-feedback">
                   <input type="text" class="form-control" maxlength="29"  placeholder="Nombre" name="gerente_nombre" required>
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                  <input type="text" class="form-control" maxlength="45"  placeholder="Usuario" name="gerente_usuario" required>
-                  <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                  <input type="email" class="form-control"  maxlength="100" placeholder="Correo" name="gerente_correo" required>
-                  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>      
-                <div class="form-group has-feedback">
                   <input type="text" class="form-control" maxlength="100" placeholder="Empresa" name="gerente_empresa" required>
                   <span class="glyphicon glyphicon-briefcase form-control-feedback"></span>
-
                 </div>
                 <div class="form-group has-feedback">
                   <input type="text" class="form-control" maxlength="100" placeholder="Profesión" name="gerente_profesion" required>
                   <span class="glyphicon glyphicon-folder-open form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                  {% if lista_sectores %}
-                  <select class="form-control select2" style="width: 100%;" name="gerente_sector" required>
-                    <option value="" disabled selected>Sector donde trabajas</option>
-                    {% for sector in lista_sectores %}
-
-                    <option value="{{ sector.sector_id }}">{{ sector.sector_nombre }}</option>
-                    {% endfor %}  
-                  </select>
-                  {% endif %} 
                 </div>
                 <div class="form-group has-feedback">
                   {% if lista_paises %}
@@ -95,20 +77,6 @@
                     {% endfor %} 
                   </select>
                   {% endif %} 
-                </div>
-                <div class="form-group has-feedback">        
-                  <select class="form-control select2" style="width: 100%;" name="certificacion" required>
-                    <option value="" disabled selected>Certificación obtenida</option>
-                    <option value="PMP: Project Management Professional">PMP: Project Management Professional</option>
-                    <option value="CAPM: Certified Associate in Project Management">CAPM: Certified Associate in Project Management</option>
-                    <option value="CSM: Certified ScrumMaster">CSM: Certified ScrumMaster</option>
-                    <option value="PRINCE2 Foundation/PRINCE2 Practitioner">PRINCE2 Foundation/PRINCE2 Practitioner</option>
-                    <option value="CPMP: Certified Project Management Practitioner">CPMP: Certified Project Management Practitioner</option>
-                    <option value="MPM: Master Project Manager">MPM: Master Project Manager</option>
-                    <option value="PPM: Professional in Project Management">PPM: Professional in Project Management</option>
-                    <option value="PMITS: Project Management in IT Security">PMITS: Project Management in IT Security</option>
-                    <option value="Ninguna">Ninguna</option>
-                  </select>
                 </div>
                 <div class="form-group has-feedback">        
                   <select class="form-control select2" style="width: 100%;" name="metodologia" required>
@@ -126,19 +94,57 @@
                     <option value="Ninguna">Ninguna</option>
                   </select>
                 </div>
-                <div class="form-group has-feedback">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group has-feedback">
+                  <input type="text" class="form-control" maxlength="45"  placeholder="Usuario" name="gerente_usuario" required>
+                  <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+              <div class="form-group has-feedback">
+                  <input type="email" class="form-control"  maxlength="100" placeholder="Correo" name="gerente_correo" required>
+                  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+              <div class="form-group has-feedback">
+                  {% if lista_sectores %}
+                  <select class="form-control select2" style="width: 100%;" name="gerente_sector" required>
+                    <option value="" disabled selected>Sector donde trabajas</option>
+                    {% for sector in lista_sectores %}
+
+                    <option value="{{ sector.sector_id }}">{{ sector.sector_nombre }}</option>
+                    {% endfor %}
+                  </select>
+                  {% endif %}
+                </div>
+              <div class="form-group has-feedback">
+                  <select class="form-control select2" style="width: 100%;" name="certificacion" required>
+                    <option value="" disabled selected>Certificación obtenida</option>
+                    <option value="PMP: Project Management Professional">PMP: Project Management Professional</option>
+                    <option value="CAPM: Certified Associate in Project Management">CAPM: Certified Associate in Project Management</option>
+                    <option value="CSM: Certified ScrumMaster">CSM: Certified ScrumMaster</option>
+                    <option value="PRINCE2 Foundation/PRINCE2 Practitioner">PRINCE2 Foundation/PRINCE2 Practitioner</option>
+                    <option value="CPMP: Certified Project Management Practitioner">CPMP: Certified Project Management Practitioner</option>
+                    <option value="MPM: Master Project Manager">MPM: Master Project Manager</option>
+                    <option value="PPM: Professional in Project Management">PPM: Professional in Project Management</option>
+                    <option value="PMITS: Project Management in IT Security">PMITS: Project Management in IT Security</option>
+                    <option value="Ninguna">Ninguna</option>
+                  </select>
+                </div>
+              <div class="form-group has-feedback">
                   <input type="password" class="form-control" placeholder="Contraseña" name="gerente_password" required>
                   <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
-              </div>
             </div>
           </div>
+          {% if key_recaptcha_front %}
+          <div class="g-recaptcha" data-sitekey="{{ key_recaptcha_front }}" align="center"></div>
+          {% endif %}
           <div class="checkbox" style="text-align: center;" >
             <label>
               <input type="checkbox" required>
               &nbsp Acepto los <a data-toggle="modal" data-target="#modal-default">términos y condiciones.</a>
             </label>
-          </div>       
+          </div>
           <!-- /.col -->
           <div >
             <button type="submit" class="btn btn-primary btn-block ">Registrar</button>
@@ -147,7 +153,8 @@
         </form>        
       </div>
     </div>
-  </div> 
+    <div class="col-md-2"></div>
+  </div>
 
 
    <div class="modal fade" id="modal-default">

@@ -25,9 +25,9 @@ class RespuestaController:
         respuesta_dao = RespuestaDao()
         return respuesta_dao.eliminar_respuesta(respuesta)
 
-    def editar_respuesta(self, respuesta, nombre, descripcion):
+    def editar_respuesta(self, respuesta, nombre, descripcion, tipo_respuesta):
         respuesta_dao = RespuestaDao()
-        return respuesta_dao.editar_respuesta(respuesta, nombre, descripcion)
+        return respuesta_dao.editar_respuesta(respuesta, nombre, descripcion, tipo_respuesta)
 
 
     def registrar_respuesta_riesgo(self, respuesta, riesgo):

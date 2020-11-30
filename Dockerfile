@@ -12,6 +12,21 @@ ENV MODE_DEBUG=False
 #Permite establecer el contexo donde estara corriendo la app, ejemplo: <>/<>/<>/
 ENV CONTEXT_RISKO_APP="risko/"
 
+# Configuración del recaptcha de google, indica si se quiere o no activar esta
+# función
+ENV MODE_RECAPTCHA=False
+
+# Usa esta clave de sitio web en el código HTML que tu sitio web sirve a los
+# usuarios
+ENV KEY_RECAPTCHA_FRONT=""
+
+# Usa esta clave secreta para la comunicación entre tu sitio web y el servicio
+# reCAPTCHA
+ENV KEY_RECAPTCHA_BACK=""
+
+# Llave secreta utilizada por la app de django
+ENV SECRET_KEY_RISKO=""
+
 ENV DEFAULT_NAME=""
 ENV DEFAULT_USER=""
 ENV DEFAULT_PASSWORD=""

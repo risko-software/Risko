@@ -10,6 +10,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('registrargerente/', registrar_gerente, name='registrargerente'),
     path('gerente/registrar/', nuevo_gerente, name='nuevo_gerente'),
+    path('manual/', manual, name='manual'),
     #####################################################
     # inicio
     #####################################################

@@ -40,11 +40,12 @@ class RespuestaDao:
             print(e)
         return respuesta
 
-    def editar_respuesta(self, respuesta, nombre, descripcion):
+    def editar_respuesta(self, respuesta, nombre, descripcion, tipo_respuesta):
         msg = "No se actualizo la respuesta."
         try:
             respuesta.respuesta_descripcion = limpiar_descripcion(descripcion)
             respuesta.respuesta_nombre = nombre
+            respuesta.respuesta_tipo = tipo_respuesta
             respuesta.save()
             msg = "Se actualizo la información de la respuesta."
         except Exception as e:

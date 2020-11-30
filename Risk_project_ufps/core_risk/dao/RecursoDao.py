@@ -50,11 +50,12 @@ class RecursoDao:
             print(e)
         return msg
 
-    def editar_recurso(self, recurso, nombre, costo):
+    def editar_recurso(self, recurso, nombre, costo, tipo_recurso_id):
         msg = "No se actualizó la información del recurso."
         try:
             recurso.recurso_nombre = nombre
             recurso.recurso_costo = costo
+            recurso.tipo_recurso_id = tipo_recurso_id
             recurso.save()
             msg = "Se actualizó la información del recurso exitosamente."
         except Exception as e:

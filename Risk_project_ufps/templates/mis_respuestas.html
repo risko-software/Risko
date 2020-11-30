@@ -2,8 +2,18 @@
 
 {% block title %} RISKO | Mis Respuestas {% endblock %}
 
-
-
+{% block organigrama_up %}
+<style type="text/css">
+  table{
+  margin: 0 auto;
+  width: 100%;
+  clear: both;
+  border-collapse: collapse;
+  table-layout: fixed; // ***********add this
+  word-wrap:break-word; // ***********and this
+}  
+</style>
+{% endblock %}
 {% block content %}
 
 
@@ -53,7 +63,8 @@
                   <tr>  
                     <th scope="col"></th>
                     <th scope="col">Nombre<em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
-                    <th scope="col">Descripción <em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                    <th scope="col">Tipo<em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                    <th scope="col" style="width: 50px !important;">Descripción <em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
                     <th scope="col">Riesgo <em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
                     <th scope="col">Opciones </th>
                   </tr>
@@ -64,11 +75,12 @@
                   <tr> 
                     <td></td>                 
                     <td>{{ respuesta.respuesta.respuesta_nombre }}</td>
-                    <td>{{ respuesta.respuesta.respuesta_descripcion }}</td>
+                    <td>{{ respuesta.respuesta.respuesta_tipo }}</td>
+                    <td style="width: 40px !important;"><p style="white-space: pre-line;">{{ respuesta.respuesta.respuesta_descripcion }}</p></td>
                     <td>{{ respuesta.riesgo.riesgo_nombre }}</td>
                                     
                       <td>
-                        <button type="button" class="btn btn-default" data-toggle="#modal-editar" onclick="abrir_modal_editar('{{ respuesta.respuesta.respuesta_nombre }}', '{{ respuesta.respuesta.respuesta_id }}', '{{ respuesta.respuesta.respuesta_descripcion }}' )" data-target="#modal-editar"><em class="fa fa-edit"></em>
+                        <button type="button" class="btn btn-default" data-toggle="#modal-editar" onclick="abrir_modal_editar('{{ respuesta.respuesta.respuesta_nombre }}', '{{ respuesta.respuesta.respuesta_id }}', '{{ respuesta.respuesta.respuesta_descripcion }}','{{ respuesta.respuesta.respuesta_tipo }}' )" data-target="#modal-editar"><em class="fa fa-edit"></em>
                         </button>
 
 
@@ -94,7 +106,8 @@
                 <tr>      
                   <th scope="col"></th>
                   <th scope="col">Nombre</th>
-                  <th scope="col">Descripción</th>
+                  <th scope="col">Tipo<em class="fa fa-long-arrow-down"></em><em class="fa fa-long-arrow-up"></em></th>
+                  <th scope="col" style="width: 40px !important;">Descripción</th>
                   <th scope="col">Riesgo Asociado</th>
                   <th scope="col">Opciones</th>
                 </tr>
@@ -126,10 +139,43 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                <label >Nombre </label>
-                <input type="text" class="form-control" maxlength="44" id="respuesta_nombre_ed" name="respuesta_nombre">
+                  <label >Nombre </label>
+                  <input type="text" class="form-control" maxlength="44" id="respuesta_nombre_ed" name="respuesta_nombre" required>
                 </div>
-                <input type="text" class="form-control" id="respuesta_id" name="respuesta_id" style="visibility:hidden">               
+                <div class="form-group">
+                  <label>Tipo</label>
+                  <select class="form-control select2" id="tipo_respuesta" name="tipo_respuesta" required>
+                      <optgroup label="Riesgo">
+                        <option value="Mitigar">
+                         Mitigar
+                       </option>
+                       <option value="Evitar">
+                         Evitar
+                       </option>
+                       <option value="Transferir">
+                         Transferir
+                       </option>
+                       <option value="Aceptar">
+                         Aceptar
+                       </option>
+                     </optgroup> 
+                     <optgroup label="Oportunidades">
+                      <option value="Explotar">
+                       Explotar
+                     </option>
+                     <option value="Compartir">
+                       Compartir
+                     </option>
+                     <option value="Mejorar">
+                       Mejorar
+                     </option>
+                     <option value="Aceptar">
+                       Aceptar
+                     </option>
+                   </optgroup>                  
+                 </select>
+                </div>
+                <input type="text" class="form-control" id="respuesta_id" name="respuesta_id" style="visibility:hidden"/>               
               </div>
               <!-- /.col -->
               <div class="col-md-6">             
@@ -206,33 +252,43 @@
 
   <script>
   function trasnformar_tabla(id_tabla) {
-  t = $("#"+id_tabla).DataTable({    
-     "language": {
-         "sProcessing":    "Procesando...",
-         "sLengthMenu":    "Mostrar _MENU_ registros",
-         "sZeroRecords":   "No se encontraron resultados",
-         "sEmptyTable":    "No cuentas con riesgos asociados a esta subcategoría.",
-         "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-         "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
-         "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
-         "sInfoPostFix":   "",
-         "sSearch":        "Buscar:",
-         "sUrl":           "",
-         "sInfoThousands":  ",",
-         "sLoadingRecords": "Cargando...",
-         "oPaginate": {
-             "sFirst":    "Primero",
-             "sLast":    "Último",
-             "sNext":    "Siguiente",
-             "sPrevious": "Anterior"
-         },
-         "oAria": {
-             "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-         }
-     }
-    }); 
-  t.on( 'order.dt search.dt', function () {
+  t = $("#"+id_tabla).DataTable({ 
+      "autoWidth": false,   
+      "columnDefs": [
+        { width: "1px", targets: 0 },
+        { width: "10px", targets: 1 },
+        { width: "7px", targets: 2 },
+        { width: "60px", targets: 3 },
+        { width: "12px", targets: 4 },
+        { width: "10px", targets: 5 }
+      ],
+      "language": {
+           "sProcessing":    "Procesando...",
+           "sLengthMenu":    "Mostrar _MENU_ registros",
+           "sZeroRecords":   "No se encontraron resultados",
+           "sEmptyTable":    "No cuentas con riesgos asociados a esta subcategoría.",
+           "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+           "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+           "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+           "sInfoPostFix":   "",
+           "sSearch":        "Buscar:",
+           "sUrl":           "",
+           "sInfoThousands":  ",",
+           "sLoadingRecords": "Cargando...",
+           "oPaginate": {
+               "sFirst":    "Primero",
+               "sLast":    "Último",
+               "sNext":    "Siguiente",
+               "sPrevious": "Anterior"
+           },
+           "oAria": {
+               "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+               "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+           }
+       },
+    });
+
+    t.on( 'order.dt search.dt', function () {
           t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
@@ -259,14 +315,14 @@ function abrir_modal_eliminar(nombre, id_re, id_ri) {
         return false;
     };
 
-function abrir_modal_editar(nombre, id, aux) {
+function abrir_modal_editar(nombre, id, aux, tipo_respuesta) {
             
         $("#modal-editar").modal('show');
         
         document.getElementById("respuesta_nombre_ed").value=nombre;
         document.getElementById("respuesta_id").value=id;
         document.getElementById("respuesta_descripcion").innerHTML = " "+ aux; 
-        
+        $("#tipo_respuesta").val(tipo_respuesta);
     };
 
 

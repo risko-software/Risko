@@ -135,14 +135,14 @@
                     <td>{{ recurso.tipo_recurso.tipo_recurso_nombre }}</td>                    
                     <td>
                      {% if proyecto.proyecto_fin_status %}
-                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}', '{{ recurso.recurso_costo }}')" data-target="#modal-editar" disabled="true"><em   class="fa fa-edit"></em>
+                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}', '{{ recurso.recurso_costo }}', '{{recurso.tipo_recurso_id}}')" data-target="#modal-editar" disabled="true"><em   class="fa fa-edit"></em>
                      </button>
 
 
                      <button type="button" class="btn btn-danger" data-toggle="#modal_eliminar" onclick="abrir_modal_eliminar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}')" data-target="#modal_eliminar" disabled="true"><em class="fa fa-trash-o danger"></em>
                      </button>
                      {% else %}
-                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}', '{{ recurso.recurso_costo }}')" data-target="#modal-editar"><em   class="fa fa-edit"></em>
+                     <button type="button" class="btn btn-default" data-toggle="modal-editar" onclick="abrir_modal_editar('{{ recurso.recurso_nombre }}', '{{ recurso.recurso_id }}', '{{ recurso.recurso_costo }}', '{{recurso.tipo_recurso_id}}')" data-target="#modal-editar"><em   class="fa fa-edit"></em>
                      </button>
 
 
@@ -192,19 +192,28 @@
            <form  action="{% url 'editar_recurso' proyecto.proyecto_id %}" method="post">
             {% csrf_token %}
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
-                <label >Nombre </label>
-                <input type="text" class="form-control" id="recurso_nombre" maxlength="44" name="recurso_nombre" required>
-                </div>               
-              </div>
-              <!-- /.col -->
-              <div class="col-md-6">             
+                  <label >Nombre </label>
+                  <input type="text" class="form-control" id="recurso_nombre" maxlength="44" name="recurso_nombre" required>
+                </div>   
                 <div class="form-group">
-                <label >Costo </label>
-                <input type="number" class="form-control" id="recurso_costo_editar" name="recurso_costo" required>
+                  <label >Tipo </label>
+                  {% if tipos_recursos %}
+                  <select class="form-control select2" id="tipo_recurso_editar" name="tipo_recurso_id">
+                      {% for tipo_recurso in tipos_recursos %}
+                      <option value="{{tipo_recurso.tipo_recurso_id}}">
+                        {{tipo_recurso.tipo_recurso_nombre}}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  {% endif %} 
                 </div>
-                <input type="text" class="form-control" id="recurso_id" name="recurso_id" style="visibility:hidden">
+                <div class="form-group">
+                  <label >Costo </label>
+                  <input type="number" class="form-control" id="recurso_costo_editar" name="recurso_costo" required>
+                </div>
+                <input type="text" class="form-control" id="recurso_id" name="recurso_id" style="visibility:hidden">            
               </div>
             </div>
             <div class="modal-footer">
@@ -317,7 +326,7 @@ function actualizar_label(){
 
 }
 
-  function abrir_modal_editar(nombre, id, costo) {          
+  function abrir_modal_editar(nombre, id, costo, tipo_recurso_id) {          
     $("#modal-editar").modal('show');
     var input_id = document.getElementById("recurso_id");
     var input_nombre = document.getElementById("recurso_nombre");        
@@ -325,6 +334,7 @@ function actualizar_label(){
     input_id.value = id;
     input_nombre.value = nombre;
     input_costo.value = parseInt(costo);
+    $("#tipo_recurso_editar").val(parseInt(tipo_recurso_id));
   };
 
 function trasnformar_tabla(id_tabla) {

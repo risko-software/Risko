@@ -2,8 +2,28 @@
 
 {% block title %} RISKO | Registrar Respuesta {% endblock %}
 
-{% block content %}
 
+{% block organigrama_up %}
+<style type="text/css"> 
+  [class^='select2'] {
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    border-color: #d2d6de !important;
+  }
+
+  .select2-selection__rendered {
+    line-height: 34px !important;
+  }
+  .select2-container .select2-selection--single {
+      height: 34px !important;
+  }
+  .select2-selection__arrow {
+      height: 34px !important;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
 
 
 <div class="content-wrapper">
@@ -51,10 +71,11 @@
                   <input type="text" class="form-control" maxlength="44" id="respuesta_nombre" placeholder="Ingrese Nombre de la acción de respuesta" name="respuesta_nombre" required>
                 </div>
               </div>
+              </br></br>
               <div id="bloq_subcategorias" class="form-group">
                 <label>Riesgo Asociado*</label>
                 {% if lista_riesgos %}
-                <select class="form-control select2" id="riesgo_id" name="riesgo_id" required>
+                <select class="form-control" id="riesgo_id" name="riesgo_id" required>
                   <option value="" disabled selected>Riesgo Asociado</option>
                   {% for riesgo in lista_riesgos %}
                   <option value="{{ riesgo.riesgo_id }}">
@@ -134,7 +155,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
 <script >
-     $("#riesgo_id").select2();
+ $("#riesgo_id").select2();
 </script>
 
 {% endblock %}

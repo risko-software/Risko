@@ -23,9 +23,9 @@ class RecursoController:
 		recurso_dao = RecursoDao()
 		return recurso_dao.eliminar_recurso(recurso)
 
-	def editar_recurso(self, recurso, nombre, costo):
+	def editar_recurso(self, recurso, nombre, costo, tipo_recurso_id):
 		recurso_dao = RecursoDao()
-		return recurso_dao.editar_recurso(recurso, nombre, costo)
+		return recurso_dao.editar_recurso(recurso, nombre, costo, tipo_recurso_id)
 
 
 

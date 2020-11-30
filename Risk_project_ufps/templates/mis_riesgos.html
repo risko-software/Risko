@@ -239,21 +239,18 @@ function abrir_modal_eliminar(id, nombre) {
         return false;
     };
 
-function abrir_modal_editar(id, nombre, causa, evento, efecto) {
-            
-        $("#modal-editar").modal('show');
-        var input_id = document.getElementById("riesgo_id");
-        var input_nombre = document.getElementById("riesgo_nombre");
-        document.getElementById("riesgo_evento").innerHTML = ""+evento;
-        document.getElementById("riesgo_causa").innerHTML = ""+causa;
-        document.getElementById("riesgo_efecto").innerHTML = ""+efecto;
-        
-      
-        input_id.value = id;
-        input_nombre.value = nombre;
-        
-        return false;
-    };
+  function abrir_modal_editar(id, nombre, causa, evento, efecto, tipo_riesgo, sub_categoria_id) {    
+    var input_id = document.getElementById("riesgo_id");
+    var input_nombre = document.getElementById("riesgo_nombre");
+    document.getElementById("riesgo_evento").innerHTML = ""+evento;
+    document.getElementById("riesgo_causa").innerHTML = ""+causa;
+    document.getElementById("riesgo_efecto").innerHTML = ""+efecto;
+    input_id.value = id;
+    input_nombre.value = nombre;
+    $("#riesgo_tipo").val(tipo_riesgo);
+    $("#sub_categoria_id").val(sub_categoria_id);
+    $("#modal-editar").modal('show');
+  };
 
   var data = JSON.parse("{{rbs|escapejs}}"); 
 //console.log(data);
@@ -293,10 +290,10 @@ function set_riesgo(subcategoria){
   table.destroy();
   let body_riesgos = document.getElementById('body_riesgos');
   body_riesgos.innerHTML = "";
-  let riesgos = get_riesgos_by_sub_categoria_id(subcategoria.value);
+  let riesgos = get_riesgos_by_sub_categoria_id(subcategoria.value);  
   let flag = false;
   for (var i = 0; i < riesgos.length; i++) {     
-    if(!riesgos[i]["is_assigned"]){
+    if(!riesgos[i]["is_assigned"]){      
       let tr = document.createElement("tr");   
       let td_nombre = document.createElement("td");
       td_nombre.appendChild(document.createTextNode(riesgos[i]["riesgo_nombre"]));
@@ -314,7 +311,10 @@ function set_riesgo(subcategoria){
       }
             
       let td_botones = document.createElement("td");
-      td_botones.appendChild(construir_btn_editar(riesgos[i]["riesgo_id"],riesgos[i]["riesgo_nombre"],riesgos[i]["riesgo_causa"],riesgos[i]["riesgo_evento"], riesgos[i]["riesgo_efecto"]));
+      riesgo_tipo = riesgos[i]["riesgo_tipo"];
+      sub_cat_id = subcategoria.value;
+
+      td_botones.appendChild(construir_btn_editar(riesgos[i]["riesgo_id"],riesgos[i]["riesgo_nombre"],riesgos[i]["riesgo_causa"],riesgos[i]["riesgo_evento"], riesgos[i]["riesgo_efecto"], riesgo_tipo, sub_cat_id));
       td_botones.appendChild(construir_btn_eliminar(riesgos[i]["riesgo_id"],riesgos[i]["riesgo_nombre"],riesgos[i]["riesgo_causa"],riesgos[i]["riesgo_evento"], riesgos[i]["riesgo_efecto"]));
       tr.appendChild(document.createElement("td"));
       tr.appendChild(td_nombre);
@@ -330,12 +330,12 @@ function set_riesgo(subcategoria){
 
   }
 
-function construir_btn_editar(riesgo_id, riesgo_nombre, riesgo_causa, riesgo_evento, riesgo_efecto){
+function construir_btn_editar(riesgo_id, riesgo_nombre, riesgo_causa, riesgo_evento, riesgo_efecto, tipo_riesgo, sub_categoria_id){
  let btn = document.createElement("button");
  btn.setAttribute("type", "button"); 
   btn.setAttribute("class", "btn btn-default"); 
    btn.setAttribute("data-toggle", "#modal-editar"); 
-    btn.setAttribute("onclick", "abrir_modal_editar('"+riesgo_id+"','"+riesgo_nombre+"', '"+riesgo_causa+"', '"+riesgo_evento+"', '"+riesgo_efecto+"')");
+    btn.setAttribute("onclick", "abrir_modal_editar('"+riesgo_id+"','"+riesgo_nombre+"', '"+riesgo_causa+"', '"+riesgo_evento+"', '"+riesgo_efecto+"','"+tipo_riesgo+"','"+sub_categoria_id+"')");
       btn.setAttribute("data-target", "#modal-editar");  
   let i = document.createElement("i");
   i.setAttribute("class", "fa fa-edit")
