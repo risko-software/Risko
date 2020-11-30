@@ -2,10 +2,27 @@
 
 {% block title %} RISKO | Registrar Riesgo  {% endblock %}
 
+{% block organigrama_up %}
+<style type="text/css"> 
+  [class^='select2'] {
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    border-color: #d2d6de !important;
+  }
+
+  .select2-selection__rendered {
+    line-height: 34px !important;
+  }
+  .select2-container .select2-selection--single {
+      height: 34px !important;
+  }
+  .select2-selection__arrow {
+      height: 34px !important;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-
-
-
 
 <div class="content-wrapper">
 
@@ -51,7 +68,7 @@
                 </div>                 
                 <div class="form-group">
                   <label>Subcategoría a la que pertence*</label>
-                  <select class="form-control select2" id="sub_categoria_id" name="sub_categoria_id" required>              
+                  <select class="form-control" id="sub_categoria_id" name="sub_categoria_id" required>              
                   </select>                                
                 </div>              
                 <div class="form-group">

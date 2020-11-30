@@ -541,12 +541,15 @@
             <h2 id="responsable"></h2>           
             <input type="text" class="form-control" id="responsable_id_e" name="responsable_id" style="visibility:hidden">
             <input type="text" class="form-control" id="proyecto_id_el" name="proyecto_id_el" value="{{ proyecto.proyecto_id}}" style="visibility:hidden">
+            <p>Tenga en cuenta lo siguiente:</p>
+        <ul><li>Los responsables asignados en algún riesgo no se eliminaran.</li><li>Solamente se podrán eliminar los responsables que no esten asignados en algun riesgo.</li></ul>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
             <button type="submit" class="btn btn-outline">Eliminar</button>
           </div>
         </form>
+
       </div>
       <!-- /.modal-content -->
     </div>

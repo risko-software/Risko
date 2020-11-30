@@ -999,18 +999,18 @@ def planificar_proyecto(request, proyecto_id):
     impactos = proyecto_controller.obtener_impactos_by_proyecto_id(proyecto_id)
     probabilidades = proyecto_controller.obtener_probabilidades_by_proyecto_id(proyecto_id)
     clasificacion_riesgo = proyecto_controller.obtener_clasificaciones_riesgo_by_proyecto_id(proyecto_id)
+    data = dict(proyecto=proyecto, rbs_proyecto=rp, rbs_sugerida=rs,
+        lista_responsables=lista_responsables, lista_roles=lista_roles,
+        impactos=impactos, probabilidades=probabilidades, 
+        clasificacion_riesgo=clasificacion_riesgo)
     if rbs_proyecto:
-        # No vacía
-        return render(request, my_constants.PLANIFICAR_HTML,
-                      {'proyecto': proyecto, 'rbs': True, 'rbs_proyecto': rp, 'rbs_sugerida': rs,
-                       "lista_responsables": lista_responsables, "lista_roles": lista_roles, "impactos": impactos,
-                       "probabilidades": probabilidades, "clasificacion_riesgo": clasificacion_riesgo})
-    else:
-        # Vacía
-        return render(request, my_constants.PLANIFICAR_HTML,
-                      {'proyecto': proyecto, 'rbs_proyecto': rp, 'rbs_sugerida': rs,
-                       "lista_responsables": lista_responsables, "lista_roles": lista_roles, "impactos": impactos,
-                       "probabilidades": probabilidades, "clasificacion_riesgo": clasificacion_riesgo})
+        data['rbs'] = True
+
+    mensaje_eliminar = request.GET.get("mensaje_eliminar")
+    if mensaje_eliminar:
+        data['mensaje_eliminar'] = mensaje_eliminar
+    
+    return render(request, my_constants.PLANIFICAR_HTML, data)                      
 
 
 @validar_proyecto
@@ -1161,8 +1161,10 @@ def eliminar_responsable(request):
     clasificacion_riesgo = proyecto_controller.obtener_clasificaciones_riesgo_by_proyecto_id(proyecto_id)
 
     if request.method == 'POST':
-        mensaje_eliminar = responsable_controller.eliminar_responsable(responsable)
-        return HttpResponseRedirect(reverse('mi_proyecto_planificar', args=(proyecto_id,)))
+        mensaje_eliminar = responsable_controller.eliminar_responsable(responsable)        
+        url = reverse('mi_proyecto_planificar', args=(proyecto_id,))
+        url += "?mensaje_eliminar={}".format(mensaje_eliminar)
+        return HttpResponseRedirect(url)
 
     return HttpResponseRedirect(reverse('mi_proyecto_planificar', args=(proyecto_id,)))
 

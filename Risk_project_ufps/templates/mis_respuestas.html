@@ -57,6 +57,7 @@
 
           <!-- /.box-header -->
           <div class="box-body">
+               {% if lista_riesgos_respuesta %}
                <table id="example1" class="table table-bordered table-striped">
                  <caption></caption>
                 <thead>
@@ -69,8 +70,7 @@
                     <th scope="col">Opciones </th>
                   </tr>
                 </thead>
-                <tbody>
-                  {% if lista_riesgos_respuesta %}
+                <tbody>                  
                   {% for respuesta in lista_riesgos_respuesta %}
                   <tr> 
                     <td></td>                 
@@ -89,18 +89,7 @@
                         &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                       </td>
                     </tr>
-                  {% endfor %}
-                  {% else %}
-                  <tr>
-                    <td></td>
-                    <td>No cuentas con respuestas registradas.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  {% endif %} 
+                  {% endfor %}                              
                 </tbody>
               <tfoot>
                 <tr>      
@@ -113,6 +102,13 @@
                 </tr>
               </tfoot>
             </table>
+            {% else %}
+              <div class="callout callout-info">
+                <h4>¡Información!</h4>
+
+                <p>Hasta el momento no cuenta con acciones de respuesta en su historial.</p>
+              </div>
+            {% endif %} 
           </div>
           <!-- /.box-body -->
         </div>
