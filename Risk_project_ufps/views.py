@@ -1653,7 +1653,8 @@ def editar_respuesta_planificar(request, proyecto_id):
         respuesta = respuesta_controller.obtener_respuesta(request.POST["respuesta_id"])
         riesgo = riesgo_controller.obtener_riesgo(request.POST["riesgo_id"])
         mensaje_editar = respuesta_controller.editar_respuesta(respuesta, request.POST["respuesta_nombre"],
-                                                               request.POST["respuesta_descripcion"])
+                                                               request.POST["respuesta_descripcion"],
+                                                               request.POST["tipo_respuesta"])
         proyecto_riesgo = riesgo_controller.get_riesgo_by_proyecto(proyecto_id, riesgo.riesgo_id)
         riesgo_respuesta = respuesta_controller.obtener_respuesta_riesgo(riesgo.riesgo_id, respuesta.respuesta_id)
         respuesta_proyecto = respuesta_controller.get_riesgo_respuesta_by_id(proyecto_riesgo, riesgo_respuesta)
@@ -1934,8 +1935,6 @@ def linea_base(request, proyecto_id, numero_linea, fecha_linea):
     proyecto_controller = ProyectoController()
     riesgo_controller = RiesgoController()
     respuesta_controller = RespuestaController()
-
-    # proyecto = proyecto_controller.obtener_proyecto(proyecto_id)
     proyecto = proyecto_controller.obtener_proyecto_by_proyecto_id_and_linea_base(proyecto_id, numero_linea)
     if proyecto:
         lista_riesgos = riesgo_controller.get_riesgos_by_proyecto_linea(proyecto, numero_linea)  # En teoria ya

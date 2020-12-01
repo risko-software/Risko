@@ -612,7 +612,7 @@
                 </div>
                 <div class="form-group">
                   <label>Tipo de Acción</label>
-                  <select class="form-control select2" id="responsable_id" name="tipo_respuesta">
+                  <select class="form-control select2" id="responsable_id_e" name="tipo_respuesta">
                     <optgroup label="Riesgo">
                       <option value="Mitigar">
                        Mitigar
@@ -682,7 +682,9 @@
             <p id="contenido_modal_respuesta">&hellip;</p>
             <h2 id="nombre_modal_respuesta"></h2>
             <input type="text" class="form-control" id="respuesta_id_eliminar" name="respuesta_id_eliminar" style="visibility: hidden;" />         
-            <input type="text" class="form-control" id="riesgo_id_eliminar" name="riesgo_id_eliminar" style="visibility: hidden;" />      
+            <input type="text" class="form-control" id="riesgo_id_eliminar" name="riesgo_id_eliminar" style="visibility: hidden;" />   
+            <p>Tenga en cuenta lo siguiente:</p>
+            <ul><li>Al eliminar esta acción de respuesta, tambien se eliminaran las tareas y recursos asignados a esta acción.</li></ul>  
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
@@ -1076,16 +1078,16 @@
     $("#riesgo_id_eliminar").val(riesgo_id);    
   }
 
-   function abrir_modal_editar_respuesta(riesgo_id, respuesta_id, nombre, fecha, descripcion) {        
-    $("#modal_editar_respuesta").modal('show');
+   function abrir_modal_editar_respuesta(riesgo_id, respuesta_id, nombre, fecha, descripcion, respuesta_tipo) {        
+      $("#modal_editar_respuesta").modal('show');
      $("#respuesta_nombre_e").val(nombre);
      $("#respuesta_id_e").val(respuesta_id);
      $("#riesgo_id_e").val(riesgo_id);
      $("#respuesta_fecha_inicio_e").val(fecha);
      $("#respuesta_descripcion_e").val(descripcion);
-
-     
+     $("#responsable_id_e").val(respuesta_tipo);
   }
+
   function abrir_modal_costos(riesgo_id) {
     let costos_body = document.getElementById("costos_body");
     costos_body.innerHTML = "";
@@ -1184,7 +1186,7 @@
         botonE.setAttribute("type", "button");
         botonE.setAttribute("class", "btn btn-default");
         botonE.setAttribute("data-toggle", "#modal_editar_respuesta");
-        botonE.setAttribute("onclick", "abrir_modal_editar_respuesta('"+id_riesgo+"','"+respuestas[i]["respuesta_id"]+"', '"+respuestas[i]["respuesta_nombre"]+"','"+respuestas[i]["fecha_inicio_respuesta"]+"', '"+respuestas[i]["respuesta_descripcion"]+"')");
+        botonE.setAttribute("onclick", "abrir_modal_editar_respuesta('"+id_riesgo+"','"+respuestas[i]["respuesta_id"]+"', '"+respuestas[i]["respuesta_nombre"]+"','"+respuestas[i]["fecha_inicio_respuesta"]+"', '"+respuestas[i]["respuesta_descripcion"]+"', '"+respuestas[i]["tipo_respuesta"]+"')");
         botonE.setAttribute("data-target", "#modal_editar_respuesta");
         let mi_iconE = document.createElement("i");
         mi_iconE.setAttribute("class", "fa fa-edit")
