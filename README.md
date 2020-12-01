@@ -105,6 +105,12 @@ $ KEY_RECAPTCHA_FRONT=""
 $ KEY_RECAPTCHA_BACK=""
 ```
 
+Key value para django
+```sh
+$ # Llave secreta utilizada por la app de django
+$ SECRET_KEY_RISKO=""
+```
+
 Hacer la migración de la bd default de django:
 
 ```sh
